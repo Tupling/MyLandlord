@@ -33,6 +33,12 @@
 		1EC04E581A1A74EF0020B759 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC04E571A1A74EF0020B759 /* Social.framework */; };
 		1EC04E5A1A1A75090020B759 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC04E591A1A75090020B759 /* Twitter.framework */; };
 		1EC04E5C1A1A754D0020B759 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC04E5B1A1A754D0020B759 /* Accounts.framework */; };
+		1EC04E601A1A7F430020B759 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E5F1A1A7F430020B759 /* Reachability.m */; };
+		1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E611A1A7F6C0020B759 /* MyLandlord.xcdatamodeld */; };
+		1EC04E651A1A81110020B759 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC04E641A1A81110020B759 /* CoreData.framework */; };
+		1EC04E671A1A81230020B759 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC04E661A1A81230020B759 /* Accelerate.framework */; };
+		1EC04E691A1A816B0020B759 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC04E681A1A816B0020B759 /* UIKit.framework */; };
+		1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +87,14 @@
 		1EC04E571A1A74EF0020B759 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		1EC04E591A1A75090020B759 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		1EC04E5B1A1A754D0020B759 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		1EC04E5E1A1A7F430020B759 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		1EC04E5F1A1A7F430020B759 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1EC04E621A1A7F6C0020B759 /* MyLandlord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlord.xcdatamodel; sourceTree = "<group>"; };
+		1EC04E641A1A81110020B759 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1EC04E661A1A81230020B759 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		1EC04E681A1A816B0020B759 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1EC04E6B1A1A92040020B759 /* MLLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLoginViewController.h; sourceTree = "<group>"; };
+		1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +102,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EC04E691A1A816B0020B759 /* UIKit.framework in Frameworks */,
+				1EC04E671A1A81230020B759 /* Accelerate.framework in Frameworks */,
+				1EC04E651A1A81110020B759 /* CoreData.framework in Frameworks */,
 				1EC04E5C1A1A754D0020B759 /* Accounts.framework in Frameworks */,
 				1EC04E5A1A1A75090020B759 /* Twitter.framework in Frameworks */,
 				1EC04E581A1A74EF0020B759 /* Social.framework in Frameworks */,
@@ -139,16 +156,10 @@
 		1EC04E0A1A1A49330020B759 /* MyLandlord */ = {
 			isa = PBXGroup;
 			children = (
+				1EC04E6A1A1A91AB0020B759 /* Controllers */,
+				1EC04E5D1A1A7F350020B759 /* Models */,
 				1EC04E0F1A1A49330020B759 /* AppDelegate.h */,
 				1EC04E101A1A49330020B759 /* AppDelegate.m */,
-				1EC04E121A1A49330020B759 /* MLHomeViewController.h */,
-				1EC04E131A1A49330020B759 /* MLHomeViewController.m */,
-				1EC04E151A1A49330020B759 /* MLPropertiesViewController.h */,
-				1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */,
-				1EC04E341A1A4D410020B759 /* MLTenantsViewController.h */,
-				1EC04E351A1A4D410020B759 /* MLTenantsViewController.m */,
-				1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */,
-				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
 				1EC04E181A1A49330020B759 /* Main.storyboard */,
 				1EC04E1B1A1A49330020B759 /* Images.xcassets */,
 				1EC04E1D1A1A49330020B759 /* LaunchScreen.xib */,
@@ -186,6 +197,9 @@
 		1EC04E3C1A1A71610020B759 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EC04E681A1A816B0020B759 /* UIKit.framework */,
+				1EC04E661A1A81230020B759 /* Accelerate.framework */,
+				1EC04E641A1A81110020B759 /* CoreData.framework */,
 				1EC04E5B1A1A754D0020B759 /* Accounts.framework */,
 				1EC04E591A1A75090020B759 /* Twitter.framework */,
 				1EC04E571A1A74EF0020B759 /* Social.framework */,
@@ -204,6 +218,33 @@
 				1EC04E3D1A1A716F0020B759 /* CFNetwork.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1EC04E5D1A1A7F350020B759 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1EC04E5E1A1A7F430020B759 /* Reachability.h */,
+				1EC04E5F1A1A7F430020B759 /* Reachability.m */,
+				1EC04E611A1A7F6C0020B759 /* MyLandlord.xcdatamodeld */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		1EC04E6A1A1A91AB0020B759 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1EC04E121A1A49330020B759 /* MLHomeViewController.h */,
+				1EC04E131A1A49330020B759 /* MLHomeViewController.m */,
+				1EC04E151A1A49330020B759 /* MLPropertiesViewController.h */,
+				1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */,
+				1EC04E341A1A4D410020B759 /* MLTenantsViewController.h */,
+				1EC04E351A1A4D410020B759 /* MLTenantsViewController.m */,
+				1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */,
+				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
+				1EC04E6B1A1A92040020B759 /* MLLoginViewController.h */,
+				1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,6 +296,7 @@
 				TargetAttributes = {
 					1EC04E071A1A49320020B759 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 8ENQG5E69R;
 					};
 					1EC04E231A1A49330020B759 = {
 						CreatedOnToolsVersion = 6.1;
@@ -309,7 +351,10 @@
 				1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */,
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
+				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
+				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
+				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
 				1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
 			);
@@ -434,6 +479,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -441,6 +487,7 @@
 				INFOPLIST_FILE = MyLandlord/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c9ca59cd-277f-4f55-b1ab-0b7e2ae1ed01";
 			};
 			name = Debug;
 		};
@@ -449,6 +496,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -456,6 +504,7 @@
 				INFOPLIST_FILE = MyLandlord/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c9ca59cd-277f-4f55-b1ab-0b7e2ae1ed01";
 			};
 			name = Release;
 		};
@@ -522,6 +571,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1EC04E611A1A7F6C0020B759 /* MyLandlord.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1EC04E621A1A7F6C0020B759 /* MyLandlord.xcdatamodel */,
+			);
+			currentVersion = 1EC04E621A1A7F6C0020B759 /* MyLandlord.xcdatamodel */;
+			path = MyLandlord.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1EC04E001A1A49320020B759 /* Project object */;
 }

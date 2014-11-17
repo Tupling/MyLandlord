@@ -16,6 +16,9 @@
     
 }
 
+@property(nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+-(IBAction)logOut:(id)sender;
 
 @end
 
