@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  MLDocsViewController.h
 //  MyLandlord
 //
 //  Created by Dale Tupling on 11/17/14.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
-
+@interface MLDocsViewController : UIViewController
 
 @end
-

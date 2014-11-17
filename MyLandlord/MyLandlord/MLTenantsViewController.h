@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  MLTenantsViewController.h
 //  MyLandlord
 //
 //  Created by Dale Tupling on 11/17/14.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
-
+@interface MLTenantsViewController : UIViewController
 
 @end
-

@@ -1,18 +1,18 @@
 //
-//  SecondViewController.m
+//  FirstViewController.m
 //  MyLandlord
 //
 //  Created by Dale Tupling on 11/17/14.
 //  Copyright (c) 2014 Dale Tupling. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "MLHomeViewController.h"
 
-@interface SecondViewController ()
+@interface MLHomeViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation MLHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		1EC04E0E1A1A49330020B759 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E0D1A1A49330020B759 /* main.m */; };
 		1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E101A1A49330020B759 /* AppDelegate.m */; };
-		1EC04E141A1A49330020B759 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E131A1A49330020B759 /* FirstViewController.m */; };
-		1EC04E171A1A49330020B759 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E161A1A49330020B759 /* SecondViewController.m */; };
+		1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E131A1A49330020B759 /* MLHomeViewController.m */; };
+		1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */; };
 		1EC04E1A1A1A49330020B759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E181A1A49330020B759 /* Main.storyboard */; };
 		1EC04E1C1A1A49330020B759 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E1B1A1A49330020B759 /* Images.xcassets */; };
 		1EC04E1F1A1A49330020B759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E1D1A1A49330020B759 /* LaunchScreen.xib */; };
 		1EC04E2B1A1A49330020B759 /* MyLandlordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E2A1A1A49330020B759 /* MyLandlordTests.m */; };
+		1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E351A1A4D410020B759 /* MLTenantsViewController.m */; };
+		1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,16 +35,20 @@
 		1EC04E0D1A1A49330020B759 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1EC04E0F1A1A49330020B759 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1EC04E101A1A49330020B759 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1EC04E121A1A49330020B759 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		1EC04E131A1A49330020B759 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		1EC04E151A1A49330020B759 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		1EC04E161A1A49330020B759 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		1EC04E121A1A49330020B759 /* MLHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLHomeViewController.h; sourceTree = "<group>"; };
+		1EC04E131A1A49330020B759 /* MLHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLHomeViewController.m; sourceTree = "<group>"; };
+		1EC04E151A1A49330020B759 /* MLPropertiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLPropertiesViewController.h; sourceTree = "<group>"; };
+		1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLPropertiesViewController.m; sourceTree = "<group>"; };
 		1EC04E191A1A49330020B759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1EC04E1B1A1A49330020B759 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1EC04E1E1A1A49330020B759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		1EC04E241A1A49330020B759 /* MyLandlordTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyLandlordTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC04E291A1A49330020B759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EC04E2A1A1A49330020B759 /* MyLandlordTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLandlordTests.m; sourceTree = "<group>"; };
+		1EC04E341A1A4D410020B759 /* MLTenantsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantsViewController.h; sourceTree = "<group>"; };
+		1EC04E351A1A4D410020B759 /* MLTenantsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTenantsViewController.m; sourceTree = "<group>"; };
+		1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDocsViewController.h; sourceTree = "<group>"; };
+		1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDocsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +92,14 @@
 			children = (
 				1EC04E0F1A1A49330020B759 /* AppDelegate.h */,
 				1EC04E101A1A49330020B759 /* AppDelegate.m */,
-				1EC04E121A1A49330020B759 /* FirstViewController.h */,
-				1EC04E131A1A49330020B759 /* FirstViewController.m */,
-				1EC04E151A1A49330020B759 /* SecondViewController.h */,
-				1EC04E161A1A49330020B759 /* SecondViewController.m */,
+				1EC04E121A1A49330020B759 /* MLHomeViewController.h */,
+				1EC04E131A1A49330020B759 /* MLHomeViewController.m */,
+				1EC04E151A1A49330020B759 /* MLPropertiesViewController.h */,
+				1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */,
+				1EC04E341A1A4D410020B759 /* MLTenantsViewController.h */,
+				1EC04E351A1A4D410020B759 /* MLTenantsViewController.m */,
+				1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */,
+				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
 				1EC04E181A1A49330020B759 /* Main.storyboard */,
 				1EC04E1B1A1A49330020B759 /* Images.xcassets */,
 				1EC04E1D1A1A49330020B759 /* LaunchScreen.xib */,
@@ -224,9 +234,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EC04E171A1A49330020B759 /* SecondViewController.m in Sources */,
+				1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */,
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
-				1EC04E141A1A49330020B759 /* FirstViewController.m in Sources */,
+				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
+				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
+				1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
