@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
-@interface MLHomeViewController : UIViewController
+
+@interface MLHomeViewController : UIViewController <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
+{
+    
+}
 
 
 @end
