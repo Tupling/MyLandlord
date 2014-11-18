@@ -33,7 +33,7 @@
 {
     [super viewDidLayoutSubviews];
     
-    [self.logInView.logo setFrame:CGRectMake(15, 106,353,127)];
+    [self.logInView.logo setFrame:CGRectMake(self.logInView.logo.frame.origin.x, 86,353,127)];
 }
 
 - (void)didReceiveMemoryWarning {
