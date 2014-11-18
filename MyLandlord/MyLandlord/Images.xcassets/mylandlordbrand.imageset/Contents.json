@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "mylandlordbrand.png"
     },
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "launch_image@2x.png"
+      "filename" : "MyLandlord@2x.png"
     },
     {
       "idiom" : "iphone",

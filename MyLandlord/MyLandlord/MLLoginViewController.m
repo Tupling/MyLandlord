@@ -11,6 +11,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface MLLoginViewController ()
+{
+    UIImage *img;
+}
 
 @end
 
@@ -19,14 +22,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage *img = [UIImage imageNamed:@"mylandlordbrand.png"];
+    img = [UIImage imageNamed:@"mylandlordbrand.png"];
     
     
     self.logInView.logo = [[UIImageView alloc] initWithImage:img];
     
- 
- 
- 
+    
+    
+    
 }
 
 -(void)viewDidLayoutSubviews
@@ -36,19 +39,22 @@
     [self.logInView.logo setFrame:CGRectMake(self.logInView.logo.frame.origin.x, 86,353,127)];
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
