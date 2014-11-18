@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -11,22 +11,35 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="682"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mylandlordbrand" translatesAutoresizingMaskIntoConstraints="NO" id="s3B-7N-A2N">
+                <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mylandlordbrand" translatesAutoresizingMaskIntoConstraints="NO" id="s3B-7N-A2N">
                     <rect key="frame" x="14" y="214" width="353" height="127"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.97254908084869385" green="0.9803922176361084" blue="0.99215692281723022" alpha="1" colorSpace="deviceRGB"/>
+            <constraints>
+                <constraint firstItem="s3B-7N-A2N" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="184" id="OqA-S2-U4I"/>
+                <constraint firstAttribute="bottom" secondItem="s3B-7N-A2N" secondAttribute="bottom" constant="375" id="RHn-Ev-Nwm"/>
+                <constraint firstItem="s3B-7N-A2N" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="w3r-bn-PLH"/>
+                <constraint firstAttribute="trailing" secondItem="s3B-7N-A2N" secondAttribute="trailing" constant="64" id="x9p-sy-Dnw"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="widthClass=regular"/>
-            <variation key="heightClass=compact-widthClass=regular">
-                <mask key="subviews">
-                    <include reference="s3B-7N-A2N"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="OqA-S2-U4I"/>
+                    <exclude reference="RHn-Ev-Nwm"/>
+                    <exclude reference="w3r-bn-PLH"/>
+                    <exclude reference="x9p-sy-Dnw"/>
                 </mask>
             </variation>
+            <variation key="widthClass=compact"/>
+            <variation key="heightClass=compact-widthClass=regular"/>
             <variation key="heightClass=regular-widthClass=compact">
-                <mask key="subviews">
-                    <include reference="s3B-7N-A2N"/>
+                <mask key="constraints">
+                    <include reference="OqA-S2-U4I"/>
+                    <include reference="RHn-Ev-Nwm"/>
+                    <include reference="w3r-bn-PLH"/>
+                    <include reference="x9p-sy-Dnw"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="548" y="448"/>

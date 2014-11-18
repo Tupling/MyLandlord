@@ -32,7 +32,7 @@
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];
     [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
     
     // Override point for customization after application launch.
