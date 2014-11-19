@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
 		1EC04E0E1A1A49330020B759 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E0D1A1A49330020B759 /* main.m */; };
 		1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E101A1A49330020B759 /* AppDelegate.m */; };
 		1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E131A1A49330020B759 /* MLHomeViewController.m */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTenantViewController.h; sourceTree = "<group>"; };
+		1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantViewController.m; sourceTree = "<group>"; };
 		1EC04E081A1A49330020B759 /* MyLandlord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLandlord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC04E0C1A1A49330020B759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EC04E0D1A1A49330020B759 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
 				1EC04E6B1A1A92040020B759 /* MLLoginViewController.h */,
 				1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */,
+				1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */,
+				1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
 				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
+				1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */,
 				1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
 			);

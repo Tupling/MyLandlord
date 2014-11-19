@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    img = [UIImage imageNamed:@"mylandlordbrand.png"];
+    img = [UIImage imageNamed:@"MyLandlord"];
     
     
     self.logInView.logo = [[UIImageView alloc] initWithImage:img];
@@ -36,7 +36,8 @@
 {
     [super viewDidLayoutSubviews];
     
-    [self.logInView.logo setFrame:CGRectMake(self.logInView.logo.frame.origin.x, 86,353,127)];
+    [self.logInView.logo setFrame:CGRectMake(self.logInView.logo.frame.origin.x, self.logInView.logo.frame.origin.y-20,img.size.width, img.size.height)];
+    [self.logInView.logo setContentMode:UIViewContentModeScaleAspectFit];
 }
 
 

@@ -8,11 +8,12 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "MyLandlord@2x.png"
+      "filename" : "MyLandlordBrand@2x.png"
     },
     {
       "idiom" : "iphone",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "MyLandlordBrand@3x.png"
     }
   ],
   "info" : {
