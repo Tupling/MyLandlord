@@ -86,25 +86,33 @@
     
     //ONLY ALLOW CURRENT USER TO VIEW
     
+    //Set Access control to user logged in
     tenant.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
     
-    [tenant saveInBackground];
+    //Set object to current user (makes it easier to get the data for tables)
+    [tenant setObject:[PFUser currentUser] forKey:@"createdBy"];
     
-    if (tenant.save) {
-        
-        savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        
-        [savedAlert show];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-    }else{
-        savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        
-        [savedAlert show];
-        
-        
-    }
+    [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(succeeded)
+        {
+            
+            savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [savedAlert show];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+
+        }
+        else
+        {
+            savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [savedAlert show];
+            
+        }
+    }];
+
     
 }
 

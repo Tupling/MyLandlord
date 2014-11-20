@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "Tenants.h"
 
-@interface MLTenantsViewController : UIViewController
+@interface MLTenantsViewController : UIViewController <UITableViewDataSource>
+
+
+@property(nonatomic, strong)Tenants *aTenantsInfo;
+@property(nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end

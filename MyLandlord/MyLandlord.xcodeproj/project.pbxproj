@@ -45,6 +45,8 @@
 		1EC04E751A1B82EB0020B759 /* vertical_divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E711A1B82EB0020B759 /* vertical_divider.png */; };
 		1EC04E761A1B82EB0020B759 /* vertical_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */; };
 		1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */; };
+		1EE179391A1E34DA009C44E7 /* Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE179361A1E34DA009C44E7 /* Properties.m */; };
+		1EE1793A1A1E34DA009C44E7 /* Tenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE179381A1E34DA009C44E7 /* Tenants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,10 @@
 		1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vertical_divider@2x.png"; sourceTree = "<group>"; };
 		1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddPropertyViewController.h; sourceTree = "<group>"; };
 		1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddPropertyViewController.m; sourceTree = "<group>"; };
+		1EE179351A1E34DA009C44E7 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Properties.h; sourceTree = "<group>"; };
+		1EE179361A1E34DA009C44E7 /* Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Properties.m; sourceTree = "<group>"; };
+		1EE179371A1E34DA009C44E7 /* Tenants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tenants.h; sourceTree = "<group>"; };
+		1EE179381A1E34DA009C44E7 /* Tenants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tenants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,11 +176,10 @@
 		1EC04E0A1A1A49330020B759 /* MyLandlord */ = {
 			isa = PBXGroup;
 			children = (
+				1EE1793B1A1E8B47009C44E7 /* AppDelegate */,
 				1EC04E6E1A1B82DF0020B759 /* Images */,
 				1EC04E6A1A1A91AB0020B759 /* Controllers */,
 				1EC04E5D1A1A7F350020B759 /* Models */,
-				1EC04E0F1A1A49330020B759 /* AppDelegate.h */,
-				1EC04E101A1A49330020B759 /* AppDelegate.m */,
 				1EC04E181A1A49330020B759 /* Main.storyboard */,
 				1EC04E1B1A1A49330020B759 /* Images.xcassets */,
 				1EC04E1D1A1A49330020B759 /* LaunchScreen.xib */,
@@ -238,6 +243,10 @@
 		1EC04E5D1A1A7F350020B759 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1EE179351A1E34DA009C44E7 /* Properties.h */,
+				1EE179361A1E34DA009C44E7 /* Properties.m */,
+				1EE179371A1E34DA009C44E7 /* Tenants.h */,
+				1EE179381A1E34DA009C44E7 /* Tenants.m */,
 				1EC04E5E1A1A7F430020B759 /* Reachability.h */,
 				1EC04E5F1A1A7F430020B759 /* Reachability.m */,
 				1EC04E611A1A7F6C0020B759 /* MyLandlord.xcdatamodeld */,
@@ -275,6 +284,15 @@
 				1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		1EE1793B1A1E8B47009C44E7 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1EC04E0F1A1A49330020B759 /* AppDelegate.h */,
+				1EC04E101A1A49330020B759 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,7 +407,9 @@
 				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
+				1EE1793A1A1E34DA009C44E7 /* Tenants.m in Sources */,
 				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
+				1EE179391A1E34DA009C44E7 /* Properties.m in Sources */,
 				1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */,
 				1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
