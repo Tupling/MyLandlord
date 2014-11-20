@@ -8,7 +8,10 @@
 
 #import "MLAddTenantViewController.h"
 
-@interface MLAddTenantViewController ()
+@interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+{
+    UIAlertView *savedAlert;
+}
 
 @end
 
@@ -17,11 +20,92 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //DISMISS KEYBOARD
+    //Tap screen to make keyboard disappear
+    UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardDisappear)];
+    
+    //set to NO, so not all touches are cancelled. If set to YES User will not be able to touch ShowDate or Info Buttons
+    tapOnScreen.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapOnScreen];
+    
+    //TODO Check if user is editing Tenant Information
+    
 }
 
+//Function for Gesture tapOnScreen
+- (void) keyboardDisappear {
+    
+    [self.view endEditing:YES];
+}
+
+// Dismiss Modal View
 -(IBAction)cancel:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+//Save Tenant Information to DB
+-(IBAction)saveTenant:(id)sender
+{
+    
+    //TODO ADD NETWORK CONNECTION CHECK
+    
+ 
+    
+    
+    
+    NSString *pFirstNameString = self.pFirstName.text;
+    NSString *pLastNameString = self.pLastName.text;
+    NSString *pEmailString = self.pEmail.text;
+    NSString *pPhoneNumberString = self.pPhoneNumber.text;
+    
+    NSString *sFirstNameString = self.sFirstName.text;
+    NSString *sLastNameString = self.sLastName.text;
+    NSString *sEmailString = self.sEmail.text;
+    NSString *sPhoneNumberString = self.sPhoneNumber.text;
+    
+    PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
+    
+    tenant[@"pFirstName"] = self.pFirstName.text;
+    tenant[@"pLastName"] = self.pLastName.text;
+    tenant[@"pEmail"] = self.pEmail.text;
+    tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
+    
+    
+    
+    //TODO Check if Second Tenant is Present//
+    
+    
+    
+    tenant[@"sFirstName"] = self.sFirstName.text;
+    tenant[@"sLastName"] = self.sLastName.text;
+    tenant[@"sEmail"] = self.sEmail.text;
+    tenant[@"sPhoneNumber"] = self.sPhoneNumber.text;
+    
+    
+    //ONLY ALLOW CURRENT USER TO VIEW
+    
+    tenant.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    
+    [tenant saveInBackground];
+    
+    if (tenant.save) {
+        
+        savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        
+        [savedAlert show];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }else{
+        savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        
+        [savedAlert show];
+        
+        
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
