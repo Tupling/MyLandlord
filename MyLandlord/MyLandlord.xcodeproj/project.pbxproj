@@ -44,6 +44,7 @@
 		1EC04E741A1B82EB0020B759 /* horizontal_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E701A1B82EB0020B759 /* horizontal_divider@2x.png */; };
 		1EC04E751A1B82EB0020B759 /* vertical_divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E711A1B82EB0020B759 /* vertical_divider.png */; };
 		1EC04E761A1B82EB0020B759 /* vertical_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */; };
+		1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,8 @@
 		1EC04E701A1B82EB0020B759 /* horizontal_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "horizontal_divider@2x.png"; sourceTree = "<group>"; };
 		1EC04E711A1B82EB0020B759 /* vertical_divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vertical_divider.png; sourceTree = "<group>"; };
 		1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vertical_divider@2x.png"; sourceTree = "<group>"; };
+		1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddPropertyViewController.h; sourceTree = "<group>"; };
+		1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddPropertyViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +260,8 @@
 				1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */,
 				1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */,
 				1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */,
+				1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */,
+				1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
+				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
 				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
@@ -510,6 +516,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -528,6 +535,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

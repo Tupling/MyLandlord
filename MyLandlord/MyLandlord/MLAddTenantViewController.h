@@ -9,6 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @interface MLAddTenantViewController : UIViewController
+{
+    IBOutlet UITextField *pFirstName;
+    IBOutlet UITextField *pLastName;
+    IBOutlet UITextField *pEmail;
+    IBOutlet UITextField *pPhoneNumber;
+    
+    IBOutlet UITextField *sFirstName;
+    IBOutlet UITextField *sLastName;
+    IBOutlet UITextField *sEmail;
+    IBOutlet UITextField *sPhoneNumber;
+    
+}
 
 -(IBAction)cancel:(id)sender;
 

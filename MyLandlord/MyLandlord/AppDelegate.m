@@ -33,16 +33,7 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];
-    [[UINavigationBar appearance] setTintColor:[UIColor redColor]];
-    
-    // Override point for customization after application launch.
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    
-    //UIViewController *landingView = (UIViewController *)self.window.rootViewController;
-    UITabBarController *tabBarController = (UITabBarController *)[storyBoard instantiateViewControllerWithIdentifier:@"MainViews"];
-    UINavigationController *navigationController = tabBarController.viewControllers[0];
-    MLHomeViewController *controller = (MLHomeViewController *)navigationController.topViewController;
-    controller.managedObjectContext = self.managedObjectContext;
+
     return YES;
 }
 
