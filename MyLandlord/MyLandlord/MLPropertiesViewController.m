@@ -210,10 +210,16 @@
  
   //In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
-     MLPropertyDetails *propDetails = segue.destinationViewController;
      
-     propDetails.details = self.propInfo;
+     if ([[segue identifier] isEqualToString:@"details"]) {
+         
+         MLPropertyDetails *propDetails = segue.destinationViewController;
+         
+         propDetails.details = self.propInfo;
+     }
+     
+
+
  }
  
 

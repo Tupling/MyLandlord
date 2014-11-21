@@ -12,8 +12,11 @@
 @interface MLPropertyDetails : UIViewController
 {
     IBOutlet UILabel *propAddress;
+    IBOutlet UILabel *tenantInfo;
+    IBOutlet UILabel *leaseInfo;
 }
 
+-(IBAction)closeView:(id)sender;
 
 @property (nonatomic, strong)Properties *details;
 
