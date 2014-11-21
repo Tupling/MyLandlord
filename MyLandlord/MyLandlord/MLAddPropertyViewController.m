@@ -8,7 +8,10 @@
 
 #import "MLAddPropertyViewController.h"
 
-@interface MLAddPropertyViewController ()
+@interface MLAddPropertyViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+{
+    UIAlertView *savedAlert;
+}
 
 @end
 
@@ -28,6 +31,50 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)saveProp:(id)sender
+{
+    PFObject *property = [PFObject objectWithClassName:@"Properties"];
+    
+    property[@"propName"] = self.propName.text;
+    property[@"propAddress"] = self.propAddress.text;
+    property[@"propCity"] = self.propCity.text;
+    property[@"propState"] = self.propState.text;
+    property[@"propZip"] = self.propZip.text;
+    
+    
+    
+    
+    //ONLY ALLOW CURRENT USER TO VIEW
+    
+    //Set Access control to user logged in
+    property.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    
+    //Set object to current user (makes it easier to get the data for tables)
+    [property setObject:[PFUser currentUser] forKey:@"createdBy"];
+    
+    [property saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(succeeded)
+        {
+            
+            savedAlert = [[UIAlertView alloc] initWithTitle:@"Property Saved" message:@"Property has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [savedAlert show];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            
+        }
+        else
+        {
+            savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the property information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [savedAlert show];
+            
+        }
+    }];
+
 }
 
 /*

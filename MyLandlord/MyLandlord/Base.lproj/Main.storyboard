@@ -1412,7 +1412,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGu-pc-MOs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-842.25" y="1508.625"/>
+            <point key="canvasLocation" x="-894.75" y="1373.625"/>
         </scene>
         <!--Add Property-->
         <scene sceneID="ohN-4D-ROk">
@@ -1460,6 +1460,9 @@
                                         <state key="normal" title="Save">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="saveProp:" destination="wHX-Qd-HQH" eventType="touchUpInside" id="DzW-Ty-Uc2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -1761,10 +1764,17 @@
                         </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="propAddress" destination="86B-mU-ctE" id="uEL-EB-sHE"/>
+                        <outlet property="propCity" destination="4U3-PY-yZL" id="hpW-T2-dUv"/>
+                        <outlet property="propName" destination="fcT-Jt-AX5" id="HJg-F8-Bgx"/>
+                        <outlet property="propState" destination="9S3-F1-urO" id="Wcv-6f-bp4"/>
+                        <outlet property="propZip" destination="nij-nC-dn8" id="DxY-oa-ncN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s1h-NZ-vIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-147.75" y="1508.625"/>
+            <point key="canvasLocation" x="-273.75" y="1368.375"/>
         </scene>
         <!--Home-->
         <scene sceneID="yl2-sM-qoP">

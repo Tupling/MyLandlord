@@ -55,15 +55,6 @@
     
     
     
-    NSString *pFirstNameString = self.pFirstName.text;
-    NSString *pLastNameString = self.pLastName.text;
-    NSString *pEmailString = self.pEmail.text;
-    NSString *pPhoneNumberString = self.pPhoneNumber.text;
-    
-    NSString *sFirstNameString = self.sFirstName.text;
-    NSString *sLastNameString = self.sLastName.text;
-    NSString *sEmailString = self.sEmail.text;
-    NSString *sPhoneNumberString = self.sPhoneNumber.text;
     
     PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
     
