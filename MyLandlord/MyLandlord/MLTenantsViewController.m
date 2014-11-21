@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadData];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -29,16 +29,28 @@
     [super viewWillAppear:YES];
     
     [self loadData];
+    
+
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    
+    [_tableView reloadData];
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section;
+    return [tenantArray count];
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -46,10 +58,37 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 0;
+    static NSString *cellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    
+        if(cell == nil)
+        {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        }
+        
+    
+
+    
+    NSLog(@"TENANTS ARRAY %@", tenantArray.description);
+    
+    Tenants *tenant = [tenantArray objectAtIndex:indexPath.row];
+    
+    NSLog(@"Tenant First Name = %@", tenant.pFirstName);
+    
+    pName = (UILabel*)[cell viewWithTag:100];
+    pNumber = (UILabel*) [cell viewWithTag:101];
+    pAddress = (UILabel*) [cell viewWithTag:102];
+    
+
+    
+    pName.text = tenant.pFirstName;
+    pNumber.text = tenant.pPhoneNumber;
+    pAddress.text = @"2320 Laguna Cout Fairborn Oh 45324";
+    
+    return cell;
 }
-
-
 //LOAD DATA
 -(void)loadData
 {
@@ -57,17 +96,20 @@
     //Initialize Tenant Array
     tenantArray = [[NSMutableArray alloc] init];
 
-    PFQuery *tenants = [PFQuery queryWithClassName:@"Tenants"];
-    [tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    PFQuery *results = [PFQuery queryWithClassName:@"Tenants"];
+    //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+
     
-    [tenants findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error)
         {
             for(int i = 0; i <objects.count; i++){
-                
                 NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
+                
+                Tenants *tenantInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tenants" inManagedObjectContext:context];
+                
                 //create new instance of Event Info
-                Tenants *tenantInfo = [[Tenants alloc] initWithEntity:@"Tenants" insertIntoManagedObjectContext:context];
+                //Tenants *tenantInfo = [[Tenants alloc] init];
 
                 
                 tenantInfo.pFirstName = [objects[i] valueForKey:@"pFirstName"];
@@ -86,10 +128,19 @@
 
                 [tenantArray addObject: tenantInfo];
                 
-                NSLog(@"Tenant Array Count = %lu",(unsigned long)[tenantArray count]);
+               
+                
             }
+            [self.tableView reloadData];
+        }  else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
+        NSLog(@"TENANT ARRAY COUNT %lu", (unsigned long)tenantArray.count);
+
     }];
+
+   
 }
 
 /*

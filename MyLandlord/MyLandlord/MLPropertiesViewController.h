@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MLPropertiesViewController : UIViewController
+@interface MLPropertiesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 
 @end

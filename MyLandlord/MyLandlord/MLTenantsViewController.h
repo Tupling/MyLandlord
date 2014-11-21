@@ -10,10 +10,18 @@
 #import <Parse/Parse.h>
 #import "Tenants.h"
 
-@interface MLTenantsViewController : UIViewController <UITableViewDataSource>
+@interface MLTenantsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    IBOutlet UILabel *pName;
+    IBOutlet UILabel *pNumber;
+    IBOutlet UILabel *pAddress;
+}
 
 
 @property(nonatomic, strong)Tenants *aTenantsInfo;
-@property(nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property(nonatomic, strong) IBOutlet UITableView *tableView;
+
+//Local Methods
+-(void)loadData;
 @end
