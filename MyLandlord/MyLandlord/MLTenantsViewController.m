@@ -49,7 +49,7 @@
         //load new Parse data into Core Data
         if ([self.tenants count] == 0) {
             
-            //[self loadData];
+            [self loadData];
         }
     }
 
@@ -60,6 +60,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
 
+    //[self.tableView reloadData];
     [self loadData];
     
 }
@@ -102,11 +103,11 @@
     pNumber = (UILabel*) [cell viewWithTag:101];
     pAddress = (UILabel*) [cell viewWithTag:102];
     
-    NSLog(@"TENANTS ARRAY %@", self.tenants.description);
+    //NSLog(@"TENANTS ARRAY %@", self.tenants.description);
     
     Tenants *tenant = [self.tenants objectAtIndex:indexPath.row];
     
-    NSLog(@"Tenant First Name = %@", tenant.pFirstName);
+    //NSLog(@"Tenant First Name = %@", tenant.pFirstName);
     
  
     pName.text = [NSString stringWithFormat:@"%@ %@", tenant.pFirstName, tenant.pLastName];
@@ -118,7 +119,7 @@
 //LOAD DATA
 -(void)loadData
 {
-    
+    NSLog(@"Attempting to Load Data from DB");
     [self deletedAllObjects:@"Tenants"];
     PFQuery *results = [PFQuery queryWithClassName:@"Tenants"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
@@ -186,8 +187,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    
+    self.aTenantsInfo = [self.tenants objectAtIndex:indexPath.row];
+    
     //Push detailsView to the top of the stack
     [self performSegueWithIdentifier:@"details" sender:self];
+    
+    NSLog(@"%@", [[self.tenants objectAtIndex:indexPath.row] description]);
     
     //Deselect Item
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -218,7 +225,9 @@
 //In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    //MLTenantDetailsViewController *tenantDetails = segue.destinationViewController;
+    MLTenantDetailsViewController *tenantDetails = segue.destinationViewController;
+    
+    tenantDetails.details = _aTenantsInfo;
 }
 
 @end

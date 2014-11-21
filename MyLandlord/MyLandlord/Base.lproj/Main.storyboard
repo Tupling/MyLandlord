@@ -582,7 +582,7 @@
                                                         <rect key="frame" x="281" y="1" width="94" height="94"/>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A5-br-wH0">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A5-br-wH0">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Property Address">
@@ -598,7 +598,7 @@
                                                         <rect key="frame" x="8" y="1" width="265" height="33"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sP-DY-ASv">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sP-DY-ASv">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Tenant Name">
@@ -614,7 +614,7 @@
                                                         <rect key="frame" x="8" y="37" width="265" height="21"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAw-MK-fYC">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAw-MK-fYC">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Rent Status">
@@ -2030,6 +2030,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="fbH-08-8GA"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="pTenantEmail" destination="Ipk-ow-tKL" id="t5b-t5-7hK"/>
+                        <outlet property="pTenantName" destination="3ZJ-9T-gjC" id="klm-E0-s91"/>
+                        <outlet property="pTenantPhone" destination="SRz-jv-xkx" id="OaQ-AU-qNI"/>
+                        <outlet property="sTenantEmail" destination="BIM-BR-IK7" id="VE0-ee-fRd"/>
+                        <outlet property="sTenantName" destination="ve9-Wh-wJv" id="Nob-Uv-6j1"/>
+                        <outlet property="sTenantPhone" destination="NiU-wC-4NE" id="Xgj-eJ-fUQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqp-jx-N0u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

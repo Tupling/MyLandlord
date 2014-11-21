@@ -7,6 +7,7 @@
 //
 
 #import "MLTenantDetailsViewController.h"
+#import "Tenants.h"
 
 @interface MLTenantDetailsViewController ()
 
@@ -27,6 +28,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSLog(@"%@", _details.pFirstName);
+    
+    pTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.pFirstName, _details.pLastName];
+    pTenantPhone.text = _details.pPhoneNumber;
+    pTenantEmail.text = _details.pEmail;
+    
+    
+    sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
+    sTenantPhone.text = _details.sPhoneNumber;
+    sTenantEmail.text = _details.sEmail;
+    
 }
 
 - (void)didReceiveMemoryWarning {
