@@ -16,6 +16,7 @@
     IBOutlet UITextField *propCity;
     IBOutlet UITextField *propState;
     IBOutlet UITextField *propZip;
+    IBOutlet UIButton *addProp;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *propName;
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *propCity;
 @property (nonatomic, retain) IBOutlet UITextField *propState;
 @property (nonatomic, retain) IBOutlet UITextField *propZip;
+@property (nonatomic, retain) IBOutlet UIButton *addProp;
 
 -(IBAction)cancel:(id)sender;
 

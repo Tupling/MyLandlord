@@ -33,6 +33,12 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];
+    
+    self.networkStatus = [Reachability reachabilityForInternetConnection];
+    
+    
+    [self loadData];
+    
 
     return YES;
 }
@@ -69,6 +75,13 @@
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+
+#pragma mark - LOAD DATA METHOD
+
+-(void)loadData
+{
+    
 }
 
 - (void)saveContext

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E181EF41A1F73810047AD12 /* house.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF31A1F73810047AD12 /* house.jpg */; };
+		1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF51A1F77290047AD12 /* profileImage.jpg */; };
+		1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */; };
+		1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */; };
 		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
 		1EC04E0E1A1A49330020B759 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E0D1A1A49330020B759 /* main.m */; };
 		1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E101A1A49330020B759 /* AppDelegate.m */; };
@@ -60,6 +64,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E181EF31A1F73810047AD12 /* house.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = house.jpg; sourceTree = "<group>"; };
+		1E181EF51A1F77290047AD12 /* profileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profileImage.jpg; sourceTree = "<group>"; };
+		1E181EF71A1F86C30047AD12 /* MLTenantDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantDetailsViewController.h; sourceTree = "<group>"; };
+		1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTenantDetailsViewController.m; sourceTree = "<group>"; };
+		1E181EFE1A1FBD8B0047AD12 /* MLPropertyDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyDetails.h; sourceTree = "<group>"; };
+		1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyDetails.m; sourceTree = "<group>"; };
 		1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTenantViewController.h; sourceTree = "<group>"; };
 		1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantViewController.m; sourceTree = "<group>"; };
 		1EC04E081A1A49330020B759 /* MyLandlord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLandlord.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +164,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E181EFA1A1F951F0047AD12 /* ML-Property Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1EC04E151A1A49330020B759 /* MLPropertiesViewController.h */,
+				1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */,
+				1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */,
+				1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */,
+				1E181EFE1A1FBD8B0047AD12 /* MLPropertyDetails.h */,
+				1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */,
+			);
+			name = "ML-Property Controllers";
+			sourceTree = "<group>";
+		};
+		1E181EFB1A1F95440047AD12 /* ML-Tenant Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1EC04E341A1A4D410020B759 /* MLTenantsViewController.h */,
+				1EC04E351A1A4D410020B759 /* MLTenantsViewController.m */,
+				1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */,
+				1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */,
+				1E181EF71A1F86C30047AD12 /* MLTenantDetailsViewController.h */,
+				1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */,
+			);
+			name = "ML-Tenant Controllers";
+			sourceTree = "<group>";
+		};
+		1E181EFC1A1F95A00047AD12 /* ML- Main Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1EC04E121A1A49330020B759 /* MLHomeViewController.h */,
+				1EC04E131A1A49330020B759 /* MLHomeViewController.m */,
+				1EC04E6B1A1A92040020B759 /* MLLoginViewController.h */,
+				1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */,
+			);
+			name = "ML- Main Controllers";
+			sourceTree = "<group>";
+		};
+		1E181EFD1A1F95B40047AD12 /* ML-Document Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */,
+				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
+			);
+			name = "ML-Document Controllers";
+			sourceTree = "<group>";
+		};
 		1EC04DFF1A1A49320020B759 = {
 			isa = PBXGroup;
 			children = (
@@ -257,20 +313,10 @@
 		1EC04E6A1A1A91AB0020B759 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1EC04E121A1A49330020B759 /* MLHomeViewController.h */,
-				1EC04E131A1A49330020B759 /* MLHomeViewController.m */,
-				1EC04E151A1A49330020B759 /* MLPropertiesViewController.h */,
-				1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */,
-				1EC04E341A1A4D410020B759 /* MLTenantsViewController.h */,
-				1EC04E351A1A4D410020B759 /* MLTenantsViewController.m */,
-				1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */,
-				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
-				1EC04E6B1A1A92040020B759 /* MLLoginViewController.h */,
-				1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */,
-				1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */,
-				1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */,
-				1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */,
-				1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */,
+				1E181EFD1A1F95B40047AD12 /* ML-Document Controllers */,
+				1E181EFC1A1F95A00047AD12 /* ML- Main Controllers */,
+				1E181EFB1A1F95440047AD12 /* ML-Tenant Controllers */,
+				1E181EFA1A1F951F0047AD12 /* ML-Property Controllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -278,6 +324,8 @@
 		1EC04E6E1A1B82DF0020B759 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1E181EF51A1F77290047AD12 /* profileImage.jpg */,
+				1E181EF31A1F73810047AD12 /* house.jpg */,
 				1EC04E6F1A1B82EB0020B759 /* horizontal_divider.png */,
 				1EC04E701A1B82EB0020B759 /* horizontal_divider@2x.png */,
 				1EC04E711A1B82EB0020B759 /* vertical_divider.png */,
@@ -376,11 +424,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */,
 				1EC04E741A1B82EB0020B759 /* horizontal_divider@2x.png in Resources */,
 				1EC04E751A1B82EB0020B759 /* vertical_divider.png in Resources */,
 				1EC04E1A1A1A49330020B759 /* Main.storyboard in Resources */,
 				1EC04E761A1B82EB0020B759 /* vertical_divider@2x.png in Resources */,
 				1EC04E731A1B82EB0020B759 /* horizontal_divider.png in Resources */,
+				1E181EF41A1F73810047AD12 /* house.jpg in Resources */,
 				1EC04E1F1A1A49330020B759 /* LaunchScreen.xib in Resources */,
 				1EC04E1C1A1A49330020B759 /* Images.xcassets in Resources */,
 			);
@@ -400,11 +450,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */,
 				1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */,
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
 				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
+				1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */,
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
 				1EE1793A1A1E34DA009C44E7 /* Tenants.m in Sources */,
@@ -534,7 +586,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -553,7 +604,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dale Tupling (P4XS4KZN4D)";
 				FRAMEWORK_SEARCH_PATHS = (

@@ -13,10 +13,13 @@
 
 @interface MLHomeViewController : UIViewController <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
 {
-    
+    IBOutlet UIImageView *profileImg;
 }
 
 @property(nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property(nonatomic, strong) IBOutlet UIImageView *profileImg;
+@property(nonatomic, strong) IBOutlet UIButton *addProp;
+@property(nonatomic, strong) IBOutlet UIButton *addTenant;
 
 -(IBAction)logOut:(id)sender;
 

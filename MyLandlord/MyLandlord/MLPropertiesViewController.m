@@ -7,6 +7,7 @@
 //
 
 #import "MLPropertiesViewController.h"
+#import "MLTenantDetailsViewController.h"
 
 @interface MLPropertiesViewController ()
 
@@ -47,6 +48,23 @@
     
     return cell;
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        //Push detailsView to the top of the stack
+    [self performSegueWithIdentifier:@"details" sender:self];
+    
+    //Deselect Item
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+ #pragma mark - Navigation
+ 
+  //In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+     MLTenantDetailsViewController *tenantDetails = segue.destinationViewController;
+ }
+ 
 
 
 @end

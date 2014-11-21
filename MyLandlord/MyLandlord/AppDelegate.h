@@ -22,10 +22,14 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSManagedObjectContext *backgroundManagedObjectContext;
 
+@property(strong, nonatomic) NSUserDefaults *storedData;
+
 @property(strong, nonatomic) Reachability *networkStatus;
 
 
 - (void)saveContext;
+
+-(void)loadData;
 
 
 

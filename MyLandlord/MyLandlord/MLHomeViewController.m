@@ -32,6 +32,14 @@
         
         [self requireLogin];
     }
+    //Add radius to profile image
+    self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width / 2;
+    self.profileImg.clipsToBounds = YES;
+    
+    //Add radius to button
+    self.addProp.layer.cornerRadius = 5;
+    self.addTenant.layer.cornerRadius = 5;
+
 
 }
 

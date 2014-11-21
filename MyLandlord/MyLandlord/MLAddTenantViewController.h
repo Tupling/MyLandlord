@@ -34,6 +34,8 @@
 @property (nonatomic, strong) IBOutlet UITextField *sEmail;
 @property (nonatomic, strong) IBOutlet UITextField *sPhoneNumber;
 
+@property (nonatomic, retain) IBOutlet UIButton *addTenant;
+
 
 -(IBAction)cancel:(id)sender;
 

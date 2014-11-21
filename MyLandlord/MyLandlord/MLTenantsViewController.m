@@ -7,11 +7,12 @@
 //
 
 #import "MLTenantsViewController.h"
+#import "MLTenantDetailsViewController.h"
 #import "AppDelegate.h"
 
 @interface MLTenantsViewController ()
 {
-    NSMutableArray *tenantArray;
+
 }
 
 @end
@@ -21,23 +22,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+    
+    NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
+    
+    //Create new Fetch Request
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    //Request Entity EventInfo
+    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Tenants" inManagedObjectContext:context];
+    
+    //Set fetchRequest entity to EventInfo Description
+    [fetchRequest setEntity:eventEntity];
+    
+    NSError * error;
+    //Set events array to data in core data
+    if (eventEntity != nil) {
+        self.tenants = [context executeFetchRequest:fetchRequest error:&error];
+        if (self.tenants == nil) {
+            self.tenants = [NSArray new];
+        }
+    }
+    if (!error) {
+        //Check array count,
+        //load new Parse data into Core Data
+        if ([self.tenants count] == 0) {
+            
+            //[self loadData];
+        }
+    }
+
 
 }
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:YES];
-    
+
     [self loadData];
     
+}
 
-}
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:YES];
-    
-    [_tableView reloadData];
-}
+
 
 
 
@@ -50,7 +77,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tenantArray count];
+    return [self.tenants count];
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -66,24 +93,23 @@
         if(cell == nil)
         {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+            
+
         }
         
-    
-
-    
-    NSLog(@"TENANTS ARRAY %@", tenantArray.description);
-    
-    Tenants *tenant = [tenantArray objectAtIndex:indexPath.row];
-    
-    NSLog(@"Tenant First Name = %@", tenant.pFirstName);
     
     pName = (UILabel*)[cell viewWithTag:100];
     pNumber = (UILabel*) [cell viewWithTag:101];
     pAddress = (UILabel*) [cell viewWithTag:102];
     
-
+    NSLog(@"TENANTS ARRAY %@", self.tenants.description);
     
-    pName.text = tenant.pFirstName;
+    Tenants *tenant = [self.tenants objectAtIndex:indexPath.row];
+    
+    NSLog(@"Tenant First Name = %@", tenant.pFirstName);
+    
+ 
+    pName.text = [NSString stringWithFormat:@"%@ %@", tenant.pFirstName, tenant.pLastName];
     pNumber.text = tenant.pPhoneNumber;
     pAddress.text = @"2320 Laguna Cout Fairborn Oh 45324";
     
@@ -93,13 +119,10 @@
 -(void)loadData
 {
     
-    //Initialize Tenant Array
-    tenantArray = [[NSMutableArray alloc] init];
-
+    [self deletedAllObjects:@"Tenants"];
     PFQuery *results = [PFQuery queryWithClassName:@"Tenants"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
 
-    
     [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error)
         {
@@ -107,10 +130,6 @@
                 NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
                 
                 Tenants *tenantInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tenants" inManagedObjectContext:context];
-                
-                //create new instance of Event Info
-                //Tenants *tenantInfo = [[Tenants alloc] init];
-
                 
                 tenantInfo.pFirstName = [objects[i] valueForKey:@"pFirstName"];
                 tenantInfo.pLastName = [objects[i] valueForKey:@"pLastName"];
@@ -125,32 +144,81 @@
                 tenantInfo.sPhoneNumber = [objects[i] valueForKey:@"sPhoneNumber"];
                     
                 }
-
-                [tenantArray addObject: tenantInfo];
                 
-               
+                    NSError * error;
+                    if(![context save:&error])
+                    {
+                        NSLog(@"Failed to save: %@", [error localizedDescription]);
+                    }
+                    
+                    //Create new Fetch Request
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                    
+                    //Request Entity EventInfo
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tenants" inManagedObjectContext:context];
+                    
+                    //Set fetchRequest entity to EventInfo Description
+                    [fetchRequest setEntity:entity];
+                    
+                    //Set events array to data in core data
+                    self.tenants = [context executeFetchRequest:fetchRequest error:&error];
+                    
+                }
+            }else{
                 
+                //Why did it fail?
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
-            [self.tableView reloadData];
-        }  else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-        NSLog(@"TENANT ARRAY COUNT %lu", (unsigned long)tenantArray.count);
+            
 
-    }];
+            
+            
+            
+            [self.tableView reloadData];
+            //NSLog(@"EVENTS ARRAY %lu",(unsigned long)_events.count);
+            // NSLog(@"OBJECTS ARRAY %@", objects.description);
+            
+            
+        }];
 
    
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //Push detailsView to the top of the stack
+    [self performSegueWithIdentifier:@"details" sender:self];
+    
+    //Deselect Item
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)deletedAllObjects: (NSString*) entityDescription{
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription * entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:ApplicationDelegate.managedObjectContext];
+    
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *objectItems = [ApplicationDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    for (NSManagedObject *managedObject in objectItems) {
+        
+        [ApplicationDelegate.managedObjectContext deleteObject:managedObject];
+        
+        NSLog(@"%@ object deleted", entityDescription);
+        
+    }
+    if (![ApplicationDelegate.managedObjectContext save:&error]) {
+        NSLog(@"Error Deleting object %@ - Error %@", entityDescription, error);
+    }
+}
+
+//In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    //MLTenantDetailsViewController *tenantDetails = segue.destinationViewController;
+}
 
 @end

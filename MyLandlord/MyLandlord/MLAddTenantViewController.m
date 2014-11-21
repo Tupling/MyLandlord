@@ -29,6 +29,8 @@
     tapOnScreen.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapOnScreen];
     
+    self.addTenant.layer.cornerRadius = 5;
+    
     //TODO Check if user is editing Tenant Information
     
 }
