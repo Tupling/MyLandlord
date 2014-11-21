@@ -185,6 +185,8 @@
    
 }
 
+#pragma SEGUE METHODS
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -199,6 +201,20 @@
     //Deselect Item
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
+//In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"details"]) {
+        MLTenantDetailsViewController *tenantDetails = segue.destinationViewController;
+        
+        tenantDetails.details = _aTenantsInfo;
+    }
+    
+    
+}
+
 
 -(void)deletedAllObjects: (NSString*) entityDescription{
     
@@ -222,12 +238,5 @@
     }
 }
 
-//In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    MLTenantDetailsViewController *tenantDetails = segue.destinationViewController;
-    
-    tenantDetails.details = _aTenantsInfo;
-}
 
 @end

@@ -194,11 +194,16 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        //Push detailsView to the top of the stack
+    self.propInfo = [self.properties objectAtIndex:indexPath.row];
+    
+    //Push detailsView to the top of the stack
     [self performSegueWithIdentifier:@"details" sender:self];
+    
+    NSLog(@"%@", [[self.properties objectAtIndex:indexPath.row] description]);
     
     //Deselect Item
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
 }
 
  #pragma mark - Navigation
@@ -207,6 +212,8 @@
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
      MLPropertyDetails *propDetails = segue.destinationViewController;
+     
+     propDetails.details = self.propInfo;
  }
  
 

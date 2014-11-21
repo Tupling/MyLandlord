@@ -17,6 +17,7 @@
     IBOutlet UILabel *sTenantName;
     IBOutlet UILabel *sTenantEmail;
     IBOutlet UILabel *sTenantPhone;
+    IBOutlet UILabel *sTenantHeaderLabel;
 
 }
 

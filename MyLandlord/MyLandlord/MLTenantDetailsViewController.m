@@ -35,10 +35,19 @@
     pTenantPhone.text = _details.pPhoneNumber;
     pTenantEmail.text = _details.pEmail;
     
-    
-    sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
-    sTenantPhone.text = _details.sPhoneNumber;
-    sTenantEmail.text = _details.sEmail;
+    if(![_details.sFirstName isEqual: @""])
+    {
+     
+        sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
+        sTenantPhone.text = _details.sPhoneNumber;
+        sTenantEmail.text = _details.sEmail;
+    }else{
+        sTenantHeaderLabel.hidden = YES;
+        sTenantEmail.hidden = YES;
+        sTenantName.hidden = YES;
+        sTenantPhone.hidden = YES;
+    }
+
     
 }
 

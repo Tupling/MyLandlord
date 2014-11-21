@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Properties.h"
 
 @interface MLPropertyDetails : UIViewController
+{
+    IBOutlet UILabel *propAddress;
+}
+
+
+@property (nonatomic, strong)Properties *details;
 
 @end

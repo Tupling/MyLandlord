@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", _details.propAddress, _details.propCity, _details.propState, _details.propZip];
 }
 
 - (void)didReceiveMemoryWarning {
