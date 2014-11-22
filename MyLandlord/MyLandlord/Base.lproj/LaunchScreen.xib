@@ -14,32 +14,25 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mylandlordbrand" translatesAutoresizingMaskIntoConstraints="NO" id="yxT-8X-kmj">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="290" id="pAG-XD-Twj"/>
+                        <constraint firstAttribute="height" constant="290" id="jNZ-Th-QYy"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="pAG-XD-Twj"/>
+                            <exclude reference="jNZ-Th-QYy"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
                         <mask key="constraints">
-                            <include reference="pAG-XD-Twj"/>
+                            <include reference="jNZ-Th-QYy"/>
                         </mask>
                     </variation>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.97254908084869385" green="0.9803922176361084" blue="0.99215692281723022" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="yxT-8X-kmj" secondAttribute="bottom" constant="273" id="C7P-m3-1gY"/>
-                <constraint firstItem="yxT-8X-kmj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Eg3-IF-Kac">
-                    <variation key="widthClass=compact" constant="-95"/>
-                </constraint>
-                <constraint firstItem="yxT-8X-kmj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="M1T-rC-eFT"/>
-                <constraint firstAttribute="trailing" secondItem="yxT-8X-kmj" secondAttribute="trailing" constant="23" id="Wkc-Y1-HiG"/>
-                <constraint firstItem="yxT-8X-kmj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="178" id="dHl-pA-e8E">
-                    <variation key="widthClass=compact" constant="83"/>
-                </constraint>
-                <constraint firstItem="yxT-8X-kmj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="23" id="fch-3u-7Ac"/>
+                <constraint firstItem="yxT-8X-kmj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="83" id="0ny-rP-nF4"/>
+                <constraint firstItem="yxT-8X-kmj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="FBN-sC-F9c"/>
+                <constraint firstItem="yxT-8X-kmj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="23" id="avW-eo-ajJ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -48,12 +41,9 @@
                     <exclude reference="yxT-8X-kmj"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="C7P-m3-1gY"/>
-                    <exclude reference="Eg3-IF-Kac"/>
-                    <exclude reference="M1T-rC-eFT"/>
-                    <exclude reference="Wkc-Y1-HiG"/>
-                    <exclude reference="dHl-pA-e8E"/>
-                    <exclude reference="fch-3u-7Ac"/>
+                    <exclude reference="0ny-rP-nF4"/>
+                    <exclude reference="FBN-sC-F9c"/>
+                    <exclude reference="avW-eo-ajJ"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -61,12 +51,9 @@
                     <include reference="yxT-8X-kmj"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="C7P-m3-1gY"/>
-                    <include reference="Eg3-IF-Kac"/>
-                    <include reference="M1T-rC-eFT"/>
-                    <include reference="Wkc-Y1-HiG"/>
-                    <include reference="dHl-pA-e8E"/>
-                    <include reference="fch-3u-7Ac"/>
+                    <include reference="0ny-rP-nF4"/>
+                    <include reference="FBN-sC-F9c"/>
+                    <include reference="avW-eo-ajJ"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="548" y="430"/>

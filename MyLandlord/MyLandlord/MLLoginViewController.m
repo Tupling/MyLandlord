@@ -23,9 +23,11 @@
     [super viewDidLoad];
     
     img = [UIImage imageNamed:@"MyLandlord"];
+
     
     
     self.logInView.logo = [[UIImageView alloc] initWithImage:img];
+
     
     
     
