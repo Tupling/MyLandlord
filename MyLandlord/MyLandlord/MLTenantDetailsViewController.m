@@ -47,6 +47,10 @@
         sTenantName.hidden = YES;
         sTenantPhone.hidden = YES;
     }
+    
+        self.viewDocs.layer.cornerRadius = 5;
+    
+        self.viewFinance.layer.cornerRadius = 5;
 
     
 }

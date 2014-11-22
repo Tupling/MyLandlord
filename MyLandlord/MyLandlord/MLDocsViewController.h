@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MLDocsViewController : UIViewController
+@interface MLDocsViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
+{
+    IBOutlet UICollectionView *documentCollection;
+}
+
+
+-(IBAction)closeView:(id)sender;
 
 @end

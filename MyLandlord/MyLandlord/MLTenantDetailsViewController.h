@@ -24,5 +24,7 @@
 -(IBAction)closeView:(id)sender;
 
 @property (nonatomic, strong)Tenants *details;
+@property(nonatomic, strong) IBOutlet UIButton *viewDocs;
+@property(nonatomic, strong) IBOutlet UIButton *viewFinance;
 
 @end

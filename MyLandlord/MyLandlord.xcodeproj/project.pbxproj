@@ -49,6 +49,8 @@
 		1EC04E751A1B82EB0020B759 /* vertical_divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E711A1B82EB0020B759 /* vertical_divider.png */; };
 		1EC04E761A1B82EB0020B759 /* vertical_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */; };
 		1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */; };
+		1ECDD2BE1A201F84001C0CDA /* MLDocViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2BD1A201F84001C0CDA /* MLDocViewer.m */; };
+		1ECDD2C21A202966001C0CDA /* MLFinancesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2C11A202966001C0CDA /* MLFinancesView.m */; };
 		1EE179391A1E34DA009C44E7 /* Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE179361A1E34DA009C44E7 /* Properties.m */; };
 		1EE1793A1A1E34DA009C44E7 /* Tenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE179381A1E34DA009C44E7 /* Tenants.m */; };
 /* End PBXBuildFile section */
@@ -121,6 +123,10 @@
 		1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vertical_divider@2x.png"; sourceTree = "<group>"; };
 		1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddPropertyViewController.h; sourceTree = "<group>"; };
 		1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddPropertyViewController.m; sourceTree = "<group>"; };
+		1ECDD2BC1A201F84001C0CDA /* MLDocViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDocViewer.h; sourceTree = "<group>"; };
+		1ECDD2BD1A201F84001C0CDA /* MLDocViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDocViewer.m; sourceTree = "<group>"; };
+		1ECDD2C01A202966001C0CDA /* MLFinancesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFinancesView.h; sourceTree = "<group>"; };
+		1ECDD2C11A202966001C0CDA /* MLFinancesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFinancesView.m; sourceTree = "<group>"; };
 		1EE179351A1E34DA009C44E7 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Properties.h; sourceTree = "<group>"; };
 		1EE179361A1E34DA009C44E7 /* Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Properties.m; sourceTree = "<group>"; };
 		1EE179371A1E34DA009C44E7 /* Tenants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tenants.h; sourceTree = "<group>"; };
@@ -206,6 +212,8 @@
 			children = (
 				1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */,
 				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
+				1ECDD2BC1A201F84001C0CDA /* MLDocViewer.h */,
+				1ECDD2BD1A201F84001C0CDA /* MLDocViewer.m */,
 			);
 			name = "ML-Document Controllers";
 			sourceTree = "<group>";
@@ -313,6 +321,7 @@
 		1EC04E6A1A1A91AB0020B759 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1ECDD2BF1A20293C001C0CDA /* ML-FInanes Controllers */,
 				1E181EFD1A1F95B40047AD12 /* ML-Document Controllers */,
 				1E181EFC1A1F95A00047AD12 /* ML- Main Controllers */,
 				1E181EFB1A1F95440047AD12 /* ML-Tenant Controllers */,
@@ -332,6 +341,15 @@
 				1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		1ECDD2BF1A20293C001C0CDA /* ML-FInanes Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1ECDD2C01A202966001C0CDA /* MLFinancesView.h */,
+				1ECDD2C11A202966001C0CDA /* MLFinancesView.m */,
+			);
+			name = "ML-FInanes Controllers";
 			sourceTree = "<group>";
 		};
 		1EE1793B1A1E8B47009C44E7 /* AppDelegate */ = {
@@ -459,12 +477,14 @@
 				1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */,
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
+				1ECDD2BE1A201F84001C0CDA /* MLDocViewer.m in Sources */,
 				1EE1793A1A1E34DA009C44E7 /* Tenants.m in Sources */,
 				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
 				1EE179391A1E34DA009C44E7 /* Properties.m in Sources */,
 				1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */,
 				1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
+				1ECDD2C21A202966001C0CDA /* MLFinancesView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
