@@ -11,6 +11,10 @@
 @interface MLAddPropertyViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 {
     UIAlertView *savedAlert;
+    
+    BOOL multiFamilyState;
+    
+    
 }
 
 @end
@@ -22,6 +26,9 @@
     // Do any additional setup after loading the view.
     
     self.addProp.layer.cornerRadius = 5;
+    
+    
+    
 }
 
 //Dismiss View
@@ -34,6 +41,38 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(IBAction)multFamilyToggle:(id)sender
+{
+  
+    if (multiFamilyState) {
+        
+        [self.multiFamily setOn:NO animated:YES];
+        self.unitCount.hidden = YES;
+        self.unitCountLabel.hidden = YES;
+        multiFamilyState = NO;
+        self.noLabel.hidden = NO;
+        self.yesLabel.hidden = YES;
+        [self.unitCount setValue:0];
+        [self.unitCountLabel setText:[NSString stringWithFormat:@"Units: %d", (int)self.unitCount.value]];
+    
+    }else if(!multiFamilyState){
+        
+        multiFamilyState = YES;
+        self.unitCount.hidden = NO;
+        self.unitCountLabel.hidden = NO;
+        self.noLabel.hidden = YES;
+        self.yesLabel.hidden = NO;
+    }
+    
+}
+
+-(IBAction)unitCounter:(UIStepper *)sender
+{
+    double unitCountValue = [sender value];
+    [self.unitCountLabel setText:[NSString stringWithFormat:@"Units: %d", (int)unitCountValue]];
+    
+    NSLog(@"Unit Count = %d", (int)self.unitCount.value);
+}
 
 -(IBAction)saveProp:(id)sender
 {
@@ -45,9 +84,15 @@
     property[@"propState"] = self.propState.text;
     property[@"propZip"] = self.propZip.text;
     
-    
-    
-    
+    if (multiFamilyState) {
+        BOOL isMultiFamily = YES;
+        property[@"isMultiFamily"] = [NSNumber numberWithBool:isMultiFamily];
+        
+        NSInteger unitIntValue = self.unitCount.value;
+        property[@"unitCount"] = [NSNumber numberWithInteger:unitIntValue];
+        
+    }
+ 
     //ONLY ALLOW CURRENT USER TO VIEW
     
     //Set Access control to user logged in

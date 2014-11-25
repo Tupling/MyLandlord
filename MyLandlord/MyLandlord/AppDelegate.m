@@ -25,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
     
     //Parse Setup information
     [Parse setApplicationId:@"JaDJYpRJTZR9QV7OooDivH9uSRlTNYL8mH7AcUbe" clientKey:@"MyEtePxKqaKi2mXL9SALjECDTVL9WN3uqbQ4OWKd"];
@@ -36,7 +37,7 @@
     
     self.networkStatus = [Reachability reachabilityForInternetConnection];
     
-    
+
     [self loadData];
     
 
@@ -52,6 +53,7 @@
     
     return status;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -77,12 +79,17 @@
     [self saveContext];
 }
 
+
+
 #pragma mark - LOAD DATA METHOD
 
 -(void)loadData
 {
     
 }
+
+
+
 
 - (void)saveContext
 {

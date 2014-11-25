@@ -39,6 +39,8 @@
     //Add radius to button
     self.addProp.layer.cornerRadius = 5;
     self.addTenant.layer.cornerRadius = 5;
+    
+
 
 
 }

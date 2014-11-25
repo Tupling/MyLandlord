@@ -26,8 +26,18 @@
 @property (nonatomic, retain) IBOutlet UITextField *propZip;
 @property (nonatomic, retain) IBOutlet UIButton *addProp;
 
+@property (nonatomic, retain) IBOutlet UISwitch *multiFamily;
+@property (nonatomic, retain) IBOutlet UIStepper *unitCount;
+@property (nonatomic, retain) IBOutlet UILabel *unitCountLabel;
+@property (nonatomic, retain) IBOutlet UILabel *noLabel;
+@property (nonatomic, retain) IBOutlet UILabel *yesLabel;
+
 -(IBAction)cancel:(id)sender;
 
 -(IBAction)saveProp:(id)sender;
+
+-(IBAction)multFamilyToggle:(id)sender;
+
+-(IBAction)unitCounter:(id)sender;
 
 @end
