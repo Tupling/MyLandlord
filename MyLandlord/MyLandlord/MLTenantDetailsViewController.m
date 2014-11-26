@@ -35,6 +35,7 @@
     pTenantPhone.text = _details.pPhoneNumber;
     pTenantEmail.text = _details.pEmail;
     
+    
     if(![_details.sFirstName isEqual: @""])
     {
      
@@ -48,9 +49,24 @@
         sTenantPhone.hidden = YES;
     }
     
-        self.viewDocs.layer.cornerRadius = 5;
     
-        self.viewFinance.layer.cornerRadius = 5;
+    
+    //Modify button appearence
+    self.viewDocs.layer.cornerRadius = 5;
+    self.viewFinance.layer.cornerRadius = 5;
+    
+    self.emailButton.layer.borderWidth = 1.0f;
+    self.emailButton.layer.cornerRadius = 5;
+    self.emailButton.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
+    [self.emailButton setTitle:_details.pEmail forState:UIControlStateNormal];
+    
+    
+    self.phoneButton.layer.cornerRadius = 5;
+    self.phoneButton.layer.borderWidth = 1.0f;
+    self.phoneButton.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
+    
+    [self.phoneButton setTitle:_details.pPhoneNumber forState:UIControlStateNormal];
+    
 
     
 }

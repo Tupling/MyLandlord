@@ -27,4 +27,7 @@
 @property(nonatomic, strong) IBOutlet UIButton *viewDocs;
 @property(nonatomic, strong) IBOutlet UIButton *viewFinance;
 
+@property(nonatomic, strong) IBOutlet UIButton *phoneButton;
+@property(nonatomic, strong) IBOutlet UIButton *emailButton;
+
 @end
