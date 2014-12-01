@@ -137,14 +137,14 @@
                 tenantInfo.pEmail = [objects[i] valueForKey:@"pEmail"];
                 tenantInfo.pPhoneNumber = [objects[i] valueForKey:@"pPhoneNumber"];
                 
-                if ([objects[i] valueForKey:@"sFirstName"] != nil) {
-                    
-                tenantInfo.sFirstName = [objects[i] valueForKey:@"sFirstName"];
-                tenantInfo.sLastName = [objects[i] valueForKey:@"sLastName"];
-                tenantInfo.sEmail = [objects[i] valueForKey:@"sEmail"];
-                tenantInfo.sPhoneNumber = [objects[i] valueForKey:@"sPhoneNumber"];
-                    
-                }
+//                if ([objects[i] valueForKey:@"sFirstName"] != nil) {
+//                    
+//                tenantInfo.sFirstName = [objects[i] valueForKey:@"sFirstName"];
+//                tenantInfo.sLastName = [objects[i] valueForKey:@"sLastName"];
+//                tenantInfo.sEmail = [objects[i] valueForKey:@"sEmail"];
+//                tenantInfo.sPhoneNumber = [objects[i] valueForKey:@"sPhoneNumber"];
+//                    
+//                }
                 
                     NSError * error;
                     if(![context save:&error])

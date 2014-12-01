@@ -35,20 +35,7 @@
     pTenantPhone.text = _details.pPhoneNumber;
     pTenantEmail.text = _details.pEmail;
     
-    
-    if(![_details.sFirstName isEqual: @""])
-    {
-     
-        sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
-        sTenantPhone.text = _details.sPhoneNumber;
-        sTenantEmail.text = _details.sEmail;
-    }else{
-        sTenantHeaderLabel.hidden = YES;
-        sTenantEmail.hidden = YES;
-        sTenantName.hidden = YES;
-        sTenantPhone.hidden = YES;
-    }
-    
+
     
     
     //Modify button appearence
@@ -79,6 +66,16 @@
 -(IBAction)closeView:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(IBAction)makeCall:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@",_details.pPhoneNumber]]];
+}
+
+-(IBAction)sendEmail:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", _details.pEmail]]];
 }
 
 /*

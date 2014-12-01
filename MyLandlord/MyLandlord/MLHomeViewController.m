@@ -35,6 +35,8 @@
     //Add radius to profile image
     self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width / 2;
     self.profileImg.clipsToBounds = YES;
+    self.profileImg.layer.borderWidth = 1.0f;
+    self.profileImg.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
     
     //Add radius to button
     self.addProp.layer.cornerRadius = 5;

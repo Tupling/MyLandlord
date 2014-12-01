@@ -8,7 +8,7 @@
 
 #import "MLAddTenantViewController.h"
 
-@interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 {
     UIAlertView *savedAlert;
 }
@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.dayArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",@"25",@"26",@"27",@"28",@"29",@"30",@"31"];
     
     //DISMISS KEYBOARD
     //Tap screen to make keyboard disappear
@@ -31,6 +32,13 @@
     
     self.addTenant.layer.cornerRadius = 5;
     
+    //Set textField delegates
+    self.leaseStartTF.delegate = self;
+    self.leaseEndTF.delegate = self;
+    self.rentDueTF.delegate = self;
+    
+    self.rentDuePicker.delegate = self;
+    self.rentDuePicker.dataSource = self;
     //TODO Check if user is editing Tenant Information
     
 }
@@ -53,11 +61,6 @@
     
     //TODO ADD NETWORK CONNECTION CHECK
     
- 
-    
-    
-    
-    
     PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
     
     tenant[@"pFirstName"] = self.pFirstName.text;
@@ -71,11 +74,11 @@
     
     
     
-    tenant[@"sFirstName"] = self.sFirstName.text;
-    tenant[@"sLastName"] = self.sLastName.text;
-    tenant[@"sEmail"] = self.sEmail.text;
-    tenant[@"sPhoneNumber"] = self.sPhoneNumber.text;
-    
+//    tenant[@"sFirstName"] = self.sFirstName.text;
+//    tenant[@"sLastName"] = self.sLastName.text;
+//    tenant[@"sEmail"] = self.sEmail.text;
+//    tenant[@"sPhoneNumber"] = self.sPhoneNumber.text;
+//    
     
     //ONLY ALLOW CURRENT USER TO VIEW
     
@@ -107,6 +110,60 @@
     }];
 
     
+}
+
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([textField isEqual:self.leaseStartTF] || [textField isEqual:self.leaseEndTF]) {
+        
+        //self.datePicker.hidden = NO;
+        self.datePicker = [[UIDatePicker alloc] init];
+        self.datePicker.datePickerMode = UIDatePickerModeDate;
+        textField.inputView = self.datePicker;
+        [self.datePicker addTarget:self action:@selector(addDate:) forControlEvents:UIControlEventValueChanged];
+        
+    }
+    else if ([textField isEqual:self.rentDueTF]){
+     
+        self.rentDuePicker = [[UIPickerView alloc] init];
+        textField.inputView = self.rentDuePicker;
+        
+    }
+}
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.dayArray.count;
+}
+
+
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return self.dayArray[row];
+}
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    [self.rentDueTF setText:[NSString stringWithFormat:@"%@ of the Motnh",[self pickerView:self.rentDuePicker titleForRow:[self.rentDuePicker selectedRowInComponent:1] forComponent:1]]];
+}
+
+
+-(IBAction)addDate:(UITextField *)textField
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+    if (self.leaseStartTF.isEditing) {
+
+        self.leaseStartTF.text = [dateFormatter stringFromDate:[self.datePicker date]];
+        
+    } else if(self.leaseEndTF.isEditing){
+        
+        self.leaseEndTF.text = [dateFormatter stringFromDate:[self.datePicker date]];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -29,16 +29,21 @@
 @property (nonatomic, strong) IBOutlet UITextField *pEmail;
 @property (nonatomic, strong) IBOutlet UITextField *pPhoneNumber;
 
-@property (nonatomic, retain) IBOutlet UITextField *sFirstName;
-@property (nonatomic, retain) IBOutlet UITextField *sLastName;
-@property (nonatomic, strong) IBOutlet UITextField *sEmail;
-@property (nonatomic, strong) IBOutlet UITextField *sPhoneNumber;
+@property (nonatomic, retain) IBOutlet UITextField *leaseStartTF;
+@property (nonatomic, retain) IBOutlet UITextField *leaseEndTF;
+@property (nonatomic, strong) IBOutlet UITextField *rentDueTF;
+@property (nonatomic, strong) IBOutlet UITextField *rentTotalTF;
 
 @property (nonatomic, retain) IBOutlet UIButton *addTenant;
+@property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, retain) IBOutlet UIPickerView *rentDuePicker;
+@property (nonatomic, retain) NSArray *dayArray;
 
 
 -(IBAction)cancel:(id)sender;
 
 -(IBAction)saveTenant:(id)sender;
+
+
 
 @end

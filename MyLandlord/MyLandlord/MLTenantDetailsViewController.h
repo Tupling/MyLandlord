@@ -30,4 +30,7 @@
 @property(nonatomic, strong) IBOutlet UIButton *phoneButton;
 @property(nonatomic, strong) IBOutlet UIButton *emailButton;
 
+-(IBAction)makeCall:(id)sender;
+-(IBAction)sendEmail:(id)sender;
+
 @end
