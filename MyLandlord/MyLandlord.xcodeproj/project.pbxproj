@@ -143,6 +143,8 @@
 		1ECDD2DA1A2D5202001C0CDA /* MJPPdfViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPdfViewer.h; sourceTree = "<group>"; };
 		1ECDD2DB1A2D5202001C0CDA /* MJPPdfViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPdfViewer.m; sourceTree = "<group>"; };
 		1ECDD2E01A2D525A001C0CDA /* Tupling_1059.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Tupling_1059.pdf; sourceTree = "<group>"; };
+		1EDAF3751A2E485E00833713 /* MyLandlordData2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData2.xcdatamodel; sourceTree = "<group>"; };
+		1EDAF3761A2E52D900833713 /* MyLandlordData3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData3.xcdatamodel; sourceTree = "<group>"; };
 		1EF280BE1A2CFED20038D340 /* Tenants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tenants.h; path = ../Tenants.h; sourceTree = "<group>"; };
 		1EF280BF1A2CFED20038D340 /* Tenants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tenants.m; path = ../Tenants.m; sourceTree = "<group>"; };
 		1EF280C11A2CFED30038D340 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = ../Properties.h; sourceTree = "<group>"; };
@@ -767,8 +769,10 @@
 				1ECDD2D21A2D4B6F001C0CDA /* MyLandlord 2.xcdatamodel */,
 				1EC04E621A1A7F6C0020B759 /* MyLandlord.xcdatamodel */,
 				1EF280D01A2E10A70038D340 /* MyLandlordData.xcdatamodel */,
+				1EDAF3751A2E485E00833713 /* MyLandlordData2.xcdatamodel */,
+				1EDAF3761A2E52D900833713 /* MyLandlordData3.xcdatamodel */,
 			);
-			currentVersion = 1EF280D01A2E10A70038D340 /* MyLandlordData.xcdatamodel */;
+			currentVersion = 1EDAF3751A2E485E00833713 /* MyLandlordData2.xcdatamodel */;
 			path = MyLandlord.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

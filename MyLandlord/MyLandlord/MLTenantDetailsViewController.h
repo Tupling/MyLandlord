@@ -15,9 +15,12 @@
     IBOutlet UILabel *pTenantPhone;
     IBOutlet UILabel *pTenantEmail;
     IBOutlet UILabel *sTenantName;
-    IBOutlet UILabel *sTenantEmail;
-    IBOutlet UILabel *sTenantPhone;
+    IBOutlet UILabel *sTenantEmailButton;
+    IBOutlet UILabel *sTenantphoneButton;
     IBOutlet UILabel *sTenantHeaderLabel;
+    IBOutlet UILabel *leaseStartLabel;
+    IBOutlet UILabel *leaseEndLabel;
+    IBOutlet UILabel *rentDueLabel;
 
 }
 
@@ -27,8 +30,13 @@
 @property(nonatomic, strong) IBOutlet UIButton *viewDocs;
 @property(nonatomic, strong) IBOutlet UIButton *viewFinance;
 
+@property(nonatomic, strong) IBOutlet UIButton *addSecondTenant;
+
 @property(nonatomic, strong) IBOutlet UIButton *phoneButton;
 @property(nonatomic, strong) IBOutlet UIButton *emailButton;
+
+@property(nonatomic, strong) IBOutlet UIButton *sTenantphoneButton;
+@property(nonatomic, strong) IBOutlet UIButton *sTenantEmailButton;
 
 -(IBAction)makeCall:(id)sender;
 -(IBAction)sendEmail:(id)sender;

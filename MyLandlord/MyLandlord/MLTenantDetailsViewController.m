@@ -29,6 +29,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //Add radius to button
+    self.viewDocs.layer.cornerRadius = 5;
+    self.viewFinance.layer.cornerRadius = 5;
+    
+    
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
     [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
@@ -38,8 +43,26 @@
     NSLog(@"%@", _details.pFirstName);
     
     pTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.pFirstName, _details.pLastName];
-    pTenantPhone.text = _details.pPhoneNumber;
-    pTenantEmail.text = _details.pEmail;
+    
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+    
+    NSDate *leaseEnd = _details.leaseEnd;
+    NSDate *leaseStart = _details.leaseStart;
+    
+    leaseEndLabel.text = [dateFormatter stringFromDate:leaseEnd];
+    leaseStartLabel.text = [dateFormatter stringFromDate:leaseStart];
+    rentDueLabel.text = [NSString stringWithFormat:@"$%@.00", _details.rentAmount];
+    
+    if (_details.sFirstName == nil) {
+        sTenantHeaderLabel.hidden = YES;
+        sTenantName.hidden = YES;
+        self.sTenantphoneButton.hidden = YES;
+        self.sTenantEmailButton.hidden = YES;
+        self.addSecondTenant.hidden = NO;
+        
+    }
     
 
     
@@ -47,7 +70,10 @@
     //Modify button appearence
     self.viewDocs.layer.cornerRadius = 5;
     self.viewFinance.layer.cornerRadius = 5;
+    self.addSecondTenant.layer.cornerRadius = 5;
     
+    
+    //Primary Tenant Buttons
     self.emailButton.layer.borderWidth = 1.0f;
     self.emailButton.layer.cornerRadius = 5;
     self.emailButton.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
@@ -57,10 +83,20 @@
     self.phoneButton.layer.cornerRadius = 5;
     self.phoneButton.layer.borderWidth = 1.0f;
     self.phoneButton.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
-    
     [self.phoneButton setTitle:_details.pPhoneNumber forState:UIControlStateNormal];
     
 
+    //Secondary Tenant Buttons
+    self.sTenantEmailButton.layer.borderWidth = 1.0f;
+    self.sTenantEmailButton.layer.cornerRadius = 5;
+    self.sTenantEmailButton.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
+    [self.sTenantEmailButton setTitle:_details.sEmail forState:UIControlStateNormal];
+    
+    
+    self.sTenantphoneButton.layer.cornerRadius = 5;
+    self.sTenantphoneButton.layer.borderWidth = 1.0f;
+    self.sTenantphoneButton.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
+    [self.sTenantphoneButton setTitle:_details.sPhoneNumber forState:UIControlStateNormal];
     
 }
 
@@ -76,12 +112,29 @@
 
 -(IBAction)makeCall:(id)sender
 {
+    if([sender isEqual:self.phoneButton]){
+        
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@",_details.pPhoneNumber]]];
+        
+    }else if([sender isEqual:self.sTenantphoneButton]){
+        
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@",_details.sPhoneNumber]]];
+    }
+    
 }
 
 -(IBAction)sendEmail:(id)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", _details.pEmail]]];
+    if([sender isEqual:self.emailButton]){
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", _details.pEmail]]];
+        
+    }else if([sender isEqual:self.sTenantEmailButton]){
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", _details.sEmail]]];
+        
+    }
+    
 }
 
 /*

@@ -115,6 +115,7 @@
  
     pName.text = [NSString stringWithFormat:@"%@ %@", tenant.pFirstName, tenant.pLastName];
     pNumber.text = tenant.pPhoneNumber;
+    
     pAddress.text = @"2320 Laguna Cout Fairborn Oh 45324";
     
     return cell;
@@ -140,14 +141,19 @@
                 tenantInfo.pEmail = [objects[i] valueForKey:@"pEmail"];
                 tenantInfo.pPhoneNumber = [objects[i] valueForKey:@"pPhoneNumber"];
                 
-//                if ([objects[i] valueForKey:@"sFirstName"] != nil) {
-//                    
-//                tenantInfo.sFirstName = [objects[i] valueForKey:@"sFirstName"];
-//                tenantInfo.sLastName = [objects[i] valueForKey:@"sLastName"];
-//                tenantInfo.sEmail = [objects[i] valueForKey:@"sEmail"];
-//                tenantInfo.sPhoneNumber = [objects[i] valueForKey:@"sPhoneNumber"];
-//                    
-//                }
+                tenantInfo.leaseEnd = [objects[i] valueForKey:@"leaseEnd"];
+                NSLog(@"Lease End %@", [objects[i] valueForKey:@"leaseEnd"]);
+                tenantInfo.leaseStart = [objects[i] valueForKey:@"leaseStart"];
+                tenantInfo.rentAmount = [objects[i] valueForKey:@"rentTotal"];
+                
+                if ([objects[i] valueForKey:@"sFirstName"] != nil) {
+                    
+                tenantInfo.sFirstName = [objects[i] valueForKey:@"sFirstName"];
+                tenantInfo.sLastName = [objects[i] valueForKey:@"sLastName"];
+                tenantInfo.sEmail = [objects[i] valueForKey:@"sEmail"];
+                tenantInfo.sPhoneNumber = [objects[i] valueForKey:@"sPhoneNumber"];
+
+                }
                 
                     NSError * error;
                     if(![context save:&error])

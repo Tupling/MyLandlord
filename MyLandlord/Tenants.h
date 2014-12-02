@@ -17,6 +17,14 @@
 @property (nonatomic, retain) NSString * pFirstName;
 @property (nonatomic, retain) NSString * pLastName;
 @property (nonatomic, retain) NSString * pPhoneNumber;
+@property (nonatomic, retain) NSString * sEmail;
+@property (nonatomic, retain) NSString * sFirstName;
+@property (nonatomic, retain) NSString * sLastName;
+@property (nonatomic, retain) NSString * sPhoneNumber;
+@property (nonatomic, retain) NSDate   * leaseStart;
+@property (nonatomic, retain) NSDate   * leaseEnd;
+@property (nonatomic, retain) NSNumber * rentAmount;
+@property (nonatomic, retain) NSNumber * dueDay;
 @property (nonatomic, retain) NSSet *property;
 @property (nonatomic, retain) NSSet *income;
 @property (nonatomic, retain) NSSet *subtenant;

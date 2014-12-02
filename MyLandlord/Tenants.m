@@ -20,5 +20,13 @@
 @dynamic income;
 @dynamic subtenant;
 @dynamic lease;
+@dynamic sEmail;
+@dynamic sFirstName;
+@dynamic sLastName;
+@dynamic sPhoneNumber;
+@dynamic leaseStart;
+@dynamic leaseEnd;
+@dynamic rentAmount;
+@dynamic dueDay;
 
 @end

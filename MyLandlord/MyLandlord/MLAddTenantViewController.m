@@ -11,6 +11,8 @@
 @interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 {
     UIAlertView *savedAlert;
+    NSDate *leaseStart;
+    NSDate *leaseEnd;
 }
 
 @end
@@ -21,6 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
     [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
@@ -76,17 +79,17 @@
     tenant[@"pEmail"] = self.pEmail.text;
     tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
     
+    //Lease Information
+    tenant[@"leaseStart"] = leaseStart;
+    tenant[@"leaseEnd"] = leaseEnd;
+    
+    NSInteger rentValue = [self.rentTotalTF.text integerValue];
+    
+    tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
     
     
-    //TODO Check if Second Tenant is Present//
     
-    
-    
-//    tenant[@"sFirstName"] = self.sFirstName.text;
-//    tenant[@"sLastName"] = self.sLastName.text;
-//    tenant[@"sEmail"] = self.sEmail.text;
-//    tenant[@"sPhoneNumber"] = self.sPhoneNumber.text;
-//    
+
     
     //ONLY ALLOW CURRENT USER TO VIEW
     
@@ -131,6 +134,7 @@
         textField.inputView = self.datePicker;
         [self.datePicker addTarget:self action:@selector(addDate:) forControlEvents:UIControlEventValueChanged];
         
+        
     }
     else if ([textField isEqual:self.rentDueTF]){
      
@@ -167,9 +171,14 @@
 
         self.leaseStartTF.text = [dateFormatter stringFromDate:[self.datePicker date]];
         
+        leaseStart = [self.datePicker date];
+        NSLog(@"DATE %@", leaseStart);
+        
     } else if(self.leaseEndTF.isEditing){
         
         self.leaseEndTF.text = [dateFormatter stringFromDate:[self.datePicker date]];
+        
+        leaseEnd = [self.datePicker date];
         
     }
 }
