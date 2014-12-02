@@ -9,53 +9,28 @@
 #import "MLPropertiesViewController.h"
 #import "MLPropertyDetails.h"
 
+
+
 @interface MLPropertiesViewController ()
+
+
 
 @end
 
 @implementation MLPropertiesViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
     // Do any additional setup after loading the view, typically from a nib.
-    
-    
-    
-    NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
-    
-    //Create new Fetch Request
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    //Request Entity EventInfo
-    NSEntityDescription *eventEntity = [NSEntityDescription entityForName:@"Properties" inManagedObjectContext:context];
-    
-    //Set fetchRequest entity to EventInfo Description
-    [fetchRequest setEntity:eventEntity];
-    
-    NSError * error;
-    //Set events array to data in core data
-    if (eventEntity != nil) {
-        self.properties = [context executeFetchRequest:fetchRequest error:&error];
-        if (self.properties == nil) {
-            self.properties = [NSArray new];
-        }
-    }
-    if (!error) {
-        //Check array count,
-        //load new Parse data into Core Data
-        if ([self.properties count] == 0) {
-            
-            [self loadData];
-        }
-    }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    //[self.tableView reloadData];
     [self loadData];
-    
+
 }
 
 
@@ -64,10 +39,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
 -(void)loadData
 {
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"DataNeedsUpdated"]){
+        
     NSLog(@"Attempting to Load Data from DB");
     [self deletedAllObjects:@"Properties"];
     PFQuery *results = [PFQuery queryWithClassName:@"Properties"];
@@ -86,7 +62,7 @@
                 propInfo.propState = [objects[i] valueForKey:@"propState"];
                 propInfo.propZip = [objects[i] valueForKey:@"propZip"];
                 
-
+                
                 
                 NSError * error;
                 if(![context save:&error])
@@ -104,26 +80,30 @@
                 [fetchRequest setEntity:entity];
                 
                 //Set events array to data in core data
-                self.properties = [context executeFetchRequest:fetchRequest error:&error];
+                self.properties = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
                 
             }
+
+            [self.tableView reloadData];
+            
+            [[NSUserDefaults standardUserDefaults] setInteger:self.properties.count forKey:@"totalProperties"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
         }else{
             
             //Why did it fail?
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
-        
-        
-        
-        [self.tableView reloadData];
-        //NSLog(@"EVENTS ARRAY %lu",(unsigned long)_events.count);
-        // NSLog(@"OBJECTS ARRAY %@", objects.description);
-        
-        
     }];
     
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"DataNeedsUpdated"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
+    
+    }
 }
+
+
 
 -(void)deletedAllObjects: (NSString*) entityDescription{
     
@@ -162,32 +142,30 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if(!cell)
+    if(cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    UILabel *propAddress = (UILabel*)[cell viewWithTag:100];
+    UILabel *propName = (UILabel*)[cell viewWithTag:100];
     UILabel *propTenant = (UILabel*)[cell viewWithTag:101];
     UILabel *propRentStatus = (UILabel*)[cell viewWithTag:102];
 
 
     
     Properties *property = [self.properties objectAtIndex:indexPath.row];
-    
-    propAddress.text = [NSString stringWithFormat:@"%@ %@ %@ %@",
-                        property.propAddress,
-                        property.propCity,
-                        property.propState,
-                        property.propZip];
-    
+
+        
+    propName.text = property.propName;
     propTenant.text = @"Dale Tupling";
-    NSString *rentDue = @"$(1,420.00)";
+    NSString *rentStatus = @"Past Due";
     propRentStatus.textColor = [UIColor redColor];
-    propRentStatus.text = [NSString stringWithFormat:@"Rent Due: %@", rentDue];
+    propRentStatus.text = [NSString stringWithFormat:@"Rent: %@", rentStatus];
     
+    [cell setNeedsDisplay];
+
     return cell;
 
 

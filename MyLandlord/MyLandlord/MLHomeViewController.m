@@ -20,8 +20,17 @@
 @implementation MLHomeViewController
 
 - (void)viewDidAppear:(BOOL)animated {
+    
     [super viewDidAppear:YES];
+    
     // Do any additional setup after loading the view, typically from a nib.
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
+    
+    self.propCount.text = [NSString stringWithFormat:@"%ld",(long)[[NSUserDefaults standardUserDefaults] integerForKey:@"totalProperties"]];
     
     //Check for valid Current User
     if ([PFUser currentUser]) {

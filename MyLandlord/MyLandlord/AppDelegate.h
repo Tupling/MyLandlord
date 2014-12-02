@@ -16,6 +16,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property(nonatomic)NSUInteger totalProperties;
+
+@property(nonatomic)BOOL dataNeedsUpdated;
+
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

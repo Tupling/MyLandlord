@@ -11,8 +11,14 @@
 #import <ParseUI/ParseUI.h>
 
 #import "MLHomeViewController.h"
+#import "MLPropertyDetails.h"
+#import "MLPropertiesViewController.h"
 
 @interface AppDelegate ()
+{
+    UINavigationBar *navBar;
+    UINavigationItem *navItem;
+}
 
 @end
 
@@ -33,13 +39,25 @@
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    //SetTool Bar Tint
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.09 green:0.18 blue:0.2 alpha:1]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.67 green:0.74 blue:0.7 alpha:1]];
+    
     
     self.networkStatus = [Reachability reachabilityForInternetConnection];
     
-
-    [self loadData];
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"DataNeedsUpdated"]){
+        
+        
+    }
+    else{
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DataNeedsUpdated"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
 
     return YES;
 }
@@ -83,10 +101,6 @@
 
 #pragma mark - LOAD DATA METHOD
 
--(void)loadData
-{
-    
-}
 
 
 
@@ -106,9 +120,6 @@
 }
 
 #pragma mark - Core Data stack
-
-
-
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
 - (NSManagedObjectContext *)managedObjectContext
@@ -166,7 +177,7 @@
         return _persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MyLandlord 2.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MyLandlordData.sqlite"];
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

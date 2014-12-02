@@ -11,14 +11,14 @@
 #import "Properties.h"
 #import "AppDelegate.h"
 
+
 @interface MLPropertiesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 
 @property(nonatomic, strong) IBOutlet UITableView *tableView;
 
-@property(nonatomic, strong) NSArray *properties;
+@property(nonatomic, strong)NSMutableArray *properties;
 @property(nonatomic, strong)Properties *propInfo;
-
 
 @end
 

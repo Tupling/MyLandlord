@@ -25,6 +25,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
+    
     self.addProp.layer.cornerRadius = 5;
     
     
@@ -108,6 +115,10 @@
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Property Saved" message:@"Property has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
             [savedAlert show];
+            
+            //Set bool to update data
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DataNeedsUpdated"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             [self dismissViewControllerAnimated:YES completion:nil];
             

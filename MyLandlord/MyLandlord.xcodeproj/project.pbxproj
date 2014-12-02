@@ -155,6 +155,7 @@
 		1EF280CB1A2CFED30038D340 /* Expense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Expense.m; path = ../Expense.m; sourceTree = "<group>"; };
 		1EF280CD1A2CFED30038D340 /* LeaseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaseInfo.h; path = ../LeaseInfo.h; sourceTree = "<group>"; };
 		1EF280CE1A2CFED30038D340 /* LeaseInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaseInfo.m; path = ../LeaseInfo.m; sourceTree = "<group>"; };
+		1EF280D01A2E10A70038D340 /* MyLandlordData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -765,8 +766,9 @@
 			children = (
 				1ECDD2D21A2D4B6F001C0CDA /* MyLandlord 2.xcdatamodel */,
 				1EC04E621A1A7F6C0020B759 /* MyLandlord.xcdatamodel */,
+				1EF280D01A2E10A70038D340 /* MyLandlordData.xcdatamodel */,
 			);
-			currentVersion = 1EC04E621A1A7F6C0020B759 /* MyLandlord.xcdatamodel */;
+			currentVersion = 1EF280D01A2E10A70038D340 /* MyLandlordData.xcdatamodel */;
 			path = MyLandlord.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
