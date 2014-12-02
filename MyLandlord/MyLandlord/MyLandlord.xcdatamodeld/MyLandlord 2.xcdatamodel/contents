@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Expense" representedClassName="Expense" parentEntity="Properties" syncable="YES">
+        <attribute name="expAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="expCategory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="expDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expPropertyId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="property" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Properties" inverseName="expense" inverseEntity="Properties" syncable="YES"/>
+    </entity>
+    <entity name="Income" representedClassName="Income" parentEntity="Tenants" syncable="YES">
+        <attribute name="incAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="incTenantId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tenant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tenants" inverseName="income" inverseEntity="Tenants" syncable="YES"/>
+    </entity>
+    <entity name="LeaseInfo" representedClassName="LeaseInfo" parentEntity="Tenants" syncable="YES">
+        <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="leaseBegin" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="leaseEnd" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="pTenantId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rentAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="tenant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tenants" inverseName="lease" inverseEntity="Tenants" syncable="YES"/>
+    </entity>
+    <entity name="Properties" representedClassName="Properties" syncable="YES">
+        <attribute name="propAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propZip" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="property" inverseEntity="Expense" syncable="YES"/>
+        <relationship name="tenant" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tenants" syncable="YES"/>
+    </entity>
+    <entity name="SubTenants" representedClassName="SubTenants" parentEntity="Tenants" syncable="YES">
+        <attribute name="pTenantId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sFirstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tenant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tenants" inverseName="subtenant" inverseEntity="Tenants" syncable="YES"/>
+    </entity>
+    <entity name="Tenants" representedClassName="Tenants" syncable="YES">
+        <attribute name="pEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pFirstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="income" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Income" inverseName="tenant" inverseEntity="Income" syncable="YES"/>
+        <relationship name="lease" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LeaseInfo" inverseName="tenant" inverseEntity="LeaseInfo" syncable="YES"/>
+        <relationship name="property" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Properties" syncable="YES"/>
+        <relationship name="subtenant" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubTenants" inverseName="tenant" inverseEntity="SubTenants" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Properties" positionX="-4025" positionY="-207" width="128" height="148"/>
+        <element name="Tenants" positionX="-3789" positionY="-225" width="137" height="163"/>
+        <element name="SubTenants" positionX="-3503" positionY="-45" width="128" height="133"/>
+        <element name="LeaseInfo" positionX="-3719" positionY="54" width="128" height="133"/>
+        <element name="Expense" positionX="-4032" positionY="-7" width="128" height="133"/>
+        <element name="Income" positionX="-3537" positionY="-234" width="128" height="103"/>
+    </elements>
+</model>
