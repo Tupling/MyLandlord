@@ -13,6 +13,8 @@
     UIAlertView *savedAlert;
     NSDate *leaseStart;
     NSDate *leaseEnd;
+    
+    BOOL secondTenantState;
 }
 
 @end
@@ -159,6 +161,27 @@
         leaseEnd = [self.datePicker date];
         
     }
+}
+
+//Second Tenant Toggle Method
+-(IBAction)secondTenantToggle:(id)sender
+{
+    
+    if (secondTenantState) {
+        
+        [self.secondTenant setOn:NO animated:YES];
+        secondTenantState = NO;
+        self.noLabel.hidden = NO;
+        self.yesLabel.hidden = YES;
+        
+    
+    }else if(!secondTenantState){
+        
+        secondTenantState = YES;
+        self.noLabel.hidden = YES;
+        self.yesLabel.hidden = NO;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -48,6 +48,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+//MultiFamily toggle action method
 -(IBAction)multFamilyToggle:(id)sender
 {
   
@@ -73,6 +76,7 @@
     
 }
 
+//unit counter method
 -(IBAction)unitCounter:(UIStepper *)sender
 {
     double unitCountValue = [sender value];
@@ -81,6 +85,8 @@
     NSLog(@"Unit Count = %d", (int)self.unitCount.value);
 }
 
+
+//Save property action button
 -(IBAction)saveProp:(id)sender
 {
     PFObject *property = [PFObject objectWithClassName:@"Properties"];
@@ -98,10 +104,12 @@
         NSInteger unitIntValue = self.unitCount.value;
         property[@"unitCount"] = [NSNumber numberWithInteger:unitIntValue];
         
+    }else{
+        BOOL isMultiFamily = NO;
+        property[@"isMultiFamily"] = [NSNumber numberWithBool:isMultiFamily];
     }
  
-    //ONLY ALLOW CURRENT USER TO VIEW
-    
+   
     //Set Access control to user logged in
     property.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
     
@@ -116,10 +124,7 @@
             
             [savedAlert show];
             
-            //Set bool to update data
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DataNeedsUpdated"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
+           
             [self dismissViewControllerAnimated:YES completion:nil];
             
             

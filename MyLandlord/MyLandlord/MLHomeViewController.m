@@ -30,7 +30,7 @@
     self.navigationItem.titleView = image;
     
     
-    self.propCount.text = [NSString stringWithFormat:@"%ld",(long)[[NSUserDefaults standardUserDefaults] integerForKey:@"totalProperties"]];
+    self.propCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]];
     
     //Check for valid Current User
     if ([PFUser currentUser]) {
@@ -131,6 +131,10 @@
 {
     NSLog(@"%@ Logged In",[[PFUser currentUser] username]);
     
+    [ApplicationDelegate loadProperties];
+    [ApplicationDelegate loadTenants];
+    
+    self.propCount.text = [NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.propertyArray count]];
    
     [self dismissViewControllerAnimated:YES completion:nil];
 }

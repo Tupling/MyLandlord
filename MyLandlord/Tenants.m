@@ -28,5 +28,6 @@
 @dynamic leaseEnd;
 @dynamic rentAmount;
 @dynamic dueDay;
+@dynamic secondTenant;
 
 @end

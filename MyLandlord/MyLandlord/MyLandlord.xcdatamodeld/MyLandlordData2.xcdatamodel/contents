@@ -34,6 +34,7 @@
         <attribute name="pLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rentAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="secondTenant" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sLastname" optional="YES" attributeType="String" syncable="YES"/>
@@ -46,6 +47,6 @@
         <element name="Expense" positionX="-4032" positionY="-7" width="128" height="133"/>
         <element name="Income" positionX="-3537" positionY="-234" width="128" height="103"/>
         <element name="Properties" positionX="-4025" positionY="-207" width="128" height="180"/>
-        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="268"/>
+        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="285"/>
     </elements>
 </model>

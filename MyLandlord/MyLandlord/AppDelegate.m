@@ -13,6 +13,7 @@
 #import "MLHomeViewController.h"
 #import "MLPropertyDetails.h"
 #import "MLPropertiesViewController.h"
+#import "Tenants.h"
 
 @interface AppDelegate ()
 {
@@ -48,6 +49,7 @@
     self.networkStatus = [Reachability reachabilityForInternetConnection];
     
     [self loadProperties];
+    [self loadTenants];
     
 
     return YES;
@@ -145,6 +147,72 @@
 
     
     
+}
+
+-(void)loadTenants
+{
+    NSLog(@"Attempting to Load Data from DB");
+    [self deletedAllObjects:@"Tenants"];
+    PFQuery *results = [PFQuery queryWithClassName:@"Tenants"];
+    //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    
+    [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error)
+        {
+            for(int i = 0; i <objects.count; i++){
+                NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
+                
+                Tenants *tenantInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tenants" inManagedObjectContext:context];
+                
+                tenantInfo.pFirstName = [objects[i] valueForKey:@"pFirstName"];
+                tenantInfo.pLastName = [objects[i] valueForKey:@"pLastName"];
+                tenantInfo.pEmail = [objects[i] valueForKey:@"pEmail"];
+                tenantInfo.pPhoneNumber = [objects[i] valueForKey:@"pPhoneNumber"];
+                
+                tenantInfo.leaseEnd = [objects[i] valueForKey:@"leaseEnd"];
+                tenantInfo.leaseStart = [objects[i] valueForKey:@"leaseStart"];
+                tenantInfo.rentAmount = [objects[i] valueForKey:@"rentTotal"];
+                
+                if ([objects[i] valueForKey:@"sFirstName"] != nil) {
+                    
+                    tenantInfo.sFirstName = [objects[i] valueForKey:@"sFirstName"];
+                    tenantInfo.sLastName = [objects[i] valueForKey:@"sLastName"];
+                    tenantInfo.sEmail = [objects[i] valueForKey:@"sEmail"];
+                    tenantInfo.sPhoneNumber = [objects[i] valueForKey:@"sPhoneNumber"];
+                    
+                }
+                
+                NSError * error;
+                if(![context save:&error])
+                {
+                    NSLog(@"Failed to save: %@", [error localizedDescription]);
+                }
+                
+                //Create new Fetch Request
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                
+                //Request Entity EventInfo
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tenants" inManagedObjectContext:context];
+                
+                //Set fetchRequest entity to EventInfo Description
+                [fetchRequest setEntity:entity];
+                
+                //Set events array to data in core data
+                self.tenantsArray = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
+                
+               
+            }
+            
+             NSLog(@"Tenant Array Count: %lu", (unsigned long)[self.tenantsArray count]);
+            
+        }else{
+            
+            //Why did it fail?
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+        
+    }];
+
 }
 
 

@@ -23,12 +23,13 @@
     
 }
 
-
+//Tenant Information
 @property (nonatomic, retain) IBOutlet UITextField *pFirstName;
 @property (nonatomic, retain) IBOutlet UITextField *pLastName;
 @property (nonatomic, strong) IBOutlet UITextField *pEmail;
 @property (nonatomic, strong) IBOutlet UITextField *pPhoneNumber;
 
+//Lease Information
 @property (nonatomic, retain) IBOutlet UITextField *leaseStartTF;
 @property (nonatomic, retain) IBOutlet UITextField *leaseEndTF;
 @property (nonatomic, strong) IBOutlet UITextField *rentDueTF;
@@ -36,6 +37,11 @@
 
 @property (nonatomic, retain) IBOutlet UIButton *addTenant;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
+
+//Switch Elements
+@property (nonatomic, retain) IBOutlet UISwitch *secondTenant;
+@property (nonatomic, retain) IBOutlet UILabel *noLabel;
+@property (nonatomic, retain) IBOutlet UILabel *yesLabel;
 
 @property (nonatomic, retain) NSArray *dayArray;
 
