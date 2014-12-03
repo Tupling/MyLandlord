@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *backgroundManagedObjectContext;
 
 //Database Item Arrays
+@property (nonatomic, retain) NSArray *propertyDataArray;
 @property (nonatomic, retain) NSMutableArray *propertyArray;
 @property (nonatomic, retain) NSArray *tenantDataArray;
 @property (nonatomic, retain) NSMutableArray *tenantsArray;

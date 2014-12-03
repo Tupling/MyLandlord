@@ -133,7 +133,9 @@
                 [fetchRequest setEntity:entity];
                 
                 //Set events array to data in core data
-                self.propertyArray = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
+                self.propertyDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                
+                self.propertyArray = [[NSMutableArray alloc] initWithArray:self.propertyDataArray];
                 
             }
             NSLog(@"PROPERTY ARRAY COUNT %lu:", (unsigned long)self.propertyArray.count);

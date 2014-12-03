@@ -11,11 +11,13 @@
 
 
 
-@interface MLPropertiesViewController ()
+@interface MLPropertiesViewController () <UIAlertViewDelegate>
 {
     UILabel *propName;
     UILabel *propTenant;
     UILabel *propRentStatus;
+    
+    UIAlertView *deleteObject;
 }
 
 
@@ -107,6 +109,27 @@
 
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        self.propInfo = [ApplicationDelegate.propertyArray objectAtIndex:indexPath.row];
+        
+        
+        deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Property" message:@"Are you sure you want to delete this property?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        
+        //Set alert tag do index path. Allows me to pass the table index of item being deleted.
+        deleteObject.tag = indexPath.row;
+        
+        [deleteObject show];
+        
+    }
+}
+
  #pragma mark - Navigation
  
   //In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -118,11 +141,36 @@
          
          propDetails.details = self.propInfo;
      }
-     
+}
 
 
- }
- 
+//Alert user of actions
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(alertView == deleteObject){
+        
+        //If User selected YES to remove tenant
+        if (buttonIndex == 1) {
+            
+            //Get tenant object from Parse
+            PFObject *property = [PFObject objectWithoutDataWithClassName:@"Properties" objectId:self.propInfo.propertyId];
+            NSUInteger rowIndex = deleteObject.tag;
+            
+            //Remove this tenant object from tenantsArray
+            [ApplicationDelegate.propertyArray removeObjectAtIndex:rowIndex];
+            [self.tableView reloadData];
+            
+            [property deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    UIAlertView *operationDone = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Property Successfully Removed" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [operationDone show];
+                }
+            }];
+        }
+    }
+    
+}
 
 
 @end
