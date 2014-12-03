@@ -11,6 +11,7 @@
 		1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF51A1F77290047AD12 /* profileImage.jpg */; };
 		1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */; };
 		1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */; };
+		1E4A67D81A2FB6290026E8F7 /* MLAddSecondTenantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67D71A2FB6290026E8F7 /* MLAddSecondTenantInfo.m */; };
 		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
 		1EC04E0E1A1A49330020B759 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E0D1A1A49330020B759 /* main.m */; };
 		1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E101A1A49330020B759 /* AppDelegate.m */; };
@@ -82,6 +83,8 @@
 		1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTenantDetailsViewController.m; sourceTree = "<group>"; };
 		1E181EFE1A1FBD8B0047AD12 /* MLPropertyDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyDetails.h; sourceTree = "<group>"; };
 		1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyDetails.m; sourceTree = "<group>"; };
+		1E4A67D61A2FB6290026E8F7 /* MLAddSecondTenantInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddSecondTenantInfo.h; sourceTree = "<group>"; };
+		1E4A67D71A2FB6290026E8F7 /* MLAddSecondTenantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddSecondTenantInfo.m; sourceTree = "<group>"; };
 		1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTenantViewController.h; sourceTree = "<group>"; };
 		1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantViewController.m; sourceTree = "<group>"; };
 		1EC04E081A1A49330020B759 /* MyLandlord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLandlord.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,6 +228,8 @@
 				1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */,
 				1E181EF71A1F86C30047AD12 /* MLTenantDetailsViewController.h */,
 				1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */,
+				1E4A67D61A2FB6290026E8F7 /* MLAddSecondTenantInfo.h */,
+				1E4A67D71A2FB6290026E8F7 /* MLAddSecondTenantInfo.m */,
 			);
 			name = "ML-Tenant Controllers";
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */,
 				1EF280C61A2CFED30038D340 /* SubTenants.m in Sources */,
 				1ECDD2DC1A2D5202001C0CDA /* MJPPdfPage.m in Sources */,
+				1E4A67D81A2FB6290026E8F7 /* MLAddSecondTenantInfo.m in Sources */,
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,

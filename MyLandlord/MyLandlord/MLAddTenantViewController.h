@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "AppDelegate.h"
 
 @interface MLAddTenantViewController : UIViewController
 {
@@ -46,7 +47,7 @@
 @property (nonatomic, retain) NSArray *dayArray;
 
 
--(IBAction)cancel:(id)sender;
+
 
 -(IBAction)saveTenant:(id)sender;
 

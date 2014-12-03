@@ -113,6 +113,7 @@
     //Set object to current user (makes it easier to get the data for tables)
     [tenant setObject:[PFUser currentUser] forKey:@"createdBy"];
     
+    
     [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if(succeeded)
         {
@@ -121,12 +122,16 @@
             
             [savedAlert show];
             
-            [self.navigationController popViewControllerAnimated:YES];
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+        
+                [ApplicationDelegate loadTenants];
+        
+                    [self.navigationController popViewControllerAnimated:YES];
+        
+            });
 
-        }
-        else
-        {
+        } else {
+            
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
             [savedAlert show];
