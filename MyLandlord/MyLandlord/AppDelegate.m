@@ -137,7 +137,7 @@
                 
             }
             NSLog(@"PROPERTY ARRAY COUNT %lu:", (unsigned long)self.propertyArray.count);
-            
+                    
         }else{
             
             //Why did it fail?
@@ -164,6 +164,8 @@
                 
                 Tenants *tenantInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tenants" inManagedObjectContext:context];
                 
+                tenantInfo.tenantId = [objects[i] valueForKey:@"objectId"];
+                
                 tenantInfo.pFirstName = [objects[i] valueForKey:@"pFirstName"];
                 tenantInfo.pLastName = [objects[i] valueForKey:@"pLastName"];
                 tenantInfo.pEmail = [objects[i] valueForKey:@"pEmail"];
@@ -172,6 +174,7 @@
                 tenantInfo.leaseEnd = [objects[i] valueForKey:@"leaseEnd"];
                 tenantInfo.leaseStart = [objects[i] valueForKey:@"leaseStart"];
                 tenantInfo.rentAmount = [objects[i] valueForKey:@"rentTotal"];
+                tenantInfo.secondTenant = [objects[i] valueForKey:@"secondTenant"];
                 
                 if ([objects[i] valueForKey:@"sFirstName"] != nil) {
                     
@@ -198,7 +201,9 @@
                 [fetchRequest setEntity:entity];
                 
                 //Set events array to data in core data
-                self.tenantsArray = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
+                self.tenantDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                
+                self.tenantsArray = [[NSMutableArray alloc] initWithArray:self.tenantDataArray];
                 
                
             }

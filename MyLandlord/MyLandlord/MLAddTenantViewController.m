@@ -94,6 +94,17 @@
     
     tenant[@"rentDueDay"] = [NSNumber numberWithInteger:rentDueDay];
     
+    if (secondTenantState) {
+        BOOL secondTenantTrue = YES;
+        tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+        
+        
+    }else{
+        BOOL secondTenantTrue = NO;
+        tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+    }
+    
+    
     
     //ONLY ALLOW CURRENT USER TO VIEW
     //Set Access control to user logged in

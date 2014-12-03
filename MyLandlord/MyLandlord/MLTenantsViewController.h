@@ -23,6 +23,5 @@
 @property(nonatomic, strong) IBOutlet UITableView *tableView;
 @property(nonatomic, strong) NSArray *tenants;
 
-//Local Methods
--(void)loadData;
+
 @end

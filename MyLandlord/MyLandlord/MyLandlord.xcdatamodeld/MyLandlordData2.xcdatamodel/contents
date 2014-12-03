@@ -12,7 +12,7 @@
         <attribute name="incAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="incTenantId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="incType" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tenant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tenants" inverseName="income" inverseEntity="Tenants" syncable="YES"/>
+        <relationship name="tenant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tenants" syncable="YES"/>
     </entity>
     <entity name="Properties" representedClassName="Properties" syncable="YES">
         <attribute name="propAddress" optional="YES" attributeType="String" syncable="YES"/>
@@ -40,13 +40,11 @@
         <attribute name="sLastname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tenantId" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="income" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Income" inverseName="tenant" inverseEntity="Income" syncable="YES"/>
-        <relationship name="property" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Properties" syncable="YES"/>
     </entity>
     <elements>
         <element name="Expense" positionX="-4032" positionY="-7" width="128" height="133"/>
         <element name="Income" positionX="-3537" positionY="-234" width="128" height="103"/>
         <element name="Properties" positionX="-4025" positionY="-207" width="128" height="180"/>
-        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="285"/>
+        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="255"/>
     </elements>
 </model>

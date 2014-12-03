@@ -10,9 +10,9 @@
 #import "MLTenantDetailsViewController.h"
 #import "AppDelegate.h"
 
-@interface MLTenantsViewController ()
+@interface MLTenantsViewController () <UIAlertViewDelegate>
 {
-
+    UIAlertView *deleteObject;
 }
 
 @end
@@ -26,6 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -90,10 +92,30 @@
     //Push detailsView to the top of the stack
     [self performSegueWithIdentifier:@"details" sender:self];
     
-    NSLog(@"%@", [[self.tenants objectAtIndex:indexPath.row] description]);
     
     //Deselect Item
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        _aTenantsInfo = [ApplicationDelegate.tenantsArray objectAtIndex:indexPath.row];
+        
+        
+        deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Tenant" message:@"Are you sure you want to delete this tenant?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        
+        //Set alert tag do index path. Allows me to pass the table index of item being deleted.
+        deleteObject.tag = indexPath.row;
+        
+        [deleteObject show];
+        
+    }
 }
 
 
@@ -104,8 +126,38 @@
         MLTenantDetailsViewController *tenantDetails = segue.destinationViewController;
         
         tenantDetails.details = _aTenantsInfo;
+        
+        NSLog(@"Tenant Info: %@", _aTenantsInfo);
     }
     
+    
+}
+
+//Alert user of actions
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(alertView == deleteObject){
+        
+        //If User selected YES to remove tenant
+        if (buttonIndex == 1) {
+            
+            //Get tenant object from Parse
+            PFObject *tenant = [PFObject objectWithoutDataWithClassName:@"Tenants" objectId:_aTenantsInfo.tenantId];
+            NSUInteger rowIndex = deleteObject.tag;
+            
+                //Remove this tenant object from tenantsArray
+                [ApplicationDelegate.tenantsArray removeObjectAtIndex:rowIndex];
+                [self.tableView reloadData];
+            
+                [tenant deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        UIAlertView *operationDone = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Tenant Successfully Removed" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                        
+                        [operationDone show];
+                    }
+                }];
+        }
+    }
     
 }
 

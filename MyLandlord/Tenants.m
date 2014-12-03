@@ -16,10 +16,6 @@
 @dynamic pFirstName;
 @dynamic pLastName;
 @dynamic pPhoneNumber;
-@dynamic property;
-@dynamic income;
-@dynamic subtenant;
-@dynamic lease;
 @dynamic sEmail;
 @dynamic sFirstName;
 @dynamic sLastName;
@@ -29,5 +25,6 @@
 @dynamic rentAmount;
 @dynamic dueDay;
 @dynamic secondTenant;
+@dynamic tenantId;
 
 @end

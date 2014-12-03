@@ -56,6 +56,13 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    self.propCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

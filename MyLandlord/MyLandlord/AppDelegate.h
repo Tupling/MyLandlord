@@ -28,6 +28,7 @@
 
 //Database Item Arrays
 @property (nonatomic, retain) NSMutableArray *propertyArray;
+@property (nonatomic, retain) NSArray *tenantDataArray;
 @property (nonatomic, retain) NSMutableArray *tenantsArray;
 @property (nonatomic, retain) NSMutableArray *financesArray;
 
