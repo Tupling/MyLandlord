@@ -13,6 +13,7 @@
 @implementation Properties
 
 @dynamic propAddress;
+@dynamic propertyId;
 @dynamic propCity;
 @dynamic propName;
 @dynamic propState;

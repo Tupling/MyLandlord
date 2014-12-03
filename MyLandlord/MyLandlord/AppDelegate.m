@@ -44,20 +44,11 @@
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.09 green:0.18 blue:0.2 alpha:1]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.96 green:0.98 blue:0.99 alpha:1]];
     
-    
+    //Check for Network Connection
     self.networkStatus = [Reachability reachabilityForInternetConnection];
     
+    [self loadProperties];
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"DataNeedsUpdated"]){
-        
-        
-    }
-    else{
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DataNeedsUpdated"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-
 
     return YES;
 }
@@ -101,10 +92,87 @@
 
 #pragma mark - LOAD DATA METHOD
 
+-(void)loadProperties
+{
+   
+    NSLog(@"Attempting to Load Data from DB");
+    [self deletedAllObjects:@"Properties"];
+    PFQuery *results = [PFQuery queryWithClassName:@"Properties"];
+    
+    [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error)
+        {
+            for(int i = 0; i <objects.count; i++){
+                NSManagedObjectContext *context = [self managedObjectContext];
+                
+                Properties *propInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Properties" inManagedObjectContext:context];
+                propInfo.propertyId = [objects[i] valueForKey:@"objectId"];
+                propInfo.propName = [objects[i] valueForKey:@"propName"];
+                propInfo.propAddress = [objects[i] valueForKey:@"propAddress"];
+                propInfo.propCity = [objects[i] valueForKey:@"propCity"];
+                propInfo.propState = [objects[i] valueForKey:@"propState"];
+                propInfo.propZip = [objects[i] valueForKey:@"propZip"];
+                
+                
+                
+                NSError * error;
+                if(![context save:&error])
+                {
+                    NSLog(@"Failed to save: %@", [error localizedDescription]);
+                }
+                
+                //Create new Fetch Request
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                
+                //Request Entity EventInfo
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"Properties" inManagedObjectContext:context];
+                
+                //Set fetchRequest entity to EventInfo Description
+                [fetchRequest setEntity:entity];
+                
+                //Set events array to data in core data
+                self.propertyArray = (NSMutableArray*)[context executeFetchRequest:fetchRequest error:&error];
+                
+            }
+            NSLog(@"PROPERTY ARRAY COUNT %lu:", (unsigned long)self.propertyArray.count);
+            
+        }else{
+            
+            //Why did it fail?
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+
+    
+    
+}
 
 
+//Delete Property Objects before Loading New
+-(void)deletedAllObjects: (NSString*) entityDescription{
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription * entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:self.managedObjectContext];
+    
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *objectItems = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    for (NSManagedObject *managedObject in objectItems) {
+        
+        [self.managedObjectContext deleteObject:managedObject];
+        
+        NSLog(@"%@ object deleted", entityDescription);
+        
+    }
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error Deleting object %@ - Error %@", entityDescription, error);
+    }
+}
 
 
+//CoreData save method
 - (void)saveContext
 {
     NSError *error = nil;

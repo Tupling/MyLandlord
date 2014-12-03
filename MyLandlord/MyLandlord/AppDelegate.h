@@ -26,6 +26,11 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSManagedObjectContext *backgroundManagedObjectContext;
 
+//Database Item Arrays
+@property (nonatomic, retain) NSMutableArray *propertyArray;
+@property (nonatomic, retain) NSMutableArray *tenantsArray;
+@property (nonatomic, retain) NSMutableArray *financesArray;
+
 @property(strong, nonatomic) NSUserDefaults *storedData;
 
 @property(strong, nonatomic) Reachability *networkStatus;
@@ -33,7 +38,11 @@
 
 - (void)saveContext;
 
--(void)loadData;
+
+//Load Data Methods
+- (void)loadProperties;
+- (void)loadTenants;
+- (void)loadFinances;
 
 
 

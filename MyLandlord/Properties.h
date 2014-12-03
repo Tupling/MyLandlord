@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * propName;
 @property (nonatomic, retain) NSString * propState;
 @property (nonatomic, retain) NSString * propZip;
+@property (nonatomic, retain) NSString * propertyId;
 @property (nonatomic, retain) NSSet *tenant;
 @property (nonatomic, retain) NSSet *expense;
 @end

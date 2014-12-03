@@ -56,6 +56,7 @@
 		1ECDD2DF1A2D5202001C0CDA /* MJPPdfViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2DB1A2D5202001C0CDA /* MJPPdfViewer.m */; };
 		1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */; };
 		1ECDD2E71A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1ECDD2E61A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf */; };
+		1EDAF3791A2F41D300833713 /* MLAddNewFinance.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDAF3781A2F41D300833713 /* MLAddNewFinance.m */; };
 		1EF280C01A2CFED20038D340 /* Tenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280BF1A2CFED20038D340 /* Tenants.m */; };
 		1EF280C31A2CFED30038D340 /* Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280C21A2CFED30038D340 /* Properties.m */; };
 		1EF280C61A2CFED30038D340 /* SubTenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280C51A2CFED30038D340 /* SubTenants.m */; };
@@ -148,6 +149,8 @@
 		1ECDD2E61A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Dale_Tupling_Resume.pdf; sourceTree = "<group>"; };
 		1EDAF3751A2E485E00833713 /* MyLandlordData2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData2.xcdatamodel; sourceTree = "<group>"; };
 		1EDAF3761A2E52D900833713 /* MyLandlordData3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData3.xcdatamodel; sourceTree = "<group>"; };
+		1EDAF3771A2F41D300833713 /* MLAddNewFinance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddNewFinance.h; sourceTree = "<group>"; };
+		1EDAF3781A2F41D300833713 /* MLAddNewFinance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddNewFinance.m; sourceTree = "<group>"; };
 		1EF280BE1A2CFED20038D340 /* Tenants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tenants.h; path = ../Tenants.h; sourceTree = "<group>"; };
 		1EF280BF1A2CFED20038D340 /* Tenants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tenants.m; path = ../Tenants.m; sourceTree = "<group>"; };
 		1EF280C11A2CFED30038D340 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = ../Properties.h; sourceTree = "<group>"; };
@@ -359,7 +362,6 @@
 		1EC04E6A1A1A91AB0020B759 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1ECDD2E21A2E8C39001C0CDA /* New Group */,
 				1ECDD2BF1A20293C001C0CDA /* ML-FInanes Controllers */,
 				1E181EFD1A1F95B40047AD12 /* ML-Document Controllers */,
 				1E181EFC1A1F95A00047AD12 /* ML- Main Controllers */,
@@ -389,6 +391,8 @@
 				1ECDD2C11A202966001C0CDA /* MLFinancesView.m */,
 				1ECDD2E31A2E8C64001C0CDA /* MLPropertyExpenses.h */,
 				1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */,
+				1EDAF3771A2F41D300833713 /* MLAddNewFinance.h */,
+				1EDAF3781A2F41D300833713 /* MLAddNewFinance.m */,
 			);
 			name = "ML-FInanes Controllers";
 			sourceTree = "<group>";
@@ -406,13 +410,6 @@
 				1ECDD2DB1A2D5202001C0CDA /* MJPPdfViewer.m */,
 			);
 			name = PDFViewer;
-			sourceTree = "<group>";
-		};
-		1ECDD2E21A2E8C39001C0CDA /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		1EE1793B1A1E8B47009C44E7 /* AppDelegate */ = {
@@ -540,6 +537,7 @@
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
 				1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */,
+				1EDAF3791A2F41D300833713 /* MLAddNewFinance.m in Sources */,
 				1EF280C31A2CFED30038D340 /* Properties.m in Sources */,
 				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
 				1ECDD2DD1A2D5202001C0CDA /* MJPPdfTiledView.m in Sources */,
