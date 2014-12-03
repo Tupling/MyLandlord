@@ -54,7 +54,8 @@
 		1ECDD2DD1A2D5202001C0CDA /* MJPPdfTiledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2D71A2D5202001C0CDA /* MJPPdfTiledView.m */; };
 		1ECDD2DE1A2D5202001C0CDA /* MJPPdfView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2D91A2D5202001C0CDA /* MJPPdfView.m */; };
 		1ECDD2DF1A2D5202001C0CDA /* MJPPdfViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2DB1A2D5202001C0CDA /* MJPPdfViewer.m */; };
-		1ECDD2E11A2D525A001C0CDA /* Tupling_1059.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1ECDD2E01A2D525A001C0CDA /* Tupling_1059.pdf */; };
+		1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */; };
+		1ECDD2E71A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1ECDD2E61A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf */; };
 		1EF280C01A2CFED20038D340 /* Tenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280BF1A2CFED20038D340 /* Tenants.m */; };
 		1EF280C31A2CFED30038D340 /* Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280C21A2CFED30038D340 /* Properties.m */; };
 		1EF280C61A2CFED30038D340 /* SubTenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280C51A2CFED30038D340 /* SubTenants.m */; };
@@ -142,7 +143,9 @@
 		1ECDD2D91A2D5202001C0CDA /* MJPPdfView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPdfView.m; sourceTree = "<group>"; };
 		1ECDD2DA1A2D5202001C0CDA /* MJPPdfViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPdfViewer.h; sourceTree = "<group>"; };
 		1ECDD2DB1A2D5202001C0CDA /* MJPPdfViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPdfViewer.m; sourceTree = "<group>"; };
-		1ECDD2E01A2D525A001C0CDA /* Tupling_1059.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Tupling_1059.pdf; sourceTree = "<group>"; };
+		1ECDD2E31A2E8C64001C0CDA /* MLPropertyExpenses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyExpenses.h; sourceTree = "<group>"; };
+		1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyExpenses.m; sourceTree = "<group>"; };
+		1ECDD2E61A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Dale_Tupling_Resume.pdf; sourceTree = "<group>"; };
 		1EDAF3751A2E485E00833713 /* MyLandlordData2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData2.xcdatamodel; sourceTree = "<group>"; };
 		1EDAF3761A2E52D900833713 /* MyLandlordData3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData3.xcdatamodel; sourceTree = "<group>"; };
 		1EF280BE1A2CFED20038D340 /* Tenants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tenants.h; path = ../Tenants.h; sourceTree = "<group>"; };
@@ -265,7 +268,7 @@
 		1EC04E0A1A1A49330020B759 /* MyLandlord */ = {
 			isa = PBXGroup;
 			children = (
-				1ECDD2E01A2D525A001C0CDA /* Tupling_1059.pdf */,
+				1ECDD2E61A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf */,
 				1EE1793B1A1E8B47009C44E7 /* AppDelegate */,
 				1EC04E6E1A1B82DF0020B759 /* Images */,
 				1EC04E6A1A1A91AB0020B759 /* Controllers */,
@@ -356,6 +359,7 @@
 		1EC04E6A1A1A91AB0020B759 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1ECDD2E21A2E8C39001C0CDA /* New Group */,
 				1ECDD2BF1A20293C001C0CDA /* ML-FInanes Controllers */,
 				1E181EFD1A1F95B40047AD12 /* ML-Document Controllers */,
 				1E181EFC1A1F95A00047AD12 /* ML- Main Controllers */,
@@ -383,6 +387,8 @@
 			children = (
 				1ECDD2C01A202966001C0CDA /* MLFinancesView.h */,
 				1ECDD2C11A202966001C0CDA /* MLFinancesView.m */,
+				1ECDD2E31A2E8C64001C0CDA /* MLPropertyExpenses.h */,
+				1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */,
 			);
 			name = "ML-FInanes Controllers";
 			sourceTree = "<group>";
@@ -400,6 +406,13 @@
 				1ECDD2DB1A2D5202001C0CDA /* MJPPdfViewer.m */,
 			);
 			name = PDFViewer;
+			sourceTree = "<group>";
+		};
+		1ECDD2E21A2E8C39001C0CDA /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		1EE1793B1A1E8B47009C44E7 /* AppDelegate */ = {
@@ -493,9 +506,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */,
+				1ECDD2E71A2EB4EE001C0CDA /* Dale_Tupling_Resume.pdf in Resources */,
 				1EC04E741A1B82EB0020B759 /* horizontal_divider@2x.png in Resources */,
 				1EC04E751A1B82EB0020B759 /* vertical_divider.png in Resources */,
-				1ECDD2E11A2D525A001C0CDA /* Tupling_1059.pdf in Resources */,
 				1EC04E1A1A1A49330020B759 /* Main.storyboard in Resources */,
 				1EC04E761A1B82EB0020B759 /* vertical_divider@2x.png in Resources */,
 				1EC04E731A1B82EB0020B759 /* horizontal_divider.png in Resources */,
@@ -526,6 +539,7 @@
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
+				1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */,
 				1EF280C31A2CFED30038D340 /* Properties.m in Sources */,
 				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
 				1ECDD2DD1A2D5202001C0CDA /* MJPPdfTiledView.m in Sources */,

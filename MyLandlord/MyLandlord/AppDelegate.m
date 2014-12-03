@@ -42,7 +42,7 @@
     //SetTool Bar Tint
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.09 green:0.18 blue:0.2 alpha:1]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.67 green:0.74 blue:0.7 alpha:1]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.96 green:0.98 blue:0.99 alpha:1]];
     
     
     self.networkStatus = [Reachability reachabilityForInternetConnection];

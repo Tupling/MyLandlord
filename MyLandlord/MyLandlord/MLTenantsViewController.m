@@ -53,9 +53,10 @@
         if ([self.tenants count] == 0) {
             
             [self loadData];
+            [self.tableView reloadData];
         }
     }
-
+    [self.tableView reloadData];
 
 }
 

@@ -51,7 +51,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MJPPdfViewer *pdfViewer = [[MJPPdfViewer alloc] init];
-    pdfViewer.fileName = @"Tupling_1059.pdf";
+    pdfViewer.fileName = @"Dale_Tupling_Resume.pdf";
     pdfViewer.margin = 10.0;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pdfViewer];
     [self presentViewController:navigationController animated:YES completion:nil];

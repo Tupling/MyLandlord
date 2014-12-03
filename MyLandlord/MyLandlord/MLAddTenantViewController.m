@@ -31,7 +31,9 @@
     self.navigationItem.titleView = image;
     
     //Month Day Array
-    self.dayArray = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",@"25",@"26",@"27",@"28",@"29",@"30",@"31", nil];
+    NSArray *dueDay = @[@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12,@13,@14,@15,@16,@17,@18,@19,@20,@21,@22,@23,@24,@25,@26,@27,@28,@29,@30,@31];
+    
+    NSLog(@"DAY ARRAY Count :%lu", (unsigned long)dueDay.count);
     
     //DISMISS KEYBOARD
     //Tap screen to make keyboard disappear
@@ -48,8 +50,7 @@
     self.leaseEndTF.delegate = self;
     self.rentDueTF.delegate = self;
     
-    self.rentDuePicker.delegate = self;
-    self.rentDuePicker.dataSource = self;
+
     //TODO Check if user is editing Tenant Information
     
 }
@@ -87,12 +88,12 @@
     
     tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
     
+    NSInteger rentDueDay = [self.rentDueTF.text integerValue];
     
+    tenant[@"rentDueDay"] = [NSNumber numberWithInteger:rentDueDay];
     
-
     
     //ONLY ALLOW CURRENT USER TO VIEW
-    
     //Set Access control to user logged in
     tenant.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
     
@@ -107,7 +108,7 @@
             
             [savedAlert show];
             
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController popViewControllerAnimated:YES];
             
 
         }
@@ -123,7 +124,7 @@
     
 }
 
-
+//TextField BEGIN editing Methods
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if ([textField isEqual:self.leaseStartTF] || [textField isEqual:self.leaseEndTF]) {
@@ -136,33 +137,10 @@
         
         
     }
-    else if ([textField isEqual:self.rentDueTF]){
-     
-        self.rentDuePicker = [[UIPickerView alloc] init];
-        textField.inputView = self.rentDuePicker;
-        
-    }
-}
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return self.dayArray.count;
 }
 
 
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return self.dayArray[row];
-}
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    [self.rentDueTF setText:[NSString stringWithFormat:@"%@ of the Motnh",[self pickerView:self.rentDuePicker titleForRow:[self.rentDuePicker selectedRowInComponent:1] forComponent:1]]];
-}
-
-
+//DatePicker AddDate Method
 -(IBAction)addDate:(UITextField *)textField
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
