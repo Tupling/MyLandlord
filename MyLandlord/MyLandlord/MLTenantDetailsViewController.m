@@ -8,6 +8,7 @@
 
 #import "MLTenantDetailsViewController.h"
 #import "Tenants.h"
+#import "MLAddSecondTenantInfo.h"
 
 @interface MLTenantDetailsViewController ()
 
@@ -62,6 +63,9 @@
         self.sTenantEmailButton.hidden = YES;
         self.addSecondTenant.hidden = NO;
         
+    }
+    else{
+        sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
     }
     
 
@@ -137,14 +141,21 @@
     
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+ if ([[segue identifier] isEqualToString:@"addSecondTenant"]) {
+     
+ MLAddSecondTenantInfo *addSecondTenant = segue.destinationViewController;
+ 
+ addSecondTenant.details = _details;
+ 
+ NSLog(@"Tenant Info: %@", _details);
+ }
 }
-*/
+
 
 @end

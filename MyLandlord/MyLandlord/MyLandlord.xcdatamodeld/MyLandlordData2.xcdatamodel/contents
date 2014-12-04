@@ -37,7 +37,7 @@
         <attribute name="secondTenant" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sFirstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sLastname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tenantId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>

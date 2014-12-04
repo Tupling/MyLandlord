@@ -9,6 +9,9 @@
 #import "MLAddSecondTenantInfo.h"
 
 @interface MLAddSecondTenantInfo ()
+{
+    UIAlertView *updatedAlert;
+}
 
 @end
 
@@ -16,12 +19,54 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+   self.saveInfo.layer.cornerRadius = 5;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)saveInformation:(id)sender
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Tenants"];
+    
+    [query getObjectInBackgroundWithId:_details.tenantId block:^(PFObject *tenant, NSError *error) {
+        
+        
+        
+
+            tenant[@"sFirstName"] = self.firstName.text;
+            tenant[@"sLastName"] = self.lastName.text;
+            tenant[@"sEmail"] = self.email.text;
+            tenant[@"sPhoneNumber"] = self.phoneNumber.text;
+            
+        [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(succeeded)
+            {
+                
+                updatedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant information has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                [updatedAlert show];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [ApplicationDelegate loadTenants];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                });
+                
+            } else {
+                
+                updatedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                [updatedAlert show];
+                
+            }
+        }];
+  
+    }];
 }
 
 /*

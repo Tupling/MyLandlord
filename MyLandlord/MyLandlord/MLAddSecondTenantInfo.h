@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+
+#import "Tenants.h"
+#import "AppDelegate.h"
 
 @interface MLAddSecondTenantInfo : UIViewController
 
@@ -15,5 +19,10 @@
 @property (nonatomic, strong) IBOutlet UITextField *email;
 @property (nonatomic, strong) IBOutlet UITextField *phoneNumber;
 
+@property (nonatomic, retain) IBOutlet UIButton *saveInfo;
+
+@property (nonatomic, strong)Tenants *details;
+
+-(IBAction)saveInformation:(id)sender;
 
 @end
