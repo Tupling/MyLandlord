@@ -74,18 +74,39 @@
             
 
         }
-        
     
-    pName = (UILabel*)[cell viewWithTag:100];
-    pNumber = (UILabel*) [cell viewWithTag:101];
-    pAddress = (UILabel*) [cell viewWithTag:102];
+    //Instantiate Cell Labels
+    tenantName = (UILabel*)[cell viewWithTag:100];
+    tenantNumber = (UILabel*) [cell viewWithTag:101];
+    propName = (UILabel*) [cell viewWithTag:102];
+    propAddress = (UILabel*) [cell viewWithTag:103];
     
+    
+    //Gather Data for Cell Content
     Tenants *tenant = [ApplicationDelegate.tenantsArray objectAtIndex:indexPath.row];
     
-    pName.text = [NSString stringWithFormat:@"%@ %@", tenant.pFirstName, tenant.pLastName];
-    pNumber.text = tenant.pPhoneNumber;
+    //Filter Property Array to get Assigned Property
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", tenant.propertyId];
+    NSArray *predicateResults = [ApplicationDelegate.propertyArray filteredArrayUsingPredicate:predicate];
     
-    pAddress.text = @"2320 Laguna Cout Fairborn Oh 45324";
+    Properties *predicateProperty = [predicateResults objectAtIndex:0];
+    
+    NSString *propNameString = [predicateProperty valueForKey:@"propName"];
+
+    
+    tenantName.text = [NSString stringWithFormat:@"%@ %@", tenant.pFirstName, tenant.pLastName];
+    
+    NSMutableString *convertedPhoneString = [NSMutableString stringWithString:tenant.pPhoneNumber];
+    
+    [convertedPhoneString insertString:@"(" atIndex:0];
+    [convertedPhoneString insertString:@")" atIndex:4];
+    [convertedPhoneString insertString:@"-" atIndex:5];
+    [convertedPhoneString insertString:@"-" atIndex:9];
+    
+    tenantNumber.text = convertedPhoneString;
+    
+    propName.text = propNameString;
+    propAddress.text = [NSString stringWithFormat:@"%@ %@, %@ %@", predicateProperty.propAddress, predicateProperty.propCity, predicateProperty.propZip, predicateProperty.propState];
     
     return cell;
 }

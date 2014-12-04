@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "Tenants.h"
+#import "Properties.h"
 
 @interface MLTenantsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
-    IBOutlet UILabel *pName;
-    IBOutlet UILabel *pNumber;
-    IBOutlet UILabel *pAddress;
+    IBOutlet UILabel *tenantName;
+    IBOutlet UILabel *tenantNumber;
+    IBOutlet UILabel *propAddress;
+    IBOutlet UILabel *propName;
 }
 
 
