@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "Tenants.h"
+
 
 @interface MLTenantDetailsViewController : UIViewController
 {
@@ -34,6 +36,9 @@
 
 @property(nonatomic, strong) IBOutlet UIButton *phoneButton;
 @property(nonatomic, strong) IBOutlet UIButton *emailButton;
+
+@property(nonatomic, strong) IBOutlet UIButton *editPrimaryInfo;
+@property(nonatomic, strong) IBOutlet UIButton *editSecondayInfo;
 
 @property(nonatomic, strong) IBOutlet UIButton *sTenantphoneButton;
 @property(nonatomic, strong) IBOutlet UIButton *sTenantEmailButton;

@@ -7,6 +7,8 @@
 //
 
 #import "MLAddSecondTenantInfo.h"
+#import "MLTenantsViewController.h"
+
 
 @interface MLAddSecondTenantInfo ()
 {
@@ -20,6 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    self.saveInfo.layer.cornerRadius = 5;
+    
+    if (![[self.details valueForKey:@"sFirstName"]  isEqual: @""]) {
+        self.firstName.text = _details.sFirstName;
+        self.lastName.text = _details.sLastName;
+        self.email.text = _details.sEmail;
+        self.phoneNumber.text = _details.sPhoneNumber;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,7 +62,7 @@
                     
                     [ApplicationDelegate loadTenants];
                     
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                     
                 });
                 

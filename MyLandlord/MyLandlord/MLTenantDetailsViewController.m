@@ -7,8 +7,8 @@
 //
 
 #import "MLTenantDetailsViewController.h"
-#import "Tenants.h"
 #import "MLAddSecondTenantInfo.h"
+#import "MLTenantsViewController.h"
 
 @interface MLTenantDetailsViewController ()
 
@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     
     //Add radius to button
     self.viewDocs.layer.cornerRadius = 5;
@@ -104,6 +105,13 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    [self.view setNeedsDisplay];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -147,14 +155,22 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
- if ([[segue identifier] isEqualToString:@"addSecondTenant"]) {
+    if ([[segue identifier] isEqualToString:@"addSecondTenant"]) {
      
- MLAddSecondTenantInfo *addSecondTenant = segue.destinationViewController;
+            MLAddSecondTenantInfo *addSecondTenant = segue.destinationViewController;
  
- addSecondTenant.details = _details;
+            addSecondTenant.details = _details;
  
- NSLog(@"Tenant Info: %@", _details);
- }
+            NSLog(@"Tenant Info: %@", _details);
+    }else if([[segue identifier] isEqualToString:@"editPrimary"]){
+        
+        
+    }else if([[segue identifier] isEqualToString:@"editSecondary"]){
+        MLAddSecondTenantInfo *addSecondTenant = segue.destinationViewController;
+        
+        addSecondTenant.details = _details;
+        
+    }
 }
 
 
