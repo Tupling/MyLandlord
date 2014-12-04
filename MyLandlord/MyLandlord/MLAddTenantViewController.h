@@ -40,10 +40,10 @@
 @property (nonatomic, retain) IBOutlet UIButton *addTenant;
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
 
-//Switch Elements
-@property (nonatomic, retain) IBOutlet UISwitch *secondTenant;
-@property (nonatomic, retain) IBOutlet UILabel *noLabel;
-@property (nonatomic, retain) IBOutlet UILabel *yesLabel;
+@property (nonatomic, strong) IBOutlet UITextField *assignProperty;
+@property (nonatomic, strong) IBOutlet UIPickerView *assignPropPicker;
+@property (nonatomic, strong) IBOutlet UIPickerView *dueDayPicker;
+
 
 @property (nonatomic, retain) NSArray *dayArray;
 

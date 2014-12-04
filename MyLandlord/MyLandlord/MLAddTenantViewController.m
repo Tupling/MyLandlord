@@ -7,6 +7,7 @@
 //
 
 #import "MLAddTenantViewController.h"
+#import "Properties.h"
 
 @interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 {
@@ -14,7 +15,11 @@
     NSDate *leaseStart;
     NSDate *leaseEnd;
     
+    NSString *assignPropertyID;
+    
     BOOL secondTenantState;
+    
+    NSArray *dueDay;
 }
 
 @end
@@ -30,13 +35,6 @@
         self.pEmail.text = _details.pEmail;
         self.pPhoneNumber.text = _details.pPhoneNumber;
         
-        if(_details.secondTenant == 1){
-            [self.secondTenant setOn:YES animated:YES];
-            self.noLabel.hidden = YES;
-            self.yesLabel.hidden = NO;
-        }else {
-            [self.secondTenant setOn:NO animated:YES];
-        }
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
@@ -51,6 +49,8 @@
         leaseStart = _details.leaseStart;
     
     }
+    self.rentDueTF.text = @"";
+    self.rentTotalTF.text = @"";
 
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -59,7 +59,7 @@
     self.navigationItem.titleView = image;
     
     //Month Day Array
-    NSArray *dueDay = @[@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12,@13,@14,@15,@16,@17,@18,@19,@20,@21,@22,@23,@24,@25,@26,@27,@28,@29,@30,@31];
+  dueDay = @[@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12,@13,@14,@15,@16,@17,@18,@19,@20,@21,@22,@23,@24,@25,@26,@27,@28,@29,@30,@31];
     
     NSLog(@"DAY ARRAY Count :%lu", (unsigned long)dueDay.count);
     
@@ -77,6 +77,18 @@
     self.leaseStartTF.delegate = self;
     self.leaseEndTF.delegate = self;
     self.rentDueTF.delegate = self;
+    self.assignProperty.delegate = self;
+    
+    self.assignPropPicker = [[UIPickerView alloc] init];
+    self.assignPropPicker.delegate = self;
+    self.assignPropPicker.dataSource = self;
+    
+    self.dueDayPicker = [[UIPickerView alloc] init];
+    self.dueDayPicker.delegate = self;
+    self.dueDayPicker.dataSource = self;
+    
+    
+
     
 
     //TODO Check if user is editing Tenant Information
@@ -100,8 +112,9 @@
 {
     
     //TODO ADD NETWORK CONNECTION CHECK
+    NSLog(@"Tenant ID: %@", _details.tenantId);
     
-       if (![_details.tenantId isEqualToString:@""]) {
+       if (_details != nil) {
         
         PFQuery *query = [PFQuery queryWithClassName:@"Tenants"];
         
@@ -244,6 +257,16 @@
         
         
     }
+    
+    else if([textField isEqual:self.assignProperty]) {
+
+        textField.inputView = self.assignPropPicker;
+        
+    }
+    else if([textField isEqual:self.rentDueTF]){
+        
+        textField.inputView = self.dueDayPicker;
+    }
 }
 
 
@@ -268,26 +291,92 @@
     }
 }
 
-//Second Tenant Toggle Method
--(IBAction)secondTenantToggle:(id)sender
+
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    if([pickerView isEqual:self.assignPropPicker]){
+        
+        return 1;
+        
+    } else if ([pickerView isEqual:self.dueDayPicker]) {
+        
+        return 1;
+        
+    } else {
+        
+        return 0;
+    }
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if([pickerView isEqual:self.assignPropPicker]){
+        
+        return [ApplicationDelegate.propertyArray count];
+        
+    } else if ([pickerView isEqual:self.dueDayPicker]) {
+        
+        return dueDay.count ;
+        
+    } else {
+        
+        return 0;
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     
-    if (secondTenantState) {
+    if([pickerView isEqual:self.assignPropPicker]){
         
-        [self.secondTenant setOn:NO animated:YES];
-        secondTenantState = NO;
-        self.noLabel.hidden = NO;
-        self.yesLabel.hidden = YES;
+        Properties *property = [ApplicationDelegate.propertyArray objectAtIndex:row];
         
+        [self.assignPropPicker selectedRowInComponent:0];
+        
+        
+        return property.propName;
     
-    }else if(!secondTenantState){
+    }else if([pickerView isEqual:self.dueDayPicker]){
         
-        secondTenantState = YES;
-        self.noLabel.hidden = YES;
-        self.yesLabel.hidden = NO;
+        NSString *dueDayNumber = [NSString stringWithFormat:@"%@", [dueDay objectAtIndex:row]];
+        
+        return dueDayNumber;
+        
+    } else {
+        
+        return nil;
+    }
+
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if([pickerView isEqual:self.assignPropPicker]){
+        
+        Properties *propertyInfo = [ApplicationDelegate.propertyArray objectAtIndex:row];
+        [self.assignPropPicker selectedRowInComponent:0];
+        
+        [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
+        
+        assignPropertyID = propertyInfo.propertyId;
+        
+        NSLog(@"%@", assignPropertyID);
+        
+    } else if([pickerView isEqual:self.dueDayPicker]){
+        
+        [self.dueDayPicker selectedRowInComponent:0];
+        
+        [self.rentDueTF setText:[self pickerView:self.dueDayPicker titleForRow:[self.dueDayPicker selectedRowInComponent:0] forComponent:0]];
+        
     }
     
+
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

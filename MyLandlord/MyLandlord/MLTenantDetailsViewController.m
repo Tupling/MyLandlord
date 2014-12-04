@@ -63,7 +63,7 @@
         sTenantName.hidden = YES;
         self.sTenantphoneButton.hidden = YES;
         self.sTenantEmailButton.hidden = YES;
-        self.addSecondTenant.hidden = NO;
+
         
     }
     else{
