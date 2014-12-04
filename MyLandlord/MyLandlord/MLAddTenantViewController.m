@@ -21,6 +21,7 @@
     
     NSArray *dueDay;
     NSString *propertyNameString;
+    BOOL noProperty;
 
 }
 
@@ -31,7 +32,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if (![[self.details valueForKey:@"pFirstName"]  isEqual: @""]) {
+    
+    noProperty = NO;
+    
+    if (self.details != nil) {
         self.pFirstName.text = _details.pFirstName;
         self.pLastName.text = _details.pLastName;
         self.pEmail.text = _details.pEmail;
@@ -53,14 +57,21 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", _details.propertyId];
         NSArray *predicateResults = [ApplicationDelegate.propertyArray filteredArrayUsingPredicate:predicate];
         
-        Properties *predicateProperty = [predicateResults objectAtIndex:0];
-        
-        NSLog(@"PREDICATE ARRAY = %@", predicateResults);
-        
-        propertyNameString = [predicateProperty valueForKey:@"propName"];
-        assignPropertyID = [predicateProperty valueForKey:@"propertyId"];
-        
-        self.assignProperty.text = propertyNameString;
+        if (predicateResults.count > 0) {
+            Properties *predicateProperty = [predicateResults objectAtIndex:0];
+            
+            NSLog(@"PREDICATE ARRAY = %@", predicateResults);
+            
+            propertyNameString = [predicateProperty valueForKey:@"propName"];
+            assignPropertyID = [predicateProperty valueForKey:@"propertyId"];
+            
+            self.assignProperty.text = propertyNameString;
+            
+        } else {
+            
+            noProperty = YES;
+        }
+
     
     } else if([[self.details valueForKey:@"pFirstName"]  isEqual: @""]){
     self.rentDueTF.text = @"";
@@ -261,6 +272,13 @@
     }];
 
        }
+}
+
+-(BOOL)validateInput
+{
+
+    
+    return true;
 }
 
 //TextField BEGIN editing Methods

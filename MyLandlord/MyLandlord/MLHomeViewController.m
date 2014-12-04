@@ -23,6 +23,8 @@
     
     [super viewDidAppear:YES];
     
+    [self.view setNeedsDisplay];
+    
     // Do any additional setup after loading the view, typically from a nib.
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
     [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];

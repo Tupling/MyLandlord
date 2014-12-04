@@ -125,7 +125,13 @@
             [savedAlert show];
             
            
-            [self dismissViewControllerAnimated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [ApplicationDelegate loadProperties];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            });
             
             
         }

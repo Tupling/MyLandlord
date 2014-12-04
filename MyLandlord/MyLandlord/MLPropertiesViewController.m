@@ -26,6 +26,7 @@
 @implementation MLPropertiesViewController
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
     
     [self.tableView reloadData];
 }

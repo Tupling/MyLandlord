@@ -20,6 +20,7 @@
 @implementation MLTenantsViewController
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
     
     [self.tableView reloadData];
 }
@@ -37,15 +38,6 @@
     
    
 }
-
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    [super viewWillAppear:YES];
-    
-    [self.tableView reloadData];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -89,12 +81,24 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", tenant.propertyId];
     NSArray *predicateResults = [ApplicationDelegate.propertyArray filteredArrayUsingPredicate:predicate];
     
-    Properties *predicateProperty = [predicateResults objectAtIndex:0];
-    
-    NSString *propNameString = [predicateProperty valueForKey:@"propName"];
+    if (predicateResults.count > 0) {
+        
+        Properties *predicateProperty = [predicateResults objectAtIndex:0];
+        
+        NSString *propNameString = [predicateProperty valueForKey:@"propName"];
+        propName.text = propNameString;
+        propAddress.text = [NSString stringWithFormat:@"%@ %@, %@ %@", predicateProperty.propAddress, predicateProperty.propCity, predicateProperty.propZip, predicateProperty.propState];
+        
+    } else {
+        propName.text = @"No Assigned Property";
+        propAddress.text = @"";
+    }
+
 
     
     tenantName.text = [NSString stringWithFormat:@"%@ %@", tenant.pFirstName, tenant.pLastName];
+    
+    if(tenant.pPhoneNumber != nil){
     
     NSMutableString *convertedPhoneString = [NSMutableString stringWithString:tenant.pPhoneNumber];
     
@@ -104,9 +108,8 @@
     [convertedPhoneString insertString:@"-" atIndex:9];
     
     tenantNumber.text = convertedPhoneString;
-    
-    propName.text = propNameString;
-    propAddress.text = [NSString stringWithFormat:@"%@ %@, %@ %@", predicateProperty.propAddress, predicateProperty.propCity, predicateProperty.propZip, predicateProperty.propState];
+    }
+
     
     return cell;
 }
