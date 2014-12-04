@@ -43,8 +43,6 @@
     [query getObjectInBackgroundWithId:_details.tenantId block:^(PFObject *tenant, NSError *error) {
         
         
-        
-
             tenant[@"sFirstName"] = self.firstName.text;
             tenant[@"sLastName"] = self.lastName.text;
             tenant[@"sEmail"] = self.email.text;

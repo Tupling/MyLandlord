@@ -24,7 +24,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (![[self.details valueForKey:@"pFirstName"]  isEqual: @""]) {
+        self.pFirstName.text = _details.pFirstName;
+        self.pLastName.text = _details.pLastName;
+        self.pEmail.text = _details.pEmail;
+        self.pPhoneNumber.text = _details.pPhoneNumber;
+        
+        if(_details.secondTenant == 1){
+            [self.secondTenant setOn:YES animated:YES];
+            self.noLabel.hidden = YES;
+            self.yesLabel.hidden = NO;
+        }else {
+            [self.secondTenant setOn:NO animated:YES];
+        }
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+        
+        self.leaseStartTF.text = [dateFormatter stringFromDate:_details.leaseStart];
+        self.leaseEndTF.text = [dateFormatter stringFromDate:_details.leaseEnd];
+        
+        self.rentDueTF.text = [NSString stringWithFormat:@"%@", _details.dueDay];
+        self.rentTotalTF.text = [NSString stringWithFormat:@"%@", _details.rentAmount];
+        
+        leaseEnd = _details.leaseEnd;
+        leaseStart = _details.leaseStart;
     
+    }
 
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -75,7 +101,70 @@
     
     //TODO ADD NETWORK CONNECTION CHECK
     
+       if (![_details.tenantId isEqualToString:@""]) {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Tenants"];
+        
+        [query getObjectInBackgroundWithId:_details.tenantId block:^(PFObject *tenant, NSError *error) {
+            tenant[@"pFirstName"] = self.pFirstName.text;
+            tenant[@"pLastName"] = self.pLastName.text;
+            tenant[@"pEmail"] = self.pEmail.text;
+            tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
+            
+            //Lease Information
+            tenant[@"leaseStart"] = leaseStart;
+            tenant[@"leaseEnd"] = leaseEnd;
+            
+            NSInteger rentValue = [self.rentTotalTF.text integerValue];
+            
+            tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
+            
+            NSInteger rentDueDay = [self.rentDueTF.text integerValue];
+            
+            tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
+            
+            if (secondTenantState) {
+                BOOL secondTenantTrue = YES;
+                tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+                
+                
+            }else{
+                BOOL secondTenantTrue = NO;
+                tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+            }
+            
+            [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded)
+                {
+                    
+                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [savedAlert show];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [ApplicationDelegate loadTenants];
+                        
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                        
+                    });
+                    
+                } else {
+                    
+                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [savedAlert show];
+                    
+                }
+            }];
+
+            
+        }];
+           
+       } else {
+    
     PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
+
     
     tenant[@"pFirstName"] = self.pFirstName.text;
     tenant[@"pLastName"] = self.pLastName.text;
@@ -92,7 +181,7 @@
     
     NSInteger rentDueDay = [self.rentDueTF.text integerValue];
     
-    tenant[@"rentDueDay"] = [NSNumber numberWithInteger:rentDueDay];
+    tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
     
     if (secondTenantState) {
         BOOL secondTenantTrue = YES;
@@ -139,7 +228,7 @@
         }
     }];
 
-    
+       }
 }
 
 //TextField BEGIN editing Methods

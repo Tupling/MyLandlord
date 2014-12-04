@@ -177,6 +177,7 @@
                 tenantInfo.leaseStart = [objects[i] valueForKey:@"leaseStart"];
                 tenantInfo.rentAmount = [objects[i] valueForKey:@"rentTotal"];
                 tenantInfo.secondTenant = [objects[i] valueForKey:@"secondTenant"];
+                tenantInfo.dueDay = [ objects[i] valueForKey:@"rentDueDay"];
                 
                 if ([objects[i] valueForKey:@"sFirstName"] != nil) {
                     

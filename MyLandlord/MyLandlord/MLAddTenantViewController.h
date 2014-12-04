@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
+#import "Tenants.h"
 
 @interface MLAddTenantViewController : UIViewController
 {
@@ -45,6 +46,8 @@
 @property (nonatomic, retain) IBOutlet UILabel *yesLabel;
 
 @property (nonatomic, retain) NSArray *dayArray;
+
+@property (nonatomic, strong)Tenants *details;
 
 
 

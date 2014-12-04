@@ -9,6 +9,7 @@
 #import "MLTenantDetailsViewController.h"
 #import "MLAddSecondTenantInfo.h"
 #import "MLTenantsViewController.h"
+#import "MLAddTenantViewController.h"
 
 @interface MLTenantDetailsViewController ()
 
@@ -162,13 +163,18 @@
             addSecondTenant.details = _details;
  
             NSLog(@"Tenant Info: %@", _details);
+        
     }else if([[segue identifier] isEqualToString:@"editPrimary"]){
+        MLAddTenantViewController *editPrimaryInfo = segue.destinationViewController;
+        
+        editPrimaryInfo.details = _details;
+        
         
         
     }else if([[segue identifier] isEqualToString:@"editSecondary"]){
-        MLAddSecondTenantInfo *addSecondTenant = segue.destinationViewController;
+        MLAddSecondTenantInfo *editSecondTenant = segue.destinationViewController;
         
-        addSecondTenant.details = _details;
+        editSecondTenant.details = _details;
         
     }
 }
