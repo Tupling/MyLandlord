@@ -26,5 +26,6 @@
 @dynamic dueDay;
 @dynamic secondTenant;
 @dynamic tenantId;
+@dynamic propertyId;
 
 @end

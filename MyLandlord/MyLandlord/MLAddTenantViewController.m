@@ -20,6 +20,8 @@
     BOOL secondTenantState;
     
     NSArray *dueDay;
+    NSString *propertyNameString;
+
 }
 
 @end
@@ -47,10 +49,23 @@
         
         leaseEnd = _details.leaseEnd;
         leaseStart = _details.leaseStart;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", _details.propertyId];
+        NSArray *predicateResults = [ApplicationDelegate.propertyArray filteredArrayUsingPredicate:predicate];
+        
+        Properties *predicateProperty = [predicateResults objectAtIndex:0];
+        
+        NSLog(@"PREDICATE ARRAY = %@", predicateResults);
+        
+        propertyNameString = [predicateProperty valueForKey:@"propName"];
+        assignPropertyID = [predicateProperty valueForKey:@"propertyId"];
+        
+        self.assignProperty.text = propertyNameString;
     
-    }
+    } else if([[self.details valueForKey:@"pFirstName"]  isEqual: @""]){
     self.rentDueTF.text = @"";
     self.rentTotalTF.text = @"";
+    }
 
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -136,6 +151,8 @@
             
             tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
             
+            tenant[@"assignedPropId"] = assignPropertyID;
+            
             if (secondTenantState) {
                 BOOL secondTenantTrue = YES;
                 tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
@@ -195,6 +212,8 @@
     NSInteger rentDueDay = [self.rentDueTF.text integerValue];
     
     tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
+           
+    tenant[@"assignedPropId"] = assignPropertyID;
     
     if (secondTenantState) {
         BOOL secondTenantTrue = YES;

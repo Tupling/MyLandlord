@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Properties.h"
+#import "Tenants.h"
 
 @interface MLPropertyDetails : UIViewController
 {
@@ -19,5 +20,6 @@
 -(IBAction)closeView:(id)sender;
 
 @property (nonatomic, strong)Properties *details;
+@property (nonatomic, strong)Tenants *tenantDetails;
 
 @end

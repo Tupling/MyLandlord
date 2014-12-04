@@ -81,10 +81,24 @@
 
     
     Properties *property = [ApplicationDelegate.propertyArray objectAtIndex:indexPath.row];
-
+    //NSLog(@"TENANT ARRAY = %@", ApplicationDelegate.tenantsArray);
+    NSLog(@"INDEX PROPERTY ID = %@", property.propertyId);
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", property.propertyId];
+    NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
+    
+    if(predicateResults.count > 0){
         
+        self.tenantInfo = [predicateResults objectAtIndex:0];
+        NSLog(@"Predicate Results == %@", self.tenantInfo);
+        propTenant.text = [NSString stringWithFormat:@"%@ %@", self.tenantInfo.pFirstName, self.tenantInfo.pLastName];
+        
+    } else {
+        propTenant.text = @"No Assigned Tenant";
+    }
+
     propName.text = property.propName;
-    propTenant.text = @"Dale Tupling";
+   
     NSString *rentStatus = @"Past Due";
     propRentStatus.textColor = [UIColor redColor];
     propRentStatus.text = [NSString stringWithFormat:@"Rent: %@", rentStatus];
@@ -98,6 +112,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.propInfo = [ApplicationDelegate.propertyArray objectAtIndex:indexPath.row];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", self.propInfo.propertyId];
+    NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
+    
+    if(predicateResults.count > 0){
+        
+        self.tenantInfo = [predicateResults objectAtIndex:0];
+        NSLog(@"Predicate Results == %@", self.tenantInfo);
+        
+    }else {
+        //Reset tenantInfo if Predicate results is 0.
+        self.tenantInfo = nil;
+    }
+    
     
     //Push detailsView to the top of the stack
     [self performSegueWithIdentifier:@"details" sender:self];
@@ -140,6 +167,7 @@
          MLPropertyDetails *propDetails = segue.destinationViewController;
          
          propDetails.details = self.propInfo;
+         propDetails.tenantDetails = self.tenantInfo;
      }
 }
 

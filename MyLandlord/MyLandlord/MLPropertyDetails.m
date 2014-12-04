@@ -17,25 +17,51 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Set property Address
+    propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", _details.propAddress, _details.propCity, _details.propState, _details.propZip];
+    
+    if(_tenantDetails == nil){
+        NSLog(@"Tenant Details Nil");
+        
+        tenantInfo.text = @"No Assigned Tenant";
+        leaseInfo.text = @"No Lease Information Available";
+        
+    } else {
+        
+        NSLog(@"Tenant Details Conatins Data = %@", self.tenantDetails);
+        // Do any additional setup after loading the view.
+        NSString *tenantName = [NSString stringWithFormat:@"%@ %@", _tenantDetails.pFirstName, _tenantDetails.pLastName];
+        NSString *tenantPhone = _tenantDetails.pPhoneNumber;
+        NSString *tenantEmail = _tenantDetails.pEmail;
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+        
+        NSDate *leaseEnd = _tenantDetails.leaseEnd;
+        NSDate *leaseStart = _tenantDetails.leaseStart;
+        
+        
+        NSString *leaseAmount = [NSString stringWithFormat:@"%@", _tenantDetails.rentAmount];
+        NSString *leaseEndString = [dateFormatter stringFromDate:leaseEnd];
+        NSString *leaseStartString = [dateFormatter stringFromDate:leaseStart];
+        //NSString *leaseTerm = @"6 Months";
+        
+
+        tenantInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@", tenantName, tenantEmail, tenantPhone];
+        leaseInfo.text = [NSString stringWithFormat:@"Rent Amount: %@\nDue Date: %@\nLease Begin: %@", leaseAmount, leaseEndString, leaseStartString];
+    }
+    
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
     [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-    // Do any additional setup after loading the view.
-    NSString *tenantName = @"Dale Tupling";
-    NSString *tenantPhone = @"931-302-1108";
-    NSString *tenantEmail = @"tuplingd@gmail.com";
     
-    NSString *leaseAmount = @"$1,420.00";
-    NSString *leaseDue = @"November 4th, 2014";
-    NSString *leaseBegin = @"July 6th, 2014";
-    NSString *leaseTerm = @"6 Months";
-    
-    propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", _details.propAddress, _details.propCity, _details.propState, _details.propZip];
-    tenantInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@", tenantName, tenantEmail, tenantPhone];
-    leaseInfo.text = [NSString stringWithFormat:@"Rent Amount: %@\nDue Date: %@\nLease Begin: %@\nLease Term: %@", leaseAmount, leaseDue, leaseBegin, leaseTerm];
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    self.tenantDetails = nil;
 }
 
 - (void)didReceiveMemoryWarning {

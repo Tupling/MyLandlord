@@ -34,6 +34,9 @@
 @property (nonatomic, retain) NSNumber * rentAmount;
 @property (nonatomic, retain) NSNumber * dueDay;
 
+//Property Variable
+@property (nonatomic, retain) NSString * propertyId;
+
 
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "Properties.h"
+#import "Tenants.h"
 #import "AppDelegate.h"
 
 
@@ -19,6 +20,7 @@
 
 @property(nonatomic, strong)NSMutableArray *properties;
 @property(nonatomic, strong)Properties *propInfo;
+@property(nonatomic, strong)Tenants *tenantInfo;
 
 @end
 
