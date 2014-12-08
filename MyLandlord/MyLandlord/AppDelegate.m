@@ -94,6 +94,8 @@
 
 #pragma mark - LOAD DATA METHOD
 
+
+// Load Property Information
 -(void)loadProperties
 {
    
@@ -115,6 +117,7 @@
                 propInfo.propCity = [objects[i] valueForKey:@"propCity"];
                 propInfo.propState = [objects[i] valueForKey:@"propState"];
                 propInfo.propZip = [objects[i] valueForKey:@"propZip"];
+                propInfo.unitCount = [objects[i] valueForKey:@"unitCount"];
                 
                 
                 
@@ -151,6 +154,8 @@
     
     
 }
+
+//load tenant information
 
 -(void)loadTenants
 {

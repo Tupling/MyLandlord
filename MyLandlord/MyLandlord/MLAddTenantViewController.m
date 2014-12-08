@@ -309,6 +309,17 @@
 
         textField.inputView = self.assignPropPicker;
         
+        if (ApplicationDelegate.propertyArray.count == 1) {
+            
+            assignPropertyID = [[ApplicationDelegate.propertyArray objectAtIndex:0] valueForKey:@"propertyId"];
+            
+            [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
+        }
+        
+
+        
+        
+        
     }
     else if([textField isEqual:self.rentDueTF]){
         
@@ -328,6 +339,7 @@
         self.leaseStartTF.text = [dateFormatter stringFromDate:[self.datePicker date]];
         
         leaseStart = [self.datePicker date];
+        
         NSLog(@"DATE %@", leaseStart);
         
     } else if(self.leaseEndTF.isEditing){
@@ -406,6 +418,7 @@
         
         Properties *propertyInfo = [ApplicationDelegate.propertyArray objectAtIndex:row];
         [self.assignPropPicker selectedRowInComponent:0];
+   
         
         [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
         

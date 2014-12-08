@@ -20,5 +20,6 @@
 @dynamic propZip;
 @dynamic tenant;
 @dynamic expense;
+@dynamic unitCount;
 
 @end

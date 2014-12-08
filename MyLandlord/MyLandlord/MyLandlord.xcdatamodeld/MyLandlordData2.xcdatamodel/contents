@@ -22,6 +22,7 @@
         <attribute name="propName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="propState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="propZip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unitCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="property" inverseEntity="Expense" syncable="YES"/>
         <relationship name="tenant" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tenants" syncable="YES"/>
     </entity>
@@ -54,8 +55,8 @@
     <elements>
         <element name="Expense" positionX="-4032" positionY="-7" width="128" height="133"/>
         <element name="Income" positionX="-3537" positionY="-234" width="128" height="103"/>
-        <element name="Properties" positionX="-4025" positionY="-207" width="128" height="180"/>
-        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="270"/>
+        <element name="Properties" positionX="-4025" positionY="-207" width="128" height="195"/>
         <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="150"/>
+        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="270"/>
     </elements>
 </model>
