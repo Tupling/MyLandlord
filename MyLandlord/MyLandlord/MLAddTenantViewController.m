@@ -290,8 +290,18 @@
         self.datePicker = [[UIDatePicker alloc] init];
         self.datePicker.datePickerMode = UIDatePickerModeDate;
         textField.inputView = self.datePicker;
-        [self.datePicker addTarget:self action:@selector(addDate:) forControlEvents:UIControlEventValueChanged];
         
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+        
+        [self.datePicker addTarget:self action:@selector(addDate:) forControlEvents:UIControlEventValueChanged];
+        if([textField isEqual:self.leaseEndTF]){
+            leaseEnd = [self.datePicker date];
+            self.leaseEndTF.text = [dateFormatter stringFromDate:leaseEnd];
+        }else {
+            leaseStart = [self.datePicker date];
+            self.leaseStartTF.text = [dateFormatter stringFromDate:leaseStart];
+        }
         
     }
     
@@ -303,6 +313,7 @@
     else if([textField isEqual:self.rentDueTF]){
         
         textField.inputView = self.dueDayPicker;
+        
     }
 }
 

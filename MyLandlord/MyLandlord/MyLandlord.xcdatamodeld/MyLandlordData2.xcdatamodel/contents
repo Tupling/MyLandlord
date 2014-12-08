@@ -25,6 +25,15 @@
         <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="property" inverseEntity="Expense" syncable="YES"/>
         <relationship name="tenant" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tenants" syncable="YES"/>
     </entity>
+    <entity name="Tasks" representedClassName="Tasks" syncable="YES">
+        <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isComplete" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="task" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="taskDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Tenants" representedClassName="Tenants" syncable="YES">
         <attribute name="dueDay" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="leaseEnd" optional="YES" attributeType="Date" syncable="YES"/>
@@ -47,5 +56,6 @@
         <element name="Income" positionX="-3537" positionY="-234" width="128" height="103"/>
         <element name="Properties" positionX="-4025" positionY="-207" width="128" height="180"/>
         <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="270"/>
+        <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="150"/>
     </elements>
 </model>

@@ -12,6 +12,9 @@
 		1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */; };
 		1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */; };
 		1E4A67D81A2FB6290026E8F7 /* MLAddSecondTenantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67D71A2FB6290026E8F7 /* MLAddSecondTenantInfo.m */; };
+		1E4A67DB1A31F6920026E8F7 /* Tasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67DA1A31F6920026E8F7 /* Tasks.m */; };
+		1E4A67DF1A31F7140026E8F7 /* TasksMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67DE1A31F7140026E8F7 /* TasksMain.m */; };
+		1E4A67E21A31F72C0026E8F7 /* MLAddTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */; };
 		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
 		1EC04E0E1A1A49330020B759 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E0D1A1A49330020B759 /* main.m */; };
 		1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E101A1A49330020B759 /* AppDelegate.m */; };
@@ -85,6 +88,12 @@
 		1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyDetails.m; sourceTree = "<group>"; };
 		1E4A67D61A2FB6290026E8F7 /* MLAddSecondTenantInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddSecondTenantInfo.h; sourceTree = "<group>"; };
 		1E4A67D71A2FB6290026E8F7 /* MLAddSecondTenantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddSecondTenantInfo.m; sourceTree = "<group>"; };
+		1E4A67D91A31F6920026E8F7 /* Tasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tasks.h; sourceTree = SOURCE_ROOT; };
+		1E4A67DA1A31F6920026E8F7 /* Tasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tasks.m; sourceTree = SOURCE_ROOT; };
+		1E4A67DD1A31F7140026E8F7 /* TasksMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksMain.h; sourceTree = "<group>"; };
+		1E4A67DE1A31F7140026E8F7 /* TasksMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksMain.m; sourceTree = "<group>"; };
+		1E4A67E01A31F72C0026E8F7 /* MLAddTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTask.h; sourceTree = "<group>"; };
+		1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTask.m; sourceTree = "<group>"; };
 		1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTenantViewController.h; sourceTree = "<group>"; };
 		1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantViewController.m; sourceTree = "<group>"; };
 		1EC04E081A1A49330020B759 /* MyLandlord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLandlord.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +263,17 @@
 			name = "ML-Document Controllers";
 			sourceTree = "<group>";
 		};
+		1E4A67DC1A31F6EE0026E8F7 /* ML-Task Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1E4A67DD1A31F7140026E8F7 /* TasksMain.h */,
+				1E4A67DE1A31F7140026E8F7 /* TasksMain.m */,
+				1E4A67E01A31F72C0026E8F7 /* MLAddTask.h */,
+				1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */,
+			);
+			name = "ML-Task Controllers";
+			sourceTree = "<group>";
+		};
 		1EC04DFF1A1A49320020B759 = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +380,8 @@
 				1EC04E5E1A1A7F430020B759 /* Reachability.h */,
 				1EC04E5F1A1A7F430020B759 /* Reachability.m */,
 				1EC04E611A1A7F6C0020B759 /* MyLandlord.xcdatamodeld */,
+				1E4A67D91A31F6920026E8F7 /* Tasks.h */,
+				1E4A67DA1A31F6920026E8F7 /* Tasks.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -367,6 +389,7 @@
 		1EC04E6A1A1A91AB0020B759 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1E4A67DC1A31F6EE0026E8F7 /* ML-Task Controllers */,
 				1ECDD2BF1A20293C001C0CDA /* ML-FInanes Controllers */,
 				1E181EFD1A1F95B40047AD12 /* ML-Document Controllers */,
 				1E181EFC1A1F95A00047AD12 /* ML- Main Controllers */,
@@ -537,10 +560,12 @@
 				1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */,
 				1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */,
 				1EF280C61A2CFED30038D340 /* SubTenants.m in Sources */,
+				1E4A67E21A31F72C0026E8F7 /* MLAddTask.m in Sources */,
 				1ECDD2DC1A2D5202001C0CDA /* MJPPdfPage.m in Sources */,
 				1E4A67D81A2FB6290026E8F7 /* MLAddSecondTenantInfo.m in Sources */,
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
+				1E4A67DF1A31F7140026E8F7 /* TasksMain.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
 				1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */,
 				1EDAF3791A2F41D300833713 /* MLAddNewFinance.m in Sources */,
@@ -554,6 +579,7 @@
 				1EF280CC1A2CFED30038D340 /* Expense.m in Sources */,
 				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
 				1EF280CF1A2CFED30038D340 /* LeaseInfo.m in Sources */,
+				1E4A67DB1A31F6920026E8F7 /* Tasks.m in Sources */,
 				1ECDD2DF1A2D5202001C0CDA /* MJPPdfViewer.m in Sources */,
 				1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */,
 				1ECDD2DE1A2D5202001C0CDA /* MJPPdfView.m in Sources */,
