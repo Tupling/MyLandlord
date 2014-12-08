@@ -100,6 +100,7 @@
     NSLog(@"Attempting to Load Data from DB");
     [self deletedAllObjects:@"Properties"];
     PFQuery *results = [PFQuery queryWithClassName:@"Properties"];
+    [results orderByAscending:@"propName"];
     
     [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error)
@@ -157,6 +158,7 @@
     [self deletedAllObjects:@"Tenants"];
     PFQuery *results = [PFQuery queryWithClassName:@"Tenants"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    [results orderByAscending:@"pFirstName"];
     
     [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error)
