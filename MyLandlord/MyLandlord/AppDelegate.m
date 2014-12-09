@@ -241,7 +241,7 @@
 {
     NSLog(@"Attempting to Load Data from DB");
     [self deletedAllObjects:@"Tasks"];
-    PFQuery *results = [PFQuery queryWithClassName:@"Tasks"];
+    PFQuery *results = [PFQuery queryWithClassName:@"ToDo"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
     [results orderByAscending:@"task"];
     
