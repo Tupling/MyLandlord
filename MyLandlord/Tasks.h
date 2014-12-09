@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * isComplete;
 @property (nonatomic, retain) NSString * priority;
 @property (nonatomic, retain) NSString * taskDescription;
+@property (nonatomic, retain) NSString * propId;
 @property (nonatomic, retain) NSDate * createdDate;
 @property (nonatomic, retain) NSDate * dueDate;
 

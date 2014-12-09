@@ -295,10 +295,14 @@
         [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
         
         [self.datePicker addTarget:self action:@selector(addDate:) forControlEvents:UIControlEventValueChanged];
+        
         if([textField isEqual:self.leaseEndTF]){
+            
             leaseEnd = [self.datePicker date];
             self.leaseEndTF.text = [dateFormatter stringFromDate:leaseEnd];
-        }else {
+            
+        }else{
+            
             leaseStart = [self.datePicker date];
             self.leaseStartTF.text = [dateFormatter stringFromDate:leaseStart];
         }
@@ -315,10 +319,6 @@
             
             [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
         }
-        
-
-        
-        
         
     }
     else if([textField isEqual:self.rentDueTF]){

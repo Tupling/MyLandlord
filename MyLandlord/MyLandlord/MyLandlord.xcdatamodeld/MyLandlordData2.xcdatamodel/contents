@@ -31,6 +31,7 @@
         <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isComplete" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="priority" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="task" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="taskDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
@@ -56,7 +57,7 @@
         <element name="Expense" positionX="-4032" positionY="-7" width="128" height="133"/>
         <element name="Income" positionX="-3537" positionY="-234" width="128" height="103"/>
         <element name="Properties" positionX="-4025" positionY="-207" width="128" height="195"/>
-        <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="150"/>
+        <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="165"/>
         <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="270"/>
     </elements>
 </model>

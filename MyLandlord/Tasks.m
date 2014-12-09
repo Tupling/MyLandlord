@@ -18,5 +18,6 @@
 @dynamic taskDescription;
 @dynamic createdDate;
 @dynamic dueDate;
+@dynamic propId;
 
 @end

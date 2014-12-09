@@ -33,6 +33,9 @@
 @property (nonatomic, retain) NSMutableArray *tenantsArray;
 @property (nonatomic, retain) NSMutableArray *financesArray;
 
+@property (nonatomic, retain) NSArray *taskDataArray;
+@property (nonatomic, retain) NSMutableArray *tasksArray;
+
 @property(strong, nonatomic) NSUserDefaults *storedData;
 
 @property(strong, nonatomic) Reachability *networkStatus;
