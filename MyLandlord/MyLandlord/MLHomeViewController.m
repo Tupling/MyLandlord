@@ -36,7 +36,7 @@
     //Check for valid Current User
     if ([PFUser currentUser]) {
         
-        [self setLabelText];
+        [self updateViewConstraints];
         
     }else{
         
@@ -53,27 +53,22 @@
     self.addTenant.layer.cornerRadius = 5;
     self.addTask.layer.cornerRadius = 5;
     
-    
-
 }
 
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
     [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
     
     [self.propCount setNeedsDisplay];
 
-    
 }
 
--(void)setLabelText
-{
-    
-    
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
