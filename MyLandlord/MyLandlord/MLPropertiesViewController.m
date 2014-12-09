@@ -8,6 +8,7 @@
 
 #import "MLPropertiesViewController.h"
 #import "MLPropertyDetails.h"
+#import "MLPropertyUnits.h"
 
 
 
@@ -192,6 +193,9 @@
          propDetails.tenantDetails = self.tenantInfo;
          
      } else if([[segue identifier] isEqualToString:@"multipleUnit"]){
+         
+         MLPropertyUnits *propDetails = segue.destinationViewController;
+         propDetails.propDetails = self.propInfo;
          
          
      }

@@ -27,6 +27,11 @@
         <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="property" inverseEntity="Expense" syncable="YES"/>
         <relationship name="tenant" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tenants" syncable="YES"/>
     </entity>
+    <entity name="SubUnit" representedClassName="SubUnit" syncable="YES">
+        <attribute name="parentPropId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unitNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unitObjectId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Tasks" representedClassName="Tasks" syncable="YES">
         <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -52,13 +57,15 @@
         <attribute name="sFirstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subUnitId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tenantId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Expense" positionX="-4032" positionY="-7" width="128" height="133"/>
         <element name="Income" positionX="-3537" positionY="-234" width="128" height="103"/>
-        <element name="Properties" positionX="-4025" positionY="-207" width="128" height="210"/>
+        <element name="Properties" positionX="-4025" positionY="-207" width="128" height="208"/>
         <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="165"/>
-        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="270"/>
+        <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="283"/>
+        <element name="SubUnit" positionX="-3843" positionY="-162" width="128" height="90"/>
     </elements>
 </model>

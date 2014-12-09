@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Properties.h"
 
 @interface MLPropertyUnits : UIViewController
+
+
+@property(nonatomic, strong)Properties *propDetails;
 
 @end

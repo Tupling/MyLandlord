@@ -62,6 +62,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
+    [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
     
     [self.propCount setNeedsDisplay];
 

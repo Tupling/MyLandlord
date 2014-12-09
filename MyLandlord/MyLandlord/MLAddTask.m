@@ -196,7 +196,7 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    //[ApplicationDelegate loadTasks];
+                    [ApplicationDelegate loadTasks];
                     
                     [self.navigationController popViewControllerAnimated:YES];
                     

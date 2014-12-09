@@ -36,6 +36,9 @@
 @property (nonatomic, retain) NSArray *taskDataArray;
 @property (nonatomic, retain) NSMutableArray *tasksArray;
 
+@property (nonatomic, retain) NSArray *subUnitDataArray;
+@property (nonatomic, retain) NSMutableArray *subUnitArray;
+
 @property(strong, nonatomic) NSUserDefaults *storedData;
 
 @property(strong, nonatomic) Reachability *networkStatus;
@@ -48,6 +51,7 @@
 - (void)loadProperties;
 - (void)loadTenants;
 - (void)loadFinances;
+- (void)loadTasks;
 
 
 

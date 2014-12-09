@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "Properties.h"
+
 
 @interface MLAddUnits : UIViewController
+{
+
+}
+
+@property (nonatomic, strong) IBOutlet UITextField *unitId;
+@property (nonatomic, strong) IBOutlet UIButton *saveUnit;
+@property (nonatomic, strong) IBOutlet UILabel *propertyName;
+
+@property(nonatomic, strong)Properties *propDetails;
+
 
 @end

@@ -27,5 +27,6 @@
 @dynamic secondTenant;
 @dynamic tenantId;
 @dynamic propertyId;
+@dynamic subUnitId;
 
 @end

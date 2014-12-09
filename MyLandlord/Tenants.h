@@ -36,6 +36,7 @@
 
 //Property Variable
 @property (nonatomic, retain) NSString * propertyId;
+@property (nonatomic, retain) NSString * subUnitId;
 
 
 

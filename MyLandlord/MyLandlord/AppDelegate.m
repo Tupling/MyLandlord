@@ -15,6 +15,7 @@
 #import "MLPropertiesViewController.h"
 #import "Tenants.h"
 #import "Tasks.h"
+#import "SubUnit.h"
 
 @interface AppDelegate ()
 {
@@ -52,6 +53,7 @@
     [self loadProperties];
     [self loadTenants];
     [self loadTasks];
+    [self loadSubUnits];
     
 
     return YES;
@@ -191,6 +193,7 @@
                 tenantInfo.secondTenant = [objects[i] valueForKey:@"secondTenant"];
                 tenantInfo.dueDay = [objects[i] valueForKey:@"dueDay"];
                 tenantInfo.propertyId = [objects[i] valueForKey:@"assignedPropId"];
+                tenantInfo.subUnitId = [objects[i] valueForKey:@"subUnitId"];
                 
                 if ([objects[i] valueForKey:@"sFirstName"] != nil) {
                     
@@ -299,6 +302,63 @@
     }];
     
 }
+
+-(void)loadSubUnits
+{
+    NSLog(@"Attempting to Load Data from DB");
+    [self deletedAllObjects:@"SubUnit"];
+    PFQuery *results = [PFQuery queryWithClassName:@"SubUnits"];
+    //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    [results orderByAscending:@"unitNumber"];
+    
+    [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error)
+        {
+            for(int i = 0; i <objects.count; i++){
+                NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
+                
+                SubUnit *unitInfo = [NSEntityDescription insertNewObjectForEntityForName:@"SubUnit" inManagedObjectContext:context];
+                
+                unitInfo.unitObjectId = [objects[i] valueForKey:@"objectId"];
+                
+                unitInfo.unitNumber = [objects[i] valueForKey:@"unitNumber"];
+                unitInfo.parentPropId = [objects[i] valueForKey:@"parentProp"];
+      
+                NSError * error;
+                if(![context save:&error])
+                {
+                    NSLog(@"Failed to save: %@", [error localizedDescription]);
+                }
+                
+                //Create new Fetch Request
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                
+                //Request Entity EventInfo
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"SubUnit" inManagedObjectContext:context];
+                
+                //Set fetchRequest entity to EventInfo Description
+                [fetchRequest setEntity:entity];
+                
+                //Set events array to data in core data
+                self.subUnitDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                
+                self.subUnitArray = [[NSMutableArray alloc] initWithArray:self.subUnitDataArray];
+                
+                
+            }
+            
+            NSLog(@"SubUnit Count: %lu", (unsigned long)[self.subUnitDataArray count]);
+            
+        }else{
+            
+            //Why did it fail?
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+        
+    }];
+    
+}
+
 
 
 
