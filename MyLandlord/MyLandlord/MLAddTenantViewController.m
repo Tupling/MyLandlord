@@ -23,6 +23,7 @@
     
     NSArray *dueDay;
     NSString *propertyNameString;
+    NSString *subUnitNameString;
     BOOL noProperty;
     
     NSArray *subUnitArray;
@@ -70,6 +71,23 @@
             assignPropertyID = [predicateProperty valueForKey:@"propertyId"];
             
             self.assignProperty.text = propertyNameString;
+            
+            if(predicateProperty.multiFamily){
+                
+                self.assignUnit.hidden = NO;
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", assignPropertyID];
+                subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
+                
+                if(subUnitArray.count > 0){
+                    SubUnit *subUnit = [subUnitArray objectAtIndex:0];
+                    
+                    subUnitNameString = [subUnit valueForKey:@"unitNumber"];
+                    subUnitId = [subUnit valueForKey:@"unitObjectId"];
+                    
+                    self.assignUnit.text = subUnitNameString;
+                    
+                }
+            }
             
         } else {
             
