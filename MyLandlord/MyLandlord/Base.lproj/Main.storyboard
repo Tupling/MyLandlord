@@ -3305,6 +3305,17 @@ Cg
                         </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="Yn0-JR-G62">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" image="new" style="plain" id="lNE-DC-DIq">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Yku-E6-lI3">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="export"/>
+                            </button>
+                            <color key="tintColor" red="0.18823529410000001" green="0.30588235289999999" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZG-Vb-Maa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5237,6 +5248,7 @@ Cg
     <resources>
         <image name="edit_info" width="25" height="25"/>
         <image name="expense" width="22" height="22"/>
+        <image name="export" width="19" height="27"/>
         <image name="folder" width="32" height="32"/>
         <image name="home" width="30" height="28"/>
         <image name="horizontal_divider.png" width="1" height="43"/>
