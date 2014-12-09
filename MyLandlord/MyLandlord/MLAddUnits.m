@@ -56,7 +56,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                //[ApplicationDelegate loadSubUnits];
+                [ApplicationDelegate loadSubUnits];
                 
                 [self.navigationController popViewControllerAnimated:YES];
                 

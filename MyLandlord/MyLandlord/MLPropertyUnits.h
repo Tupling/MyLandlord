@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Properties.h"
+#import "AppDelegate.h"
+#import "SubUnit.h"
 
 @interface MLPropertyUnits : UIViewController
 
-
+@property(nonatomic, strong)IBOutlet UITableView *tableView;
 @property(nonatomic, strong)Properties *propDetails;
 
 @end

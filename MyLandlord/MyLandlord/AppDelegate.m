@@ -291,7 +291,7 @@
                 
             }
             
-            NSLog(@"Tenant Array Count: %lu", (unsigned long)[self.tasksArray count]);
+            NSLog(@"Task Array Count: %lu", (unsigned long)[self.tasksArray count]);
             
         }else{
             
