@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSString * propZip;
 @property (nonatomic, retain) NSString * propertyId;
 @property (nonatomic, retain) NSNumber * unitCount;
+@property (nonatomic) BOOL  multiFamily;
 @property (nonatomic, retain) NSSet *tenant;
 @property (nonatomic, retain) NSSet *expense;
 @end

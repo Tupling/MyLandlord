@@ -85,17 +85,27 @@
     //NSLog(@"TENANT ARRAY = %@", ApplicationDelegate.tenantsArray);
     NSLog(@"INDEX PROPERTY ID = %@", property.propertyId);
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", property.propertyId];
-    NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
     
-    if(predicateResults.count > 0){
+    if(property.multiFamily){
         
-        self.tenantInfo = [predicateResults objectAtIndex:0];
-        NSLog(@"Predicate Results == %@", self.tenantInfo);
-        propTenant.text = [NSString stringWithFormat:@"%@ %@", self.tenantInfo.pFirstName, self.tenantInfo.pLastName];
-        
+         propTenant.text = @"Multi Family Unit";
+    
     } else {
-        propTenant.text = @"No Assigned Tenant";
+        //Filter through tenants array to get assigned tenants
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", property.propertyId];
+        NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
+
+            if(predicateResults.count > 0){
+        
+                self.tenantInfo = [predicateResults objectAtIndex:0];
+                NSLog(@"Predicate Results == %@", self.tenantInfo);
+                propTenant.text = [NSString stringWithFormat:@"%@ %@", self.tenantInfo.pFirstName, self.tenantInfo.pLastName];
+        
+            } else {
+            
+                propTenant.text = @"No Assigned Tenant";
+    
+            }
     }
 
     propName.text = property.propName;
@@ -112,23 +122,34 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Get Row Property Information
     self.propInfo = [ApplicationDelegate.propertyArray objectAtIndex:indexPath.row];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", self.propInfo.propertyId];
-    NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
     
-    if(predicateResults.count > 0){
+    //Check for Multi Family Units
+    if(self.propInfo.multiFamily == 1){
         
-        self.tenantInfo = [predicateResults objectAtIndex:0];
-        NSLog(@"Predicate Results == %@", self.tenantInfo);
+      [self performSegueWithIdentifier:@"multipleUnit" sender:self];
+    
         
     }else {
-        //Reset tenantInfo if Predicate results is 0.
-        self.tenantInfo = nil;
+        
+        //Get tenant info for matching property id
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", self.propInfo.propertyId];
+        NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
+        
+        //Set tenant info to object at index 0 of predicate results
+        if(predicateResults.count > 0){
+            
+            self.tenantInfo = [predicateResults objectAtIndex:0];
+            NSLog(@"Predicate Results == %@", self.tenantInfo);
+            
+        }else {
+            //Reset tenantInfo if Predicate results is 0.
+            self.tenantInfo = nil;
+        }
+        //Push detailsView to the top of the stack
+        [self performSegueWithIdentifier:@"details" sender:self];
     }
-    
-    
-    //Push detailsView to the top of the stack
-    [self performSegueWithIdentifier:@"details" sender:self];
     
     NSLog(@"%@", [[ApplicationDelegate.propertyArray objectAtIndex:indexPath.row] description]);
     
@@ -169,6 +190,10 @@
          
          propDetails.details = self.propInfo;
          propDetails.tenantDetails = self.tenantInfo;
+         
+     } else if([[segue identifier] isEqualToString:@"multipleUnit"]){
+         
+         
      }
 }
 

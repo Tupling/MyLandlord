@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E1447A31A37321B008F4BA4 /* MLPropertyUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */; };
+		1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A51A373231008F4BA4 /* MLAddUnits.m */; };
 		1E181EF41A1F73810047AD12 /* house.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF31A1F73810047AD12 /* house.jpg */; };
 		1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF51A1F77290047AD12 /* profileImage.jpg */; };
 		1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */; };
@@ -80,6 +82,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E1447A11A37321B008F4BA4 /* MLPropertyUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyUnits.h; sourceTree = "<group>"; };
+		1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyUnits.m; sourceTree = "<group>"; };
+		1E1447A41A373231008F4BA4 /* MLAddUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddUnits.h; sourceTree = "<group>"; };
+		1E1447A51A373231008F4BA4 /* MLAddUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddUnits.m; sourceTree = "<group>"; };
 		1E181EF31A1F73810047AD12 /* house.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = house.jpg; sourceTree = "<group>"; };
 		1E181EF51A1F77290047AD12 /* profileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profileImage.jpg; sourceTree = "<group>"; };
 		1E181EF71A1F86C30047AD12 /* MLTenantDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantDetailsViewController.h; sourceTree = "<group>"; };
@@ -224,6 +230,10 @@
 				1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */,
 				1E181EFE1A1FBD8B0047AD12 /* MLPropertyDetails.h */,
 				1E181EFF1A1FBD8B0047AD12 /* MLPropertyDetails.m */,
+				1E1447A11A37321B008F4BA4 /* MLPropertyUnits.h */,
+				1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */,
+				1E1447A41A373231008F4BA4 /* MLAddUnits.h */,
+				1E1447A51A373231008F4BA4 /* MLAddUnits.m */,
 			);
 			name = "ML-Property Controllers";
 			sourceTree = "<group>";
@@ -584,6 +594,8 @@
 				1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */,
 				1ECDD2DE1A2D5202001C0CDA /* MJPPdfView.m in Sources */,
 				1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */,
+				1E1447A31A37321B008F4BA4 /* MLPropertyUnits.m in Sources */,
+				1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */,
 				1EF280C01A2CFED20038D340 /* Tenants.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
 				1ECDD2C21A202966001C0CDA /* MLFinancesView.m in Sources */,

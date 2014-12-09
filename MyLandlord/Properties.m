@@ -21,5 +21,6 @@
 @dynamic tenant;
 @dynamic expense;
 @dynamic unitCount;
+@dynamic multiFamily;
 
 @end

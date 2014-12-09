@@ -13,6 +13,7 @@
     UIAlertView *savedAlert;
     
     BOOL multiFamilyState;
+    BOOL isMultiFamily;
     
     
 }
@@ -54,36 +55,27 @@
 -(IBAction)multFamilyToggle:(id)sender
 {
   
+    //if toggle is on set to off
     if (multiFamilyState) {
         
         [self.multiFamily setOn:NO animated:YES];
-        self.unitCount.hidden = YES;
-        self.unitCountLabel.hidden = YES;
-        multiFamilyState = NO;
+        
+        isMultiFamily = NO;
         self.noLabel.hidden = NO;
         self.yesLabel.hidden = YES;
-        [self.unitCount setValue:0];
-        [self.unitCountLabel setText:[NSString stringWithFormat:@"Units: %d", (int)self.unitCount.value]];
-    
+        
+    //if toggle is off set to on
     }else if(!multiFamilyState){
         
-        multiFamilyState = YES;
-        self.unitCount.hidden = NO;
-        self.unitCountLabel.hidden = NO;
+        isMultiFamily = YES;
+
         self.noLabel.hidden = YES;
         self.yesLabel.hidden = NO;
     }
     
 }
 
-//unit counter method
--(IBAction)unitCounter:(UIStepper *)sender
-{
-    double unitCountValue = [sender value];
-    [self.unitCountLabel setText:[NSString stringWithFormat:@"Units: %d", (int)unitCountValue]];
-    
-    NSLog(@"Unit Count = %d", (int)self.unitCount.value);
-}
+
 
 
 //Save property action button
@@ -96,20 +88,9 @@
     property[@"propCity"] = self.propCity.text;
     property[@"propState"] = self.propState.text;
     property[@"propZip"] = self.propZip.text;
-    
-    if (multiFamilyState) {
-        BOOL isMultiFamily = YES;
-        property[@"isMultiFamily"] = [NSNumber numberWithBool:isMultiFamily];
-        
-        NSInteger unitIntValue = self.unitCount.value;
-        property[@"unitCount"] = [NSNumber numberWithInteger:unitIntValue];
-        
-    }else{
-        BOOL isMultiFamily = NO;
-        property[@"isMultiFamily"] = [NSNumber numberWithBool:isMultiFamily];
-    }
- 
-   
+    property[@"isMultiFamily"] = [NSNumber numberWithBool:isMultiFamily];
+
+
     //Set Access control to user logged in
     property.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
     

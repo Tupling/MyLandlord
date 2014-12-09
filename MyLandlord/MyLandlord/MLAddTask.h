@@ -24,4 +24,6 @@
 @property (nonatomic, strong) IBOutlet UIPickerView *priorityPicker;
 @property (nonatomic, strong) IBOutlet UIPickerView *propertyPicker;
 
+@property(nonatomic, strong) IBOutlet UIButton *saveTask;
+
 @end

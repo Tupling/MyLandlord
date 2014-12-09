@@ -120,8 +120,11 @@
                 propInfo.propState = [objects[i] valueForKey:@"propState"];
                 propInfo.propZip = [objects[i] valueForKey:@"propZip"];
                 propInfo.unitCount = [objects[i] valueForKey:@"unitCount"];
+                propInfo.multiFamily = [[objects[i] valueForKey:@"isMultiFamily"] boolValue];
                 
                 
+                
+                NSLog(@"MultiFamily = %d", propInfo.multiFamily);
                 
                 NSError * error;
                 if(![context save:&error])

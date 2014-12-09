@@ -45,6 +45,8 @@
     self.propertyPicker.delegate = self;
     self.propertyPicker.dataSource = self;
     
+    self.saveTask.layer.cornerRadius = 5;
+    
 //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", _details.propertyId];
 //    NSArray *predicateResults = [ApplicationDelegate.propertyArray filteredArrayUsingPredicate:predicate];
 //    
