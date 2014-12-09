@@ -32,12 +32,11 @@
     self.navigationItem.titleView = image;
     
     
-    self.propCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]];
     
     //Check for valid Current User
     if ([PFUser currentUser]) {
         
-         //Sync data if not initial login
+        [self setLabelText];
         
     }else{
         
@@ -54,14 +53,22 @@
     self.addTenant.layer.cornerRadius = 5;
     
 
-
-
 }
+
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
     
-    self.propCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]];
+    [self.propCount setNeedsDisplay];
+
+    
+}
+
+-(void)setLabelText
+{
+    
     
 }
 
@@ -143,7 +150,7 @@
     [ApplicationDelegate loadProperties];
     [ApplicationDelegate loadTenants];
     
-    self.propCount.text = [NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.propertyArray count]];
+    
    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -152,7 +159,8 @@
 #pragma mark LOGOUT
 -(IBAction)logOut:(id)sender
 {
-    
+    ApplicationDelegate.propertyArray = nil;
+    ApplicationDelegate.tenantsArray = nil;
     
     logOutAlert = [[UIAlertView alloc] initWithTitle:@"Logout User" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     
