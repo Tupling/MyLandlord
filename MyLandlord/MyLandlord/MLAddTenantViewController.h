@@ -44,6 +44,9 @@
 @property (nonatomic, strong) IBOutlet UIPickerView *assignPropPicker;
 @property (nonatomic, strong) IBOutlet UIPickerView *dueDayPicker;
 
+@property (nonatomic, strong) IBOutlet UITextField *assignUnit;
+@property (nonatomic, strong) IBOutlet UIPickerView *subUnitPicker;
+
 
 @property (nonatomic, retain) NSArray *dayArray;
 

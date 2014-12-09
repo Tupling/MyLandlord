@@ -12,6 +12,7 @@
 @interface MLPropertyUnits ()
 {
     UILabel *unitName;
+    UILabel *assignedTenant;
     NSArray *unitArray;
 }
 
@@ -31,9 +32,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //Filter through tenants array to get assigned tenants
+    //Filter through unit array to get assigned units the belong to parent property
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", self.propDetails.propertyId];
     unitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
+    
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,13 +72,27 @@
     }
     
     unitName = (UILabel*)[cell viewWithTag:101];
+    assignedTenant = (UILabel*)[cell viewWithTag:102];
 
 
     SubUnit *unit = [unitArray objectAtIndex:indexPath.row];
     //NSLog(@"TENANT ARRAY = %@", ApplicationDelegate.tenantsArray);
     NSLog(@"INDEX PROPERTY ID = %@", unit.unitNumber);
     
-
+    //Filter tenant array for assigned tenant
+    NSPredicate *tenantPred = [NSPredicate predicateWithFormat:@"subUnitId == %@", unit.unitObjectId];
+    NSArray *localTenantArray =[ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:tenantPred];
+    
+    if(localTenantArray.count > 0){
+        
+        self.tenantInfo = [localTenantArray objectAtIndex:0];
+       
+        assignedTenant.text = [NSString stringWithFormat:@"%@ %@", self.tenantInfo.pFirstName, self.tenantInfo.pLastName];
+    
+    }else{
+        assignedTenant.text = @"No Assigned Tenant";
+    }
+    
     unitName.text = [NSString stringWithFormat:@"%@ - %@", self.propDetails.propName, unit.unitNumber];
   
 

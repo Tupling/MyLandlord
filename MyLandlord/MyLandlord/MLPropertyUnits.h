@@ -10,10 +10,12 @@
 #import "Properties.h"
 #import "AppDelegate.h"
 #import "SubUnit.h"
+#import "Tenants.h"
 
 @interface MLPropertyUnits : UIViewController
 
 @property(nonatomic, strong)IBOutlet UITableView *tableView;
 @property(nonatomic, strong)Properties *propDetails;
+@property(nonatomic, strong)Tenants *tenantInfo;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "MLAddTenantViewController.h"
 #import "Properties.h"
+#import "SubUnit.h"
 
 @interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 {
@@ -16,12 +17,15 @@
     NSDate *leaseEnd;
     
     NSString *assignPropertyID;
+    NSString *subUnitId;
     
     BOOL secondTenantState;
     
     NSArray *dueDay;
     NSString *propertyNameString;
     BOOL noProperty;
+    
+    NSArray *subUnitArray;
 
 }
 
@@ -104,6 +108,7 @@
     self.leaseEndTF.delegate = self;
     self.rentDueTF.delegate = self;
     self.assignProperty.delegate = self;
+    self.assignUnit.delegate = self;
     
     self.assignPropPicker = [[UIPickerView alloc] init];
     self.assignPropPicker.delegate = self;
@@ -112,6 +117,8 @@
     self.dueDayPicker = [[UIPickerView alloc] init];
     self.dueDayPicker.delegate = self;
     self.dueDayPicker.dataSource = self;
+    
+
     
     
 
@@ -163,6 +170,7 @@
             tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
             
             tenant[@"assignedPropId"] = assignPropertyID;
+            tenant[@"subUnitId"] = subUnitId;
             
             if (secondTenantState) {
                 BOOL secondTenantTrue = YES;
@@ -301,7 +309,7 @@
             leaseEnd = [self.datePicker date];
             self.leaseEndTF.text = [dateFormatter stringFromDate:leaseEnd];
             
-        }else{
+        }else {
             
             leaseStart = [self.datePicker date];
             self.leaseStartTF.text = [dateFormatter stringFromDate:leaseStart];
@@ -313,17 +321,33 @@
 
         textField.inputView = self.assignPropPicker;
         
+        //If only 1 propert exists set value for that property name
         if (ApplicationDelegate.propertyArray.count == 1) {
             
             assignPropertyID = [[ApplicationDelegate.propertyArray objectAtIndex:0] valueForKey:@"propertyId"];
             
-            [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
+        [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
+        
         }
         
     }
     else if([textField isEqual:self.rentDueTF]){
         
         textField.inputView = self.dueDayPicker;
+        
+    } else if ([textField isEqual:self.assignUnit]){
+        
+        textField.inputView = self.subUnitPicker;
+        
+        //if only one unit exists set value for that unit name
+        if(subUnitArray.count == 1){
+            
+            subUnitId = [[subUnitArray objectAtIndex:0] valueForKey:@"unitObjectId"];
+            
+            NSLog(@"SUB UNIT ID = %@", subUnitId);
+            
+            [self.assignUnit setText:[self pickerView:self.subUnitPicker titleForRow:[self.subUnitPicker selectedRowInComponent:0] forComponent:0]];
+        }
         
     }
 }
@@ -364,6 +388,10 @@
         
         return 1;
         
+    }else if ([pickerView isEqual:self.subUnitPicker]){
+        
+        return 1;
+    
     } else {
         
         return 0;
@@ -381,6 +409,10 @@
         
         return dueDay.count ;
         
+    } else if ([pickerView isEqual:self.subUnitPicker]){
+        
+        return subUnitArray.count;
+    
     } else {
         
         return 0;
@@ -405,7 +437,16 @@
         
         return dueDayNumber;
         
-    } else {
+    } else if([pickerView isEqual:self.subUnitPicker]){
+        
+        SubUnit *unit = [subUnitArray objectAtIndex:row];
+        
+        [self.subUnitPicker selectedRowInComponent:0];
+        
+        
+        return unit.unitNumber;
+        
+    }else {
         
         return nil;
     }
@@ -424,6 +465,17 @@
         
         assignPropertyID = propertyInfo.propertyId;
         
+        if(propertyInfo.multiFamily){
+            self.assignUnit.hidden = NO;
+            
+            self.subUnitPicker = [[UIPickerView alloc] init];
+            self.subUnitPicker.delegate = self;
+            self.subUnitPicker.dataSource = self;
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", assignPropertyID];
+            subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
+        }
+        
         NSLog(@"%@", assignPropertyID);
         
     } else if([pickerView isEqual:self.dueDayPicker]){
@@ -431,6 +483,20 @@
         [self.dueDayPicker selectedRowInComponent:0];
         
         [self.rentDueTF setText:[self pickerView:self.dueDayPicker titleForRow:[self.dueDayPicker selectedRowInComponent:0] forComponent:0]];
+        
+    }
+    else if([pickerView isEqual:self.subUnitPicker]){
+        
+        SubUnit *unitInfo = [subUnitArray objectAtIndex:row];
+        
+        [self.subUnitPicker selectedRowInComponent:0];
+        
+        subUnitId = unitInfo.unitObjectId;
+        
+        NSLog(@"SUB UNIT ID = %@", subUnitId);
+
+        
+        [self.assignUnit setText:[self pickerView:self.subUnitPicker titleForRow:[self.subUnitPicker selectedRowInComponent:0] forComponent:0]];
         
     }
     
