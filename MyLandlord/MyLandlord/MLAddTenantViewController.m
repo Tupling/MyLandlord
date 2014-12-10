@@ -34,6 +34,8 @@
 
 @implementation MLAddTenantViewController
 
+@synthesize pLastName, pEmail, pPhoneNumber, pFirstName;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

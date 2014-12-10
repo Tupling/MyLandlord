@@ -18,12 +18,14 @@
     IBOutlet UILabel *pTenantPhone;
     IBOutlet UILabel *pTenantEmail;
     IBOutlet UILabel *sTenantName;
-    IBOutlet UILabel *sTenantEmailButton;
-    IBOutlet UILabel *sTenantphoneButton;
+    IBOutlet UIButton *sTenantEmailButton;
+    IBOutlet UIButton *sTenantphoneButton;
     IBOutlet UILabel *sTenantHeaderLabel;
     IBOutlet UILabel *leaseStartLabel;
     IBOutlet UILabel *leaseEndLabel;
     IBOutlet UILabel *rentDueLabel;
+    
+
 
 }
 

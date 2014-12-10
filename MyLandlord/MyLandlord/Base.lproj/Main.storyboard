@@ -3248,7 +3248,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZQ-4V-dal" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-366.75" y="-226.125"/>
+            <point key="canvasLocation" x="-357.75" y="-226.125"/>
         </scene>
         <!--Add Tenant-->
         <scene sceneID="wFF-rV-TwZ">

@@ -19,6 +19,8 @@
 
 @implementation MLHomeViewController
 
+@synthesize profileImg;
+
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:YES];

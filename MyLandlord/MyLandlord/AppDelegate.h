@@ -50,7 +50,7 @@
 //Load Data Methods
 - (void)loadProperties;
 - (void)loadTenants;
-- (void)loadFinances;
+//- (void)loadFinances;
 - (void)loadTasks;
 - (void)loadSubUnits;
 

@@ -22,6 +22,8 @@
 
 @implementation MLAddPropertyViewController
 
+@synthesize propZip, propState, propCity, propAddress, propName, addProp;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
