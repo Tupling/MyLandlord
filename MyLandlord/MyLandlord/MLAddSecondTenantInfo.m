@@ -21,6 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
    self.saveInfo.layer.cornerRadius = 5;
     
     if (![[self.details valueForKey:@"sFirstName"]  isEqual: @""]) {

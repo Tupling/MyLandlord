@@ -42,6 +42,8 @@
         
         [self requireLogin];
     }
+    
+    
     //Add radius to profile image
     self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width / 2;
     self.profileImg.clipsToBounds = YES;

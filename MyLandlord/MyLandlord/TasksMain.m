@@ -131,6 +131,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    self.taskInfo = [ApplicationDelegate.tasksArray objectAtIndex:indexPath.row];
+    
+  
+    //Filter through properties array to get property for assigned task
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", self.taskInfo.propId];
+    NSArray *predicateResults = [ApplicationDelegate.propertyArray filteredArrayUsingPredicate:predicate];
+    
+    if(predicateResults.count > 0){
+        
+        self.propInfo = [predicateResults objectAtIndex:0];
+
+    } else {
+        
+        self.propInfo = nil;
+    }
+
+    [self performSegueWithIdentifier:@"details" sender:self];
+ 
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -155,14 +175,23 @@
 //    }
 //}
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+    if ([[segue identifier] isEqualToString:@"details"]) {
+        MLTaskDetails *taskDetails = segue.destinationViewController;
+        
+        taskDetails.taskDetails = self.taskInfo;
+        taskDetails.propDetails = self.propInfo;
+        
+        NSLog(@"Property Details == %@", self.propInfo);
+
+    }
+
 }
-*/
+
 
 @end

@@ -10,6 +10,7 @@
 		1E1447A31A37321B008F4BA4 /* MLPropertyUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */; };
 		1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A51A373231008F4BA4 /* MLAddUnits.m */; };
 		1E1447A91A378015008F4BA4 /* SubUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A81A378015008F4BA4 /* SubUnit.m */; };
+		1E1447AC1A3883CF008F4BA4 /* MLTaskDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447AB1A3883CF008F4BA4 /* MLTaskDetails.m */; };
 		1E181EF41A1F73810047AD12 /* house.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF31A1F73810047AD12 /* house.jpg */; };
 		1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF51A1F77290047AD12 /* profileImage.jpg */; };
 		1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */; };
@@ -89,6 +90,8 @@
 		1E1447A51A373231008F4BA4 /* MLAddUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddUnits.m; sourceTree = "<group>"; };
 		1E1447A71A378015008F4BA4 /* SubUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubUnit.h; sourceTree = "<group>"; };
 		1E1447A81A378015008F4BA4 /* SubUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubUnit.m; sourceTree = "<group>"; };
+		1E1447AA1A3883CF008F4BA4 /* MLTaskDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTaskDetails.h; sourceTree = "<group>"; };
+		1E1447AB1A3883CF008F4BA4 /* MLTaskDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTaskDetails.m; sourceTree = "<group>"; };
 		1E181EF31A1F73810047AD12 /* house.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = house.jpg; sourceTree = "<group>"; };
 		1E181EF51A1F77290047AD12 /* profileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profileImage.jpg; sourceTree = "<group>"; };
 		1E181EF71A1F86C30047AD12 /* MLTenantDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantDetailsViewController.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 				1E4A67DE1A31F7140026E8F7 /* TasksMain.m */,
 				1E4A67E01A31F72C0026E8F7 /* MLAddTask.h */,
 				1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */,
+				1E1447AA1A3883CF008F4BA4 /* MLTaskDetails.h */,
+				1E1447AB1A3883CF008F4BA4 /* MLTaskDetails.m */,
 			);
 			name = "ML-Task Controllers";
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
 				1E4A67DF1A31F7140026E8F7 /* TasksMain.m in Sources */,
+				1E1447AC1A3883CF008F4BA4 /* MLTaskDetails.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
 				1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */,
 				1EDAF3791A2F41D300833713 /* MLAddNewFinance.m in Sources */,

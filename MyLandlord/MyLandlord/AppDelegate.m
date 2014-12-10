@@ -260,7 +260,7 @@
                 
                 taskInfo.task = [objects[i] valueForKey:@"task"];
                 taskInfo.priority = [objects[i] valueForKey:@"priority"];
-                taskInfo.taskDescription = [objects[i] valueForKey:@"description"];
+                taskInfo.taskDescription = [objects[i] valueForKey:@"taskDesc"];
                 taskInfo.dueDate = [objects[i] valueForKey:@"dueDate"];
                 
                 taskInfo.isComplete = [objects[i] valueForKey:@"isComplete"];

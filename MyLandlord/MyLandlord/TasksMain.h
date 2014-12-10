@@ -7,15 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
 #import <Parse/Parse.h>
+
+#import "AppDelegate.h"
+#import "MLTaskDetails.h"
 #import "Properties.h"
 #import "Tasks.h"
+
 
 @interface TasksMain : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property(nonatomic, strong)Properties *propInfo;
+
+@property(nonatomic, strong)Tasks *taskInfo;
 
 @end
