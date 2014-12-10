@@ -36,6 +36,9 @@
 @property (nonatomic, retain) NSArray *taskDataArray;
 @property (nonatomic, retain) NSMutableArray *tasksArray;
 
+@property (nonatomic, retain) NSMutableArray *inCompleteTasks;
+@property (nonatomic, retain) NSMutableArray *completedTasks;
+
 @property (nonatomic, retain) NSArray *subUnitDataArray;
 @property (nonatomic, retain) NSMutableArray *subUnitArray;
 
@@ -53,6 +56,7 @@
 //- (void)loadFinances;
 - (void)loadTasks;
 - (void)loadSubUnits;
+- (void)sortTasks;
 
 
 

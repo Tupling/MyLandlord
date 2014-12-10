@@ -47,24 +47,6 @@
     
     self.saveTask.layer.cornerRadius = 5;
     
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", _details.propertyId];
-//    NSArray *predicateResults = [ApplicationDelegate.propertyArray filteredArrayUsingPredicate:predicate];
-//    
-//    if (predicateResults.count > 0) {
-//        Properties *predicateProperty = [predicateResults objectAtIndex:0];
-//        
-//        NSLog(@"PREDICATE ARRAY = %@", predicateResults);
-//        
-//        propertyNameString = [predicateProperty valueForKey:@"propName"];
-//        assignPropertyID = [predicateProperty valueForKey:@"propertyId"];
-//        
-//        self.assignProperty.text = propertyNameString;
-//        
-//    } else {
-//        
-//        noProperty = YES;
-//    }
-
     
     
     //DISMISS KEYBOARD
@@ -96,81 +78,16 @@
 -(IBAction)saveTenant:(id)sender
 {
     
-    //TODO ADD NETWORK CONNECTION CHECK
-//     NSLog(@"Tenant ID: %@", _details.tenantId);
-//    
-//    if (_details != nil) {
-//        
-//        PFQuery *query = [PFQuery queryWithClassName:@"Tenants"];
-//        
-//        [query getObjectInBackgroundWithId:_details.tenantId block:^(PFObject *tenant, NSError *error) {
-//            tenant[@"pFirstName"] = self.pFirstName.text;
-//            tenant[@"pLastName"] = self.pLastName.text;
-//            tenant[@"pEmail"] = self.pEmail.text;
-//            tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
-//            
-//            //Lease Information
-//            tenant[@"leaseStart"] = leaseStart;
-//            tenant[@"leaseEnd"] = leaseEnd;
-//            
-//            NSInteger rentValue = [self.rentTotalTF.text integerValue];
-//            
-//            tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
-//            
-//            NSInteger rentDueDay = [self.rentDueTF.text integerValue];
-//            
-//            tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
-//            
-//            tenant[@"assignedPropId"] = assignPropertyID;
-//            
-//            if (secondTenantState) {
-//                BOOL secondTenantTrue = YES;
-//                tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
-//                
-//                
-//            }else{
-//                BOOL secondTenantTrue = NO;
-//                tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
-//            }
-//            
-//            [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//                if(succeeded)
-//                {
-//                    
-//                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-//                    
-//                    [savedAlert show];
-//                    
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        
-//                        [ApplicationDelegate loadTenants];
-//                        
-//                        [self.navigationController popToRootViewControllerAnimated:YES];
-//                        
-//                    });
-//                    
-//                } else {
-//                    
-//                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-//                    
-//                    [savedAlert show];
-//                    
-//                }
-//            }];
-//            
-//            
-//        }];
-//        
-//    } else {
+
     
         PFObject *task = [PFObject objectWithClassName:@"ToDo"];
     
-        BOOL isComplete = YES;
+        //BOOL isComplete = YES;
     
         
         task[@"task"] = self.taskName.text;
         task[@"priority"] = self.taskPriority.text;
-        task[@"isComplete"] = [NSNumber numberWithBool:isComplete];
+        //task[@"isComplete"] = [NSNumber numberWithBool:isComplete];
         task[@"dueDate"] = dueDate;
         task[@"description"] = self.taskDesc.text;
     

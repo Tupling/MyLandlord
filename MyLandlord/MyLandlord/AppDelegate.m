@@ -53,7 +53,9 @@
     [self loadProperties];
     [self loadTenants];
     [self loadTasks];
+
     [self loadSubUnits];
+
     
 
     return YES;
@@ -277,7 +279,7 @@
                 //Create new Fetch Request
                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
                 
-                //Request Entity EventInfo
+                //Request Entity TaskInfo
                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:context];
                 
                 //Set fetchRequest entity to EventInfo Description
@@ -288,8 +290,10 @@
                 
                 self.tasksArray = [[NSMutableArray alloc] initWithArray:self.taskDataArray];
                 
+               
                 
             }
+            
             
             NSLog(@"Task Array Count: %lu", (unsigned long)[self.tasksArray count]);
             
@@ -301,7 +305,10 @@
         
     }];
     
+   
+    
 }
+
 
 -(void)loadSubUnits
 {

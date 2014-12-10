@@ -23,12 +23,17 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     
+
+    
     [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self sortTasks];
+    
     [self.tableView reloadData];
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -43,7 +48,29 @@
     //[self.tableView reloadData];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSLog(@"Task Array = %lu", (unsigned long)[ApplicationDelegate.tasksArray count]);
+    NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
+}
+-(void)sortTasks
+{
+    for (int i = 0; i < ApplicationDelegate.tasksArray.count; i ++) {
+        
+        Tasks *taskInfo = [ApplicationDelegate.tasksArray objectAtIndex:i];
+        
+        NSLog(@"TASK COMPLETE = %@", taskInfo.isComplete);
+        
+        if([taskInfo.isComplete isEqualToNumber:[NSNumber numberWithInt:1]]){
+            
+            [self.completedTasks addObject:taskInfo];
+            
+        } else {
+            
+            [self.inCompleteTasks addObject:taskInfo];
+
+        }
+    }
+    
+    [self.tableView reloadData];
+    NSLog(@"InComplete Tasks = %lu", (unsigned long)self.inCompleteTasks.count);
 }
 
 

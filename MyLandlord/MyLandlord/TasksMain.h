@@ -23,4 +23,7 @@
 
 @property(nonatomic, strong)Tasks *taskInfo;
 
+@property (nonatomic, retain) NSMutableArray *inCompleteTasks;
+@property (nonatomic, retain) NSMutableArray *completedTasks;
+
 @end
