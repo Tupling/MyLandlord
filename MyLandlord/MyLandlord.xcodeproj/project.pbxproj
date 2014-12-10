@@ -11,6 +11,7 @@
 		1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A51A373231008F4BA4 /* MLAddUnits.m */; };
 		1E1447A91A378015008F4BA4 /* SubUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A81A378015008F4BA4 /* SubUnit.m */; };
 		1E1447AC1A3883CF008F4BA4 /* MLTaskDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447AB1A3883CF008F4BA4 /* MLTaskDetails.m */; };
+		1E1447AE1A38C478008F4BA4 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1447AD1A38C477008F4BA4 /* EventKit.framework */; };
 		1E181EF41A1F73810047AD12 /* house.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF31A1F73810047AD12 /* house.jpg */; };
 		1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF51A1F77290047AD12 /* profileImage.jpg */; };
 		1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */; };
@@ -92,6 +93,7 @@
 		1E1447A81A378015008F4BA4 /* SubUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubUnit.m; sourceTree = "<group>"; };
 		1E1447AA1A3883CF008F4BA4 /* MLTaskDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTaskDetails.h; sourceTree = "<group>"; };
 		1E1447AB1A3883CF008F4BA4 /* MLTaskDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTaskDetails.m; sourceTree = "<group>"; };
+		1E1447AD1A38C477008F4BA4 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		1E181EF31A1F73810047AD12 /* house.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = house.jpg; sourceTree = "<group>"; };
 		1E181EF51A1F77290047AD12 /* profileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profileImage.jpg; sourceTree = "<group>"; };
 		1E181EF71A1F86C30047AD12 /* MLTenantDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantDetailsViewController.h; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E1447AE1A38C478008F4BA4 /* EventKit.framework in Frameworks */,
 				1EC04E691A1A816B0020B759 /* UIKit.framework in Frameworks */,
 				1EC04E671A1A81230020B759 /* Accelerate.framework in Frameworks */,
 				1EC04E651A1A81110020B759 /* CoreData.framework in Frameworks */,
@@ -356,6 +359,7 @@
 		1EC04E3C1A1A71610020B759 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E1447AD1A38C477008F4BA4 /* EventKit.framework */,
 				1ECDD2D31A2D51DE001C0CDA /* PDFViewer */,
 				1EC04E681A1A816B0020B759 /* UIKit.framework */,
 				1EC04E661A1A81230020B759 /* Accelerate.framework */,

@@ -36,6 +36,32 @@
     self.addProp.layer.cornerRadius = 5;
     
     
+    if(self.details !=nil){
+        self.propName.text = self.details.propName;
+        self.propAddress.text = self.details.propAddress;
+        self.propCity.text = self.details.propCity;
+        self.propState.text = self.details.propState;
+        self.propZip.text = self.details.propZip;
+        
+        self.multiFamily.enabled = NO;
+        
+        if (self.details.multiFamily == 1) {
+            
+            [self.multiFamily setOn:YES animated:NO];
+            isMultiFamily = YES;
+            self.noLabel.hidden = YES;
+            self.yesLabel.hidden = NO;
+        }else{
+            
+            [self.multiFamily setOn:NO animated:YES];
+            isMultiFamily = NO;
+            self.noLabel.hidden = NO;
+            self.yesLabel.hidden = YES;
+                       
+        }
+    }
+    
+    
     
 }
 
@@ -81,6 +107,54 @@
 //Save property action button
 -(IBAction)saveProp:(id)sender
 {
+    
+    
+    if(self.details != nil){
+        
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Properties"];
+        
+        [query getObjectInBackgroundWithId:self.details.propertyId block:^(PFObject *property, NSError *error) {
+            
+            property[@"propName"] = self.propName.text;
+            property[@"propAddress"] = self.propAddress.text;
+            property[@"propCity"] = self.propCity.text;
+            property[@"propState"] = self.propState.text;
+            property[@"propZip"] = self.propZip.text;
+            property[@"isMultiFamily"] = [NSNumber numberWithBool:isMultiFamily];
+            
+            [property saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded)
+                {
+                    
+                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Property Saved" message:@"Property has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [savedAlert show];
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [ApplicationDelegate loadProperties];
+                        
+                        [self.navigationController popViewControllerAnimated:YES];
+                        
+                    });
+                    
+                    
+                }
+                else
+                {
+                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the property information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [savedAlert show];
+                    
+                }
+            }];
+
+        }];
+        
+    } else {
+        
     PFObject *property = [PFObject objectWithClassName:@"Properties"];
     
     property[@"propName"] = self.propName.text;
@@ -124,6 +198,7 @@
             
         }
     }];
+    }
 
 }
 

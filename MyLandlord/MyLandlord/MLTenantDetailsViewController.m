@@ -48,12 +48,19 @@
     pTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.pFirstName, _details.pLastName];
     
     
+    
+    //Date Formating and Comparison
+    //Below format dates and compare due date with current date to determine status.
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
     
     NSDate *leaseEnd = _details.leaseEnd;
     NSDate *leaseStart = _details.leaseStart;
     
+
+    
+   
     leaseEndLabel.text = [dateFormatter stringFromDate:leaseEnd];
     leaseStartLabel.text = [dateFormatter stringFromDate:leaseStart];
     rentDueLabel.text = [NSString stringWithFormat:@"$%@.00", _details.rentAmount];
@@ -65,14 +72,12 @@
         self.sTenantEmailButton.hidden = YES;
 
         
-    }
-    else{
+    }else{
+        
         sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
     }
     
 
-    
-    
     //Modify button appearence
     self.viewDocs.layer.cornerRadius = 5;
     self.viewFinance.layer.cornerRadius = 5;
@@ -105,6 +110,7 @@
     [self.sTenantphoneButton setTitle:_details.sPhoneNumber forState:UIControlStateNormal];
     
 }
+
 
 -(void)viewWillAppear:(BOOL)animated
 {

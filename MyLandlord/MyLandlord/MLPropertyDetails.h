@@ -22,4 +22,7 @@
 @property (nonatomic, strong)Properties *details;
 @property (nonatomic, strong)Tenants *tenantDetails;
 
+@property(nonatomic, strong) IBOutlet UIButton *editProperty;
+
+
 @end

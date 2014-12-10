@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EventKit/EventKit.h>
 
 #import "Tenants.h"
 
@@ -26,7 +27,7 @@
 
 }
 
--(IBAction)closeView:(id)sender;
+
 
 @property (nonatomic, strong)Tenants *details;
 @property(nonatomic, strong) IBOutlet UIButton *viewDocs;
@@ -45,5 +46,6 @@
 
 -(IBAction)makeCall:(id)sender;
 -(IBAction)sendEmail:(id)sender;
+-(IBAction)closeView:(id)sender;
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
+#import "Properties.h"
 
 @interface MLAddPropertyViewController : UIViewController
 {
@@ -30,6 +31,8 @@
 @property (nonatomic, retain) IBOutlet UISwitch *multiFamily;
 @property (nonatomic, retain) IBOutlet UILabel *noLabel;
 @property (nonatomic, retain) IBOutlet UILabel *yesLabel;
+
+@property (nonatomic, strong)Properties *details;
 
 -(IBAction)cancel:(id)sender;
 
