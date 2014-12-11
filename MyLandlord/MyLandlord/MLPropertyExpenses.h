@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Properties.h"
 
 @interface MLPropertyExpenses : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+{
+    
+}
 
 @property(nonatomic, strong) IBOutlet UITableView *tableView;
+@property(nonatomic, strong) IBOutlet UIButton *exportButton;
+
+@property(nonatomic, strong) Properties *details;
+
 
 @end

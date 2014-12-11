@@ -12,6 +12,7 @@
 		1E1447A91A378015008F4BA4 /* SubUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A81A378015008F4BA4 /* SubUnit.m */; };
 		1E1447AC1A3883CF008F4BA4 /* MLTaskDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447AB1A3883CF008F4BA4 /* MLTaskDetails.m */; };
 		1E1447AE1A38C478008F4BA4 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1447AD1A38C477008F4BA4 /* EventKit.framework */; };
+		1E1447B11A3A0813008F4BA4 /* MLAddPropertyExpense.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447B01A3A0813008F4BA4 /* MLAddPropertyExpense.m */; };
 		1E181EF41A1F73810047AD12 /* house.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF31A1F73810047AD12 /* house.jpg */; };
 		1E181EF61A1F77290047AD12 /* profileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E181EF51A1F77290047AD12 /* profileImage.jpg */; };
 		1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */; };
@@ -94,6 +95,8 @@
 		1E1447AA1A3883CF008F4BA4 /* MLTaskDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTaskDetails.h; sourceTree = "<group>"; };
 		1E1447AB1A3883CF008F4BA4 /* MLTaskDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTaskDetails.m; sourceTree = "<group>"; };
 		1E1447AD1A38C477008F4BA4 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		1E1447AF1A3A0813008F4BA4 /* MLAddPropertyExpense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddPropertyExpense.h; sourceTree = "<group>"; };
+		1E1447B01A3A0813008F4BA4 /* MLAddPropertyExpense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddPropertyExpense.m; sourceTree = "<group>"; };
 		1E181EF31A1F73810047AD12 /* house.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = house.jpg; sourceTree = "<group>"; };
 		1E181EF51A1F77290047AD12 /* profileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profileImage.jpg; sourceTree = "<group>"; };
 		1E181EF71A1F86C30047AD12 /* MLTenantDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantDetailsViewController.h; sourceTree = "<group>"; };
@@ -233,6 +236,8 @@
 		1E181EFA1A1F951F0047AD12 /* ML-Property Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1ECDD2E31A2E8C64001C0CDA /* MLPropertyExpenses.h */,
+				1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */,
 				1EC04E151A1A49330020B759 /* MLPropertiesViewController.h */,
 				1EC04E161A1A49330020B759 /* MLPropertiesViewController.m */,
 				1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */,
@@ -243,6 +248,8 @@
 				1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */,
 				1E1447A41A373231008F4BA4 /* MLAddUnits.h */,
 				1E1447A51A373231008F4BA4 /* MLAddUnits.m */,
+				1E1447AF1A3A0813008F4BA4 /* MLAddPropertyExpense.h */,
+				1E1447B01A3A0813008F4BA4 /* MLAddPropertyExpense.m */,
 			);
 			name = "ML-Property Controllers";
 			sourceTree = "<group>";
@@ -441,8 +448,6 @@
 			children = (
 				1ECDD2C01A202966001C0CDA /* MLFinancesView.h */,
 				1ECDD2C11A202966001C0CDA /* MLFinancesView.m */,
-				1ECDD2E31A2E8C64001C0CDA /* MLPropertyExpenses.h */,
-				1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */,
 				1EDAF3771A2F41D300833713 /* MLAddNewFinance.h */,
 				1EDAF3781A2F41D300833713 /* MLAddNewFinance.m */,
 			);
@@ -602,6 +607,7 @@
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EF280C91A2CFED30038D340 /* Income.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
+				1E1447B11A3A0813008F4BA4 /* MLAddPropertyExpense.m in Sources */,
 				1EF280CC1A2CFED30038D340 /* Expense.m in Sources */,
 				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
 				1EF280CF1A2CFED30038D340 /* LeaseInfo.m in Sources */,

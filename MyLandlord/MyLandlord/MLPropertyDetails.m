@@ -8,6 +8,7 @@
 
 #import "MLPropertyDetails.h"
 #import "MLAddPropertyViewController.h"
+#import "MLPropertyExpenses.h"
 
 @interface MLPropertyDetails ()
 
@@ -45,11 +46,18 @@
         NSString *leaseAmount = [NSString stringWithFormat:@"%@", _tenantDetails.rentAmount];
         NSString *leaseEndString = [dateFormatter stringFromDate:leaseEnd];
         NSString *leaseStartString = [dateFormatter stringFromDate:leaseStart];
-        //NSString *leaseTerm = @"6 Months";
+        NSString *dueDateString = [NSString stringWithFormat:@"%@", _tenantDetails.dueDay];
         
 
-        tenantInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@", tenantName, tenantEmail, tenantPhone];
-        leaseInfo.text = [NSString stringWithFormat:@"Rent Amount: %@\nDue Date: %@\nLease Begin: %@", leaseAmount, leaseEndString, leaseStartString];
+        tenantInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@", tenantName,
+                           tenantEmail,
+                           tenantPhone];
+        
+        leaseInfo.text = [NSString stringWithFormat:@"Rent Amount: %@\nLease Begin: %@\nLease End: %@\nDue Day: %@th of Every Month",
+                          leaseAmount,
+                          leaseStartString,
+                          leaseEndString,
+                          dueDateString];
     }
     
     //Set Nav Bar Image
@@ -87,6 +95,13 @@
  
             editProperty.details = _details;
  
+    }
+    if ([[segue identifier] isEqualToString:@"showFinances"]) {
+        
+        MLPropertyExpenses *propertyDetails = segue.destinationViewController;
+        
+        propertyDetails.details = _details;
+        
     }
 }
 
