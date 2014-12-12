@@ -75,21 +75,21 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)saveTenant:(id)sender
+-(IBAction)saveTask:(id)sender
 {
     
 
     
         PFObject *task = [PFObject objectWithClassName:@"ToDo"];
     
-        //BOOL isComplete = YES;
+        BOOL isComplete = NO;
     
         
         task[@"task"] = self.taskName.text;
         task[@"priority"] = self.taskPriority.text;
-        //task[@"isComplete"] = [NSNumber numberWithBool:isComplete];
+        task[@"isComplete"] = [NSNumber numberWithBool:isComplete];
         task[@"dueDate"] = dueDate;
-        task[@"description"] = self.taskDesc.text;
+        task[@"taskDesc"] = self.taskDesc.text;
     
         task[@"propId"] = assignPropertyID;
     

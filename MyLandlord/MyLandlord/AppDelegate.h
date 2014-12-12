@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Reachability.h"
 #import <CoreData/CoreData.h>
+#import "Tasks.h"
 
 #define ApplicationDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
@@ -21,6 +22,8 @@
 @property(nonatomic)BOOL dataNeedsUpdated;
 
 
+
+
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -29,17 +32,16 @@
 //Database Item Arrays
 @property (nonatomic, retain) NSArray *propertyDataArray;
 @property (nonatomic, retain) NSMutableArray *propertyArray;
+
 @property (nonatomic, retain) NSArray *tenantDataArray;
 @property (nonatomic, retain) NSMutableArray *tenantsArray;
+
 @property (nonatomic, retain) NSMutableArray *financesArray;
 
 @property (nonatomic, retain) NSArray *taskDataArray;
 @property (nonatomic, retain) NSMutableArray *tasksArray;
 
 @property (nonatomic, retain) NSArray *completedTaskDataArray;
-@property (nonatomic, retain) NSMutableArray *completedTasksArray;
-
-@property (nonatomic, retain) NSMutableArray *inCompleteTasks;
 @property (nonatomic, retain) NSMutableArray *completedTasks;
 
 @property (nonatomic, retain) NSArray *subUnitDataArray;
@@ -59,7 +61,7 @@
 //- (void)loadFinances;
 - (void)loadTasks;
 - (void)loadSubUnits;
-- (void)sortTasks;
+
 
 
 

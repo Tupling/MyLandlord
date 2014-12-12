@@ -14,11 +14,17 @@
     UILabel *propertyName;
     UILabel *dueDate;
     UIImageView *priority;
+    
+    NSArray *selectedArray;
+    NSArray *badgeArray;
 }
 
 @end
 
 @implementation TasksMain
+
+#pragma mark
+#pragma mark -View Methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,16 +35,28 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-
-    NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
-    NSString *badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]];
+    self.context = [ApplicationDelegate managedObjectContext];
     
-    [self.navigationController.tabBarItem setBadgeValue:badgeValue];
+    //Create new Fetch Request
+    self.fetchRequest = [[NSFetchRequest alloc] init];
     
+    //Request Entity EventInfo
+    self.taskEntity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:self.context];
+    
+    //Set fetchRequest entity to EventInfo Description
+    [self.fetchRequest setEntity:self.taskEntity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isComplete == 0"];
+    
+    [self.fetchRequest setPredicate:predicate];
+    
+    NSError * error;
+    //Set events array to data in core data
+    selectedArray = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+    
+    badgeArray = [NSArray arrayWithArray:selectedArray];
+    NSLog(@"%lu", (unsigned long)[selectedArray count]);
+
     
 }
 
@@ -47,46 +65,83 @@
     [super viewDidAppear:YES];
     
     [self.tableView reloadData];
-        
-
-}
-
-
-
-
--(void)sortTasks
-{
-    for (int i = 0; i < ApplicationDelegate.tasksArray.count; i ++) {
-        
-        Tasks *taskInfo = [ApplicationDelegate.tasksArray objectAtIndex:i];
-        
-        NSLog(@"TASK COMPLETE = %@", taskInfo.isComplete);
-        
-        if([taskInfo.isComplete isEqualToNumber:[NSNumber numberWithInt:1]]){
-            
-            [self.completedTasks addObject:taskInfo];
-            
-        } else {
-            
-            [self.inCompleteTasks addObject:taskInfo];
-
-        }
-    }
     
-    [self.tableView reloadData];
-    NSLog(@"InComplete Tasks = %lu", (unsigned long)self.inCompleteTasks.count);
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+        [self.tableView reloadData];
+
+    NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
+    
+    
+    NSString *badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]];
+    
+    [self.navigationController.tabBarItem setBadgeValue:badgeValue];
+    
+    
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+#pragma mark
+-(IBAction)indexChanged:(UISegmentedControl *)segmentedControl
+{
+    NSError *error;
+    switch (self.taskSelection.selectedSegmentIndex)
+    {
+        
+        case 0:
+    
+            selectedArray = nil;
+            self.predicate = [NSPredicate predicateWithFormat:@"isComplete == 0"];
+            
+            [self.fetchRequest setPredicate:self.predicate];
+            
+            //Set events array to data in core data
+            
+            selectedArray = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+    
+            [self.tableView reloadData];
+            break;
+    
+        case 1:
+    
+            selectedArray = nil;
+
+            
+            //Request Entity EventInfo
+
+           self.predicate = [NSPredicate predicateWithFormat:@"isComplete == 1"];
+            
+            [self.fetchRequest setPredicate:self.predicate];
+            
+    
+            //Set events array to data in core data
+            selectedArray = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+            
+            NSLog(@"%lu", (unsigned long)[selectedArray count]);
+            [self.tableView reloadData];
+            
+            break;
+
+    
+    } 
 }
 
 
+
+
+
+
+#pragma mark
+#pragma mark - Tableview Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [ApplicationDelegate.tasksArray count];
+    return [selectedArray count];
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -113,7 +168,7 @@
     
     
     
-    Tasks *task = [ApplicationDelegate.tasksArray objectAtIndex:indexPath.row];
+    Tasks *task = [selectedArray objectAtIndex:indexPath.row];
     //NSLog(@"TENANT ARRAY = %@", ApplicationDelegate.tenantsArray);
     NSLog(@"INDEX PROPERTY ID = %@", task.task);
 
@@ -162,7 +217,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    self.taskInfo = [ApplicationDelegate.tasksArray objectAtIndex:indexPath.row];
+    self.taskInfo = [selectedArray objectAtIndex:indexPath.row];
     
   
     //Filter through properties array to get property for assigned task
@@ -206,7 +261,7 @@
 //    }
 //}
 
-
+#pragma mark
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -222,6 +277,13 @@
 
     }
 
+}
+
+#pragma mark
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
