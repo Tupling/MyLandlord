@@ -8,7 +8,7 @@
 
 #import "MLAddPropertyExpense.h"
 
-@interface MLAddPropertyExpense () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface MLAddPropertyExpense () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate>
 {
     NSArray *catArray;
 }
@@ -22,6 +22,12 @@
     
     catArray = @[@"", @"Repair", @"Utility"];
     
+    self.catPicker = [[UIPickerView alloc] init];
+    self.catPicker.delegate = self;
+    self.catPicker.dataSource = self;
+    
+    self.expCategory.delegate = self;
+    
     self.saveExpense.layer.cornerRadius = 5;
     
     self.propertyName.text = self.details.propName;
@@ -34,9 +40,15 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if ([textField isEqual:self.catPicker]) {
+    if ([textField isEqual:self.expCategory]) {
         
-        textField.inputView = self.catPicker;
+        
+        [self.expCategory resignFirstResponder];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Type of Expense" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Repair", @"Utility", @"Cleaning", nil];
+        actionSheet.tag = 20;
+        [actionSheet showInView:self.view];
+        actionSheet = nil;
+
     }
     
 }
@@ -117,6 +129,30 @@
     
     
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *selectedValue = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if (![selectedValue.lowercaseString isEqualToString:@"cancel"]) {
+        
+        
+        switch (actionSheet.tag) {
+                
+            case 20:
+                //20 = Category
+                self.expCategory.text = selectedValue;
+                
+                break;
+                
+            default:
+                
+                break;
+        }
+
+    }
+}
+
 
 /*
 #pragma mark - Navigation

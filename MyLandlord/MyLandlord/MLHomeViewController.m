@@ -20,12 +20,49 @@
 @implementation MLHomeViewController
 
 @synthesize profileImg;
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+
+    //Check for valid Current User
+    if ([PFUser currentUser]) {
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
+            [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
+            
+            
+        });
+        
+        
+    }else{
+        
+        [self requireLogin];
+    }
+    
+    
+    [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
+    
+    
+}
+
+
 
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:YES];
     
-    [self.view setNeedsDisplay];
+    
     
     // Do any additional setup after loading the view, typically from a nib.
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -33,17 +70,13 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
+    self.propCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]];
     
+    //    [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
+    //    [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
+    //
+    [self.propCount setNeedsDisplay];
     
-    //Check for valid Current User
-    if ([PFUser currentUser]) {
-        
-        [self updateViewConstraints];
-        
-    }else{
-        
-        [self requireLogin];
-    }
     
     
     //Add radius to profile image
@@ -61,16 +94,9 @@
 
 
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
-    
-    [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
-    [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
-    
-    [self.propCount setNeedsDisplay];
 
-}
+
+
 
 
 
@@ -114,33 +140,33 @@
     
     
     //if (ApplicationDelegate.isConnected == YES) {
+    
+    // Check if both fields are completed
+    if (username && password && username.length && password.length) {
+        return YES;
         
-        // Check if both fields are completed
-        if (username && password && username.length && password.length) {
-            return YES;
-            
-        } else if(username.length < 1 && password.length < 1) {
-            [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"You did not enter a user name or password!"delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            
-        }else if(username.length < 1) {
-            [[[UIAlertView alloc] initWithTitle:@"Missing Username" message:@"You did not enter a username!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            
-        } else if(password.length < 1) {
-            [[[UIAlertView alloc] initWithTitle:@"Missing Password" message:@"You did not enter a password!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        } else if(username.length < 1 && password.length < 1) {
-            [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"You did not enter a user name or password!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
+    } else if(username.length < 1 && password.length < 1) {
+        [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"You did not enter a user name or password!"delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         
-        return NO;
+    }else if(username.length < 1) {
+        [[[UIAlertView alloc] initWithTitle:@"Missing Username" message:@"You did not enter a username!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         
-    /*}else{
-        
-        UIAlertView *noConnection = [[UIAlertView alloc] initWithTitle:@"No Connection" message:@"You do not have an active network connect. Please connect to a network and try again" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        
-        [noConnection show];
-        
+    } else if(password.length < 1) {
+        [[[UIAlertView alloc] initWithTitle:@"Missing Password" message:@"You did not enter a password!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    } else if(username.length < 1 && password.length < 1) {
+        [[[UIAlertView alloc] initWithTitle:@"Missing Information" message:@"You did not enter a user name or password!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
-    return NO;*/
+    
+    return NO;
+    
+    /*}else{
+     
+     UIAlertView *noConnection = [[UIAlertView alloc] initWithTitle:@"No Connection" message:@"You do not have an active network connect. Please connect to a network and try again" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+     
+     [noConnection show];
+     
+     }
+     return NO;*/
     
 }
 
@@ -149,11 +175,28 @@
 {
     NSLog(@"%@ Logged In",[[PFUser currentUser] username]);
     
-    [ApplicationDelegate loadProperties];
-    [ApplicationDelegate loadTenants];
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("BackgroundQ", 0);
+    
+    dispatch_async(backgroundQueue, ^{
+        
+        [ApplicationDelegate loadProperties];
+        [ApplicationDelegate loadTenants];
+        [ApplicationDelegate loadSubUnits];
+        
+        [ApplicationDelegate loadTasks];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+               [self.propCount setNeedsDisplay];
+            
+        });
+    });
     
     
-   
+    
+    
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -163,6 +206,8 @@
 {
     ApplicationDelegate.propertyArray = nil;
     ApplicationDelegate.tenantsArray = nil;
+    ApplicationDelegate.tasksArray = nil;
+    ApplicationDelegate.subUnitArray = nil;
     
     logOutAlert = [[UIAlertView alloc] initWithTitle:@"Logout User" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     
@@ -186,7 +231,7 @@
             
         }
     }
-  
+    
 }
 
 

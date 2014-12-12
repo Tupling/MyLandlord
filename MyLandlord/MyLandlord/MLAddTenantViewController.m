@@ -27,7 +27,8 @@
     BOOL noProperty;
     
     NSArray *subUnitArray;
-
+    NSArray *tmpPropArray;
+    NSString *DNAProperty;
 }
 
 @end
@@ -39,6 +40,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    DNAProperty = @"Do Not Assign";
+    
+    tmpPropArray = [@[@""] arrayByAddingObjectsFromArray:[ApplicationDelegate propertyArray]];
     
     noProperty = NO;
     
@@ -94,6 +99,7 @@
         } else {
             
             noProperty = YES;
+            self.assignProperty.text = DNAProperty;
         }
 
     
@@ -108,6 +114,8 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
+    
+   
     //Month Day Array
   dueDay = @[@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12,@13,@14,@15,@16,@17,@18,@19,@20,@21,@22,@23,@24,@25,@26,@27,@28,@29,@30,@31];
     
@@ -190,6 +198,7 @@
             tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
             
             tenant[@"assignedPropId"] = assignPropertyID;
+            
             tenant[@"subUnitId"] = subUnitId;
             
             if (secondTenantState) {
@@ -253,6 +262,7 @@
     tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
            
     tenant[@"assignedPropId"] = assignPropertyID;
+    tenant[@"subUnitId"] = subUnitId;
     
     if (secondTenantState) {
         BOOL secondTenantTrue = YES;
@@ -280,15 +290,10 @@
             
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
+            
             [savedAlert show];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-        
-                [ApplicationDelegate loadTenants];
-        
-                    [self.navigationController popViewControllerAnimated:YES];
-        
-            });
+
 
         } else {
             
@@ -308,6 +313,37 @@
     
     return true;
 }
+
+#pragma mark
+#pragma mark - AlertView Method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+ 
+    if([alertView isEqual:savedAlert]){
+        
+        if (buttonIndex == 0) {
+            NSLog(@"Closed Warning");
+            
+            dispatch_queue_t backgroundQueue = dispatch_queue_create("BackgroundQ", 0);
+            
+            dispatch_async(backgroundQueue, ^{
+                
+                [ApplicationDelegate loadTenants];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                });    
+            });
+
+
+        }
+    }
+    
+}
+
+#pragma mark
+#pragma mark - Text Edit Methods
 
 //TextField BEGIN editing Methods
 -(void)textFieldDidBeginEditing:(UITextField *)textField
@@ -340,11 +376,11 @@
     else if([textField isEqual:self.assignProperty]) {
 
         textField.inputView = self.assignPropPicker;
-        
+        NSLog(@"TMP ARRAY COUNT =  %lu", (unsigned long)tmpPropArray.count);
         //If only 1 propert exists set value for that property name
-        if (ApplicationDelegate.propertyArray.count == 1) {
-            
-            assignPropertyID = [[ApplicationDelegate.propertyArray objectAtIndex:0] valueForKey:@"propertyId"];
+        if (tmpPropArray.count == 2) {
+
+            assignPropertyID = [[tmpPropArray objectAtIndex:0] valueForKey:@"propertyId"];
             
         [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
         
@@ -372,7 +408,8 @@
     }
 }
 
-
+#pragma mark 
+#pragma mark - Date Picker Method
 //DatePicker AddDate Method
 -(IBAction)addDate:(UITextField *)textField
 {
@@ -395,7 +432,8 @@
     }
 }
 
-
+#pragma mark
+#pragma mark - Picker Component Method
 
 // returns the number of 'columns' to display.
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -423,7 +461,7 @@
 {
     if([pickerView isEqual:self.assignPropPicker]){
         
-        return [ApplicationDelegate.propertyArray count];
+        return [tmpPropArray count];
         
     } else if ([pickerView isEqual:self.dueDayPicker]) {
         
@@ -444,12 +482,20 @@
     
     if([pickerView isEqual:self.assignPropPicker]){
         
-        Properties *property = [ApplicationDelegate.propertyArray objectAtIndex:row];
+        Properties *property = [tmpPropArray objectAtIndex:row];
         
-        [self.assignPropPicker selectedRowInComponent:0];
+          [self.assignPropPicker selectedRowInComponent:0];
+        
+        if(row == 0){
+          
+            return DNAProperty;
+            
+        } else {
+       
+            return property.propName;
+        }
         
         
-        return property.propName;
     
     }else if([pickerView isEqual:self.dueDayPicker]){
         
@@ -477,24 +523,38 @@
 {
     if([pickerView isEqual:self.assignPropPicker]){
         
-        Properties *propertyInfo = [ApplicationDelegate.propertyArray objectAtIndex:row];
+        Properties *propertyInfo = [tmpPropArray objectAtIndex:row];
         [self.assignPropPicker selectedRowInComponent:0];
    
         
         [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
         
-        assignPropertyID = propertyInfo.propertyId;
-        
-        if(propertyInfo.multiFamily){
-            self.assignUnit.hidden = NO;
+        if (row == 0) {
             
-            self.subUnitPicker = [[UIPickerView alloc] init];
-            self.subUnitPicker.delegate = self;
-            self.subUnitPicker.dataSource = self;
+            assignPropertyID = @"";
+            self.assignProperty.text = DNAProperty;
+            self.assignUnit.hidden = YES;
+            subUnitId = @"";
             
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", assignPropertyID];
-            subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
+        } else {
+            
+            assignPropertyID = propertyInfo.propertyId;
+            
+            if(propertyInfo.multiFamily){
+                self.assignUnit.hidden = NO;
+                
+                self.subUnitPicker = [[UIPickerView alloc] init];
+                self.subUnitPicker.delegate = self;
+                self.subUnitPicker.dataSource = self;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", assignPropertyID];
+                subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
+            
+            }
+            
         }
+        
+
         
         NSLog(@"%@", assignPropertyID);
         
@@ -523,6 +583,7 @@
 
 }
 
+#pragma mark
 
 
 - (void)didReceiveMemoryWarning {

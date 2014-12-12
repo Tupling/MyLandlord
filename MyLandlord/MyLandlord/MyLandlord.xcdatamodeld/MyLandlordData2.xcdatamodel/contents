@@ -9,6 +9,8 @@
     </entity>
     <entity name="Income" representedClassName="Income" parentEntity="Tenants" syncable="YES">
         <attribute name="incAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="incDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="incDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="incTenantId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="incType" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -58,7 +60,7 @@
     </entity>
     <elements>
         <element name="Expense" positionX="-4032" positionY="-7" width="128" height="118"/>
-        <element name="Income" positionX="-3537" positionY="-234" width="128" height="88"/>
+        <element name="Income" positionX="-3537" positionY="-234" width="128" height="118"/>
         <element name="Properties" positionX="-4025" positionY="-207" width="128" height="180"/>
         <element name="SubUnit" positionX="-3843" positionY="-162" width="128" height="90"/>
         <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="165"/>

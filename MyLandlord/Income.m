@@ -15,6 +15,8 @@
 @dynamic incAmount;
 @dynamic incTenantId;
 @dynamic incType;
+@dynamic incDate;
+@dynamic incDescription;
 @dynamic tenant;
 
 @end

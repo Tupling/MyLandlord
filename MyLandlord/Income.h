@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSNumber * incAmount;
 @property (nonatomic, retain) NSString * incTenantId;
 @property (nonatomic, retain) NSString * incType;
+@property (nonatomic, retain) NSString * incDescription;
+@property (nonatomic, retain) NSDate * incDate;
 @property (nonatomic, retain) Tenants *tenant;
 
 @end

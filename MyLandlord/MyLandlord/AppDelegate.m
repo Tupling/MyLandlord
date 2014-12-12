@@ -34,7 +34,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
     
     //Parse Setup information
     [Parse setApplicationId:@"JaDJYpRJTZR9QV7OooDivH9uSRlTNYL8mH7AcUbe" clientKey:@"MyEtePxKqaKi2mXL9SALjECDTVL9WN3uqbQ4OWKd"];
@@ -50,14 +50,18 @@
     //Check for Network Connection
     self.networkStatus = [Reachability reachabilityForInternetConnection];
     
+
     [self loadProperties];
     [self loadTenants];
     [self loadTasks];
-
+    
     [self loadSubUnits];
-
     
 
+    
+    
+    
+    
     return YES;
 }
 
@@ -87,7 +91,8 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -104,8 +109,8 @@
 // Load Property Information
 -(void)loadProperties
 {
-   
-    NSLog(@"Attempting to Load Data from DB");
+    
+    
     [self deletedAllObjects:@"Properties"];
     PFQuery *results = [PFQuery queryWithClassName:@"Properties"];
     [results orderByAscending:@"propName"];
@@ -152,14 +157,14 @@
                 
             }
             NSLog(@"PROPERTY ARRAY COUNT %lu:", (unsigned long)self.propertyArray.count);
-                    
+            
         }else{
             
             //Why did it fail?
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-
+    
     
     
 }
@@ -168,7 +173,7 @@
 
 -(void)loadTenants
 {
-    NSLog(@"Attempting to Load Data from DB");
+    
     [self deletedAllObjects:@"Tenants"];
     PFQuery *results = [PFQuery queryWithClassName:@"Tenants"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
@@ -226,10 +231,10 @@
                 
                 self.tenantsArray = [[NSMutableArray alloc] initWithArray:self.tenantDataArray];
                 
-               
+                
             }
             
-             NSLog(@"Tenant Array Count: %lu", (unsigned long)[self.tenantsArray count]);
+            
             
         }else{
             
@@ -238,13 +243,13 @@
         }
         
     }];
-
+    
 }
 
 
 -(void)loadTasks
 {
-    NSLog(@"Attempting to Load Data from DB");
+    
     [self deletedAllObjects:@"Tasks"];
     PFQuery *results = [PFQuery queryWithClassName:@"ToDo"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
@@ -256,63 +261,106 @@
             for(int i = 0; i <objects.count; i++){
                 NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
                 
-                Tasks *taskInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:context];
-                
-                taskInfo.taskId = [objects[i] valueForKey:@"objectId"];
-                
-                taskInfo.task = [objects[i] valueForKey:@"task"];
-                taskInfo.priority = [objects[i] valueForKey:@"priority"];
-                taskInfo.taskDescription = [objects[i] valueForKey:@"taskDesc"];
-                taskInfo.dueDate = [objects[i] valueForKey:@"dueDate"];
-                
-                taskInfo.isComplete = [objects[i] valueForKey:@"isComplete"];
-                taskInfo.createdDate = [objects[i] valueForKey:@"createdAt"];
-                taskInfo.propId = [objects[i] valueForKey:@"propId"];
-  
-                
-                NSError * error;
-                if(![context save:&error])
-                {
-                    NSLog(@"Failed to save: %@", [error localizedDescription]);
+                if ([[objects[i] valueForKey:@"isComplete"] isEqual:[NSNumber numberWithBool:YES]]) {
+                    
+                    Tasks *taskInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:context];
+                    
+                    
+                    
+                    taskInfo.taskId = [objects[i] valueForKey:@"objectId"];
+                    
+                    taskInfo.task = [objects[i] valueForKey:@"task"];
+                    taskInfo.priority = [objects[i] valueForKey:@"priority"];
+                    taskInfo.taskDescription = [objects[i] valueForKey:@"taskDesc"];
+                    taskInfo.dueDate = [objects[i] valueForKey:@"dueDate"];
+                    
+                    taskInfo.isComplete = [objects[i] valueForKey:@"isComplete"];
+                    taskInfo.createdDate = [objects[i] valueForKey:@"createdAt"];
+                    taskInfo.propId = [objects[i] valueForKey:@"propId"];
+                    
+                    
+                    NSError * error;
+                    if(![context save:&error])
+                    {
+                        NSLog(@"Failed to save: %@", [error localizedDescription]);
+                    }
+                    
+                    //Create new Fetch Request
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                    
+                    //Request Entity TaskInfo
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task" inManagedObjectContext:context];
+                    
+                    //Set fetchRequest entity to EventInfo Description
+                    [fetchRequest setEntity:entity];
+                    
+                    //Set events array to data in core data
+                    self.completedTaskDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                    
+                    self.completedTasks = [[NSMutableArray alloc] initWithArray:self.completedTaskDataArray];
+                    
+                    
+                } else {
+                    
+                    Tasks *taskInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:context];
+                    
+                    
+                    
+                    taskInfo.taskId = [objects[i] valueForKey:@"objectId"];
+                    
+                    taskInfo.task = [objects[i] valueForKey:@"task"];
+                    taskInfo.priority = [objects[i] valueForKey:@"priority"];
+                    taskInfo.taskDescription = [objects[i] valueForKey:@"taskDesc"];
+                    taskInfo.dueDate = [objects[i] valueForKey:@"dueDate"];
+                    
+                    taskInfo.isComplete = [objects[i] valueForKey:@"isComplete"];
+                    taskInfo.createdDate = [objects[i] valueForKey:@"createdAt"];
+                    taskInfo.propId = [objects[i] valueForKey:@"propId"];
+                    
+                    
+                    NSError * error;
+                    if(![context save:&error])
+                    {
+                        NSLog(@"Failed to save: %@", [error localizedDescription]);
+                    }
+                    
+                    //Create new Fetch Request
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                    
+                    //Request Entity TaskInfo
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:context];
+                    
+                    //Set fetchRequest entity to EventInfo Description
+                    [fetchRequest setEntity:entity];
+                    
+                    //Set events array to data in core data
+                    self.taskDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                    
+                    self.tasksArray = [[NSMutableArray alloc] initWithArray:self.taskDataArray];
+                    
+                    
+                    
                 }
-                
-                //Create new Fetch Request
-                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-                
-                //Request Entity TaskInfo
-                NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:context];
-                
-                //Set fetchRequest entity to EventInfo Description
-                [fetchRequest setEntity:entity];
-                
-                //Set events array to data in core data
-                self.taskDataArray = [context executeFetchRequest:fetchRequest error:&error];
-                
-                self.tasksArray = [[NSMutableArray alloc] initWithArray:self.taskDataArray];
-                
-               
-                
             }
-            
-            
-            NSLog(@"Task Array Count: %lu", (unsigned long)[self.tasksArray count]);
             
         }else{
             
             //Why did it fail?
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
+      
+        
         
     }];
     
-   
+    
     
 }
 
 
 -(void)loadSubUnits
 {
-    NSLog(@"Attempting to Load Data from DB");
+    
     [self deletedAllObjects:@"SubUnit"];
     PFQuery *results = [PFQuery queryWithClassName:@"SubUnits"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
@@ -330,7 +378,7 @@
                 
                 unitInfo.unitNumber = [objects[i] valueForKey:@"unitNumber"];
                 unitInfo.parentPropId = [objects[i] valueForKey:@"parentProp"];
-      
+                
                 NSError * error;
                 if(![context save:&error])
                 {
@@ -354,7 +402,6 @@
                 
             }
             
-            NSLog(@"SubUnit Count: %lu", (unsigned long)[self.subUnitDataArray count]);
             
         }else{
             

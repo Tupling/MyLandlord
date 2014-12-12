@@ -19,6 +19,7 @@
     UILabel *propRentStatus;
     
     UIAlertView *deleteObject;
+    UIAlertView *deleteError;
 }
 
 
@@ -43,7 +44,7 @@
     
     //[self.tableView reloadData];
     // Do any additional setup after loading the view, typically from a nib.
-
+    
 }
 
 
@@ -52,8 +53,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma TABLEVIEW METHODS
+#pragma mark
+#pragma mark Tableview Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -73,14 +74,14 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
-
+        
     }
     
     propName = (UILabel*)[cell viewWithTag:100];
     propTenant = (UILabel*)[cell viewWithTag:101];
     propRentStatus = (UILabel*)[cell viewWithTag:102];
-
-
+    
+    
     
     Properties *property = [ApplicationDelegate.propertyArray objectAtIndex:indexPath.row];
     //NSLog(@"TENANT ARRAY = %@", ApplicationDelegate.tenantsArray);
@@ -89,37 +90,40 @@
     
     if(property.multiFamily){
         
-         propTenant.text = @"Multi Family Unit";
-    
+        propTenant.text = @"Multi Family Unit";
+       
+        
+        
+        
     } else {
+        
+
         //Filter through tenants array to get assigned tenants
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", property.propertyId];
         NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
-
-            if(predicateResults.count > 0){
         
-                self.tenantInfo = [predicateResults objectAtIndex:0];
-                NSLog(@"Predicate Results == %@", self.tenantInfo);
-                propTenant.text = [NSString stringWithFormat:@"%@ %@", self.tenantInfo.pFirstName, self.tenantInfo.pLastName];
-        
-            } else {
+        if(predicateResults.count > 0){
             
-                propTenant.text = @"No Assigned Tenant";
-    
-            }
+            self.tenantInfo = [predicateResults objectAtIndex:0];
+            NSLog(@"Predicate Results == %@", self.tenantInfo);
+            propTenant.text = [NSString stringWithFormat:@"%@ %@", self.tenantInfo.pFirstName, self.tenantInfo.pLastName];
+            
+        } else {
+            
+            propTenant.text = @"No Assigned Tenant";
+            
+        }
     }
-
+    
     propName.text = property.propName;
-   
-    NSString *rentStatus = @"Past Due";
-    propRentStatus.textColor = [UIColor redColor];
-    propRentStatus.text = [NSString stringWithFormat:@"Rent: %@", rentStatus];
+     propRentStatus.text = @"";
+    
     
     [cell setNeedsDisplay];
-
+    
     return cell;
-
-
+    
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -129,8 +133,8 @@
     //Check for Multi Family Units
     if(self.propInfo.multiFamily == 1){
         
-      [self performSegueWithIdentifier:@"multipleUnit" sender:self];
-    
+        [self performSegueWithIdentifier:@"multipleUnit" sender:self];
+        
         
     }else {
         
@@ -156,7 +160,7 @@
     
     //Deselect Item
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -169,39 +173,53 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.propInfo = [ApplicationDelegate.propertyArray objectAtIndex:indexPath.row];
         
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", self.propInfo.propertyId];
+        NSArray *predicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:predicate];
         
-        deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Property" message:@"Are you sure you want to delete this property?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        NSLog(@"PREDICATE COUNT == %lu", (unsigned long)predicateResults.count);
         
-        //Set alert tag do index path. Allows me to pass the table index of item being deleted.
-        deleteObject.tag = indexPath.row;
+        if (predicateResults.count == 0) {
+            deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Property" message:@"Are you sure you want to delete this property?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            
+            //Set alert tag do index path. Allows me to pass the table index of item being deleted.
+            deleteObject.tag = indexPath.row;
+            
+            [deleteObject show];
+        } else {
+            deleteError = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You cannot remove a property that has a current tenant!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            
+            [deleteError show];
+        }
         
-        [deleteObject show];
+        
+        
         
     }
 }
 
- #pragma mark - Navigation
- 
-  //In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     
-     if ([[segue identifier] isEqualToString:@"details"]) {
-         
-         MLPropertyDetails *propDetails = segue.destinationViewController;
-         
-         propDetails.details = self.propInfo;
-         propDetails.tenantDetails = self.tenantInfo;
-         
-     } else if([[segue identifier] isEqualToString:@"multipleUnit"]){
-         
-         MLPropertyUnits *propDetails = segue.destinationViewController;
-         propDetails.propDetails = self.propInfo;
-         
-         
-     }
+#pragma mark - Navigation
+
+//In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"details"]) {
+        
+        MLPropertyDetails *propDetails = segue.destinationViewController;
+        
+        propDetails.details = self.propInfo;
+        propDetails.tenantDetails = self.tenantInfo;
+        
+    } else if([[segue identifier] isEqualToString:@"multipleUnit"]){
+        
+        MLPropertyUnits *propDetails = segue.destinationViewController;
+        propDetails.propDetails = self.propInfo;
+        
+        
+    }
 }
 
-
+#pragma mark
+#pragma mark - Alertview Delegate Methods
 //Alert user of actions
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

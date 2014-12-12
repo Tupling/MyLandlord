@@ -62,13 +62,13 @@
                 
                 [updatedAlert show];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+          
                     
                     [ApplicationDelegate loadTenants];
                     
                     [self.navigationController popToRootViewControllerAnimated:YES];
                     
-                });
+             
                 
             } else {
                 

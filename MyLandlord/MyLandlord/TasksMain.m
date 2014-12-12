@@ -20,24 +20,8 @@
 
 @implementation TasksMain
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
-    
-
-    
-    [self.tableView reloadData];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [self sortTasks];
-    
-    [self.tableView reloadData];
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
     
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -45,11 +29,31 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-    //[self.tableView reloadData];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+
+    NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
+    NSString *badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]];
+    
+    [self.navigationController.tabBarItem setBadgeValue:badgeValue];
+    
+    
+}
+
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    
+    [self.tableView reloadData];
+        
+
+}
+
+
+
+
 -(void)sortTasks
 {
     for (int i = 0; i < ApplicationDelegate.tasksArray.count; i ++) {

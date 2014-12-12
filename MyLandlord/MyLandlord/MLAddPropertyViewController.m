@@ -84,21 +84,22 @@
 {
   
     //if toggle is on set to off
-    if (multiFamilyState) {
+    if (self.multiFamily.on) {
+        
+        isMultiFamily = YES;
+        
+        self.noLabel.hidden = YES;
+        self.yesLabel.hidden = NO;
+
+        
+    //if toggle is off set to on
+    }else {
         
         [self.multiFamily setOn:NO animated:YES];
         
         isMultiFamily = NO;
         self.noLabel.hidden = NO;
         self.yesLabel.hidden = YES;
-        
-    //if toggle is off set to on
-    }else if(!multiFamilyState){
-        
-        isMultiFamily = YES;
-
-        self.noLabel.hidden = YES;
-        self.yesLabel.hidden = NO;
     }
     
 }
