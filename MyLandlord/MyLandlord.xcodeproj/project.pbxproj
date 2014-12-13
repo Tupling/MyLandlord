@@ -23,6 +23,9 @@
 		1E4A67E21A31F72C0026E8F7 /* MLAddTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */; };
 		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
 		1EB679C91A3BAFDD00F431AB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */; };
+		1EB679CC1A3C8C7300F431AB /* MLPropDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */; };
+		1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CE1A3C8C8900F431AB /* MLTenantDocuments.m */; };
+		1EB679D21A3CA0BD00F431AB /* FileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679D11A3CA0BD00F431AB /* FileInfo.m */; };
 		1EC04E0E1A1A49330020B759 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E0D1A1A49330020B759 /* main.m */; };
 		1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E101A1A49330020B759 /* AppDelegate.m */; };
 		1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E131A1A49330020B759 /* MLHomeViewController.m */; };
@@ -115,6 +118,12 @@
 		1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTenantViewController.h; sourceTree = "<group>"; };
 		1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantViewController.m; sourceTree = "<group>"; };
 		1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
+		1EB679CA1A3C8C7300F431AB /* MLPropDocuments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropDocuments.h; sourceTree = "<group>"; };
+		1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropDocuments.m; sourceTree = "<group>"; };
+		1EB679CD1A3C8C8900F431AB /* MLTenantDocuments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantDocuments.h; sourceTree = "<group>"; };
+		1EB679CE1A3C8C8900F431AB /* MLTenantDocuments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTenantDocuments.m; sourceTree = "<group>"; };
+		1EB679D01A3CA0BD00F431AB /* FileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileInfo.h; sourceTree = "<group>"; };
+		1EB679D11A3CA0BD00F431AB /* FileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileInfo.m; sourceTree = "<group>"; };
 		1EC04E081A1A49330020B759 /* MyLandlord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLandlord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC04E0C1A1A49330020B759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EC04E0D1A1A49330020B759 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -288,6 +297,10 @@
 			children = (
 				1EC04E371A1A4DF20020B759 /* MLDocsViewController.h */,
 				1EC04E381A1A4DF20020B759 /* MLDocsViewController.m */,
+				1EB679CA1A3C8C7300F431AB /* MLPropDocuments.h */,
+				1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */,
+				1EB679CD1A3C8C8900F431AB /* MLTenantDocuments.h */,
+				1EB679CE1A3C8C8900F431AB /* MLTenantDocuments.m */,
 			);
 			name = "ML-Document Controllers";
 			sourceTree = "<group>";
@@ -417,6 +430,8 @@
 				1E1447A81A378015008F4BA4 /* SubUnit.m */,
 				1E4A67D91A31F6920026E8F7 /* Tasks.h */,
 				1E4A67DA1A31F6920026E8F7 /* Tasks.m */,
+				1EB679D01A3CA0BD00F431AB /* FileInfo.h */,
+				1EB679D11A3CA0BD00F431AB /* FileInfo.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -590,6 +605,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EB679CC1A3C8C7300F431AB /* MLPropDocuments.m in Sources */,
 				1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */,
 				1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */,
 				1EF280C61A2CFED30038D340 /* SubTenants.m in Sources */,
@@ -612,6 +628,7 @@
 				1EF280C91A2CFED30038D340 /* Income.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
 				1E1447B11A3A0813008F4BA4 /* MLAddPropertyExpense.m in Sources */,
+				1EB679D21A3CA0BD00F431AB /* FileInfo.m in Sources */,
 				1EF280CC1A2CFED30038D340 /* Expense.m in Sources */,
 				1EC04E631A1A7F6C0020B759 /* MyLandlord.xcdatamodeld in Sources */,
 				1EF280CF1A2CFED30038D340 /* LeaseInfo.m in Sources */,
@@ -622,6 +639,7 @@
 				1EC04E361A1A4D410020B759 /* MLTenantsViewController.m in Sources */,
 				1E1447A31A37321B008F4BA4 /* MLPropertyUnits.m in Sources */,
 				1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */,
+				1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */,
 				1EF280C01A2CFED20038D340 /* Tenants.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
 				1ECDD2C21A202966001C0CDA /* MLFinancesView.m in Sources */,

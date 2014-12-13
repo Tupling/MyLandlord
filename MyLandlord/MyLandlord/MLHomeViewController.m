@@ -24,6 +24,8 @@
 {
     [super viewDidLoad];
     
+    [self viewWillAppear:YES];
+    
 
 }
 
@@ -37,9 +39,32 @@
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            //Get TabBar Badge Count
+            self.context = [ApplicationDelegate managedObjectContext];
+            
+            //Create new Fetch Request
+            self.fetchRequest = [[NSFetchRequest alloc] init];
+            
+            //Request Entity EventInfo
+            self.taskEntity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:self.context];
+            
+            //Set fetchRequest entity to EventInfo Description
+            [self.fetchRequest setEntity:self.taskEntity];
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isComplete == 0"];
+            
+            [self.fetchRequest setPredicate:predicate];
+            
+            NSError * error;
+            //Set events array to data in core data
+            taskDueArray = [self.context executeFetchRequest:self.fetchRequest error:&error];
+            
+            
+            [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
+
             
             [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
-            [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
+            [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
             
         });
@@ -55,7 +80,6 @@
     }
     
     
-    [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
     
     
 }
@@ -94,7 +118,11 @@
     self.addTenant.layer.cornerRadius = 5;
     self.addTask.layer.cornerRadius = 5;
     
+    [self viewWillAppear:YES];
+    
 }
+
+
 
 
 
@@ -179,9 +207,7 @@
 {
     NSLog(@"%@ Logged In",[[PFUser currentUser] username]);
     
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("BackgroundQ", 0);
-    
-    dispatch_async(backgroundQueue, ^{
+
         
         [ApplicationDelegate loadProperties];
         [ApplicationDelegate loadTenants];
@@ -189,29 +215,18 @@
         
         [ApplicationDelegate loadTasks];
         
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-               [self.propCount setNeedsDisplay];
-            
-        });
-    });
     
-    
-    
-    
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+       [self dismissViewControllerAnimated:YES completion:nil];
+   
+   
+   
 }
 
 
 #pragma mark LOGOUT
 -(IBAction)logOut:(id)sender
 {
-    ApplicationDelegate.propertyArray = nil;
-    ApplicationDelegate.tenantsArray = nil;
-    ApplicationDelegate.tasksArray = nil;
-    ApplicationDelegate.subUnitArray = nil;
+
     
     logOutAlert = [[UIAlertView alloc] initWithTitle:@"Logout User" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     

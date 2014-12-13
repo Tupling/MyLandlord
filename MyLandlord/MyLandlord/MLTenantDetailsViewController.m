@@ -10,8 +10,9 @@
 #import "MLAddSecondTenantInfo.h"
 #import "MLTenantsViewController.h"
 #import "MLAddTenantViewController.h"
+#import "MLTenantDocuments.h"
 
-@interface MLTenantDetailsViewController ()
+@interface MLTenantDetailsViewController () <UIActionSheetDelegate>
 
 @end
 
@@ -28,6 +29,8 @@
     return self;
 }
 
+
+#pragma mark - View Load Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -66,11 +69,15 @@
     leaseStartLabel.text = [dateFormatter stringFromDate:leaseStart];
     rentDueLabel.text = [NSString stringWithFormat:@"$%@.00", _details.rentAmount];
     
-    if (_details.sFirstName == nil) {
+    if ([_details.sFirstName isEqualToString:@""] || _details.sFirstName == nil) {
         sTenantHeaderLabel.hidden = YES;
         sTenantName.hidden = YES;
         self.sTenantphoneButton.hidden = YES;
         self.sTenantEmailButton.hidden = YES;
+        
+        self.sTenantEmailHeader.hidden = YES;
+        self.sTenantPhoneHeader.hidden = YES;
+     
 
         
     }else{
@@ -120,16 +127,68 @@
     [self.view setNeedsDisplay];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Action Methods
 
--(IBAction)closeView:(id)sender
+-(IBAction)editDetails:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+   
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Edit Primary or Secondary Tenant" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Primary", @"Edit Secondary", nil];
+    actionSheet.tag = 10;
+    [actionSheet showInView:self.view];
+    actionSheet = nil;
+    
 }
 
+
+-(IBAction)viewDocuments:(id)sender
+{
+    [self performSegueWithIdentifier:@"viewDocuments" sender:self];
+}
+
+
+
+#pragma mark - ActionSheet Method
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *selectedValue = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if (![selectedValue.lowercaseString isEqualToString:@"cancel"]) {
+        
+        
+        switch (actionSheet.tag) {
+                
+            case 10:
+                
+                switch (buttonIndex) {
+                    case 0:
+                        
+                        [self performSegueWithIdentifier:@"editPrimary" sender:self];
+                        break;
+                    
+                    case 1:
+                        
+                        [self performSegueWithIdentifier:@"editSecondary" sender:self];
+                        break;
+                        
+                    default:
+                        
+                        break;
+                }
+                
+                break;
+                
+            default:
+                
+                break;
+        }
+        
+    }
+}
+
+
+
+#pragma mark - Tenant Action Methods
 -(IBAction)makeCall:(id)sender
 {
     if([sender isEqual:self.phoneButton]){
@@ -169,7 +228,7 @@
  
             addSecondTenant.details = _details;
  
-            NSLog(@"Tenant Info: %@", _details);
+     
         
     }else if([[segue identifier] isEqualToString:@"editPrimary"]){
         MLAddTenantViewController *editPrimaryInfo = segue.destinationViewController;
@@ -183,7 +242,19 @@
         
         editSecondTenant.details = _details;
         
+    }else if ([[segue identifier] isEqualToString:@"viewDocuments"]) {
+        MLTenantDocuments *tenantDetails = segue.destinationViewController;
+        
+        tenantDetails.details = _details;
+        
+        
     }
+}
+
+#pragma mark
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 

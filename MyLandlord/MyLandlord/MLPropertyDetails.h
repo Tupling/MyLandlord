@@ -17,12 +17,12 @@
     IBOutlet UILabel *leaseInfo;
 }
 
--(IBAction)closeView:(id)sender;
+-(IBAction)editDetails:(id)sender;
 
 @property (nonatomic, strong)Properties *details;
 @property (nonatomic, strong)Tenants *tenantDetails;
 
-@property(nonatomic, strong) IBOutlet UIButton *editProperty;
+
 
 
 @end

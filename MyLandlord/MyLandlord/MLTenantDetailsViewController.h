@@ -14,13 +14,21 @@
 
 @interface MLTenantDetailsViewController : UIViewController
 {
+    
+    //Primary Tenant UI Items
     IBOutlet UILabel *pTenantName;
     IBOutlet UILabel *pTenantPhone;
     IBOutlet UILabel *pTenantEmail;
+    
+    //Secondary Tenant UI Items
     IBOutlet UILabel *sTenantName;
     IBOutlet UIButton *sTenantEmailButton;
     IBOutlet UIButton *sTenantphoneButton;
+    IBOutlet UILabel *sTenantEmailHeader;
+    IBOutlet UILabel *sTenantPhoneHeader;
     IBOutlet UILabel *sTenantHeaderLabel;
+    
+    //Lease UI Items
     IBOutlet UILabel *leaseStartLabel;
     IBOutlet UILabel *leaseEndLabel;
     IBOutlet UILabel *rentDueLabel;
@@ -29,7 +37,7 @@
 
 }
 
-
+//Properties
 
 @property (nonatomic, strong)Tenants *details;
 @property(nonatomic, strong) IBOutlet UIButton *viewDocs;
@@ -46,8 +54,15 @@
 @property(nonatomic, strong) IBOutlet UIButton *sTenantphoneButton;
 @property(nonatomic, strong) IBOutlet UIButton *sTenantEmailButton;
 
+@property(nonatomic, strong) IBOutlet UILabel *sTenantPhoneHeader;
+@property(nonatomic, strong) IBOutlet UILabel *sTenantEmailHeader;
+
+
+//Methods
 -(IBAction)makeCall:(id)sender;
 -(IBAction)sendEmail:(id)sender;
--(IBAction)closeView:(id)sender;
+
+-(IBAction)viewDocuments:(id)sender;
+-(IBAction)editDetails:(id)sender;
 
 @end

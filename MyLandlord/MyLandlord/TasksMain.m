@@ -54,7 +54,7 @@
     //Set events array to data in core data
     selectedArray = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
     
-    badgeArray = [NSArray arrayWithArray:selectedArray];
+    //badgeArray = [NSArray arrayWithArray:selectedArray];
     NSLog(@"%lu", (unsigned long)[selectedArray count]);
 
     
@@ -72,12 +72,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
-        [self.tableView reloadData];
+        //[self.tableView reloadData];
 
     NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
     
     
-    NSString *badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]];
+    NSString *badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[selectedArray count]];
     
     [self.navigationController.tabBarItem setBadgeValue:badgeValue];
     

@@ -16,6 +16,8 @@
 
 @implementation MLPropertyDetails
 
+#pragma mark - View Load Methods
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -68,19 +70,18 @@
     
     
 }
+
 -(void)viewDidDisappear:(BOOL)animated
 {
     self.tenantDetails = nil;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
--(IBAction)closeView:(id)sender
+#pragma mark -Edit Action Method
+
+-(IBAction)editDetails:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self performSegueWithIdentifier:@"editDetails" sender:self];
 }
 
 
@@ -103,6 +104,12 @@
         propertyDetails.details = _details;
         
     }
+}
+
+#pragma  mark
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 

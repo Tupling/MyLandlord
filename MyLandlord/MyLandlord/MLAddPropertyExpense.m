@@ -130,6 +130,9 @@
     
 }
 
+
+#pragma mark - ActionSheet Method
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *selectedValue = [actionSheet buttonTitleAtIndex:buttonIndex];

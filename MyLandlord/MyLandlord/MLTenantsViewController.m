@@ -8,6 +8,7 @@
 
 #import "MLTenantsViewController.h"
 #import "MLTenantDetailsViewController.h"
+#import "MLTenantDocuments.h"
 #import "AppDelegate.h"
 
 @interface MLTenantsViewController () <UIAlertViewDelegate>
@@ -18,6 +19,8 @@
 @end
 
 @implementation MLTenantsViewController
+
+#pragma mark - View Methods
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
@@ -44,6 +47,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - TableView Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -113,7 +118,7 @@
     
     return cell;
 }
-#pragma SEGUE METHODS
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -150,6 +155,8 @@
     }
 }
 
+#pragma Segue Methods
+
 
 //In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -162,9 +169,13 @@
         NSLog(@"Tenant Info: %@", _aTenantsInfo);
     }
     
+
+    
     
 }
 
+
+#pragma mark - Alert View Delegate Method
 //Alert user of actions
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

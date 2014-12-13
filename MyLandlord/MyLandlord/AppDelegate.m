@@ -47,8 +47,8 @@
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] == nil)
-    {
+//    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] == nil)
+//    {
         // ensure you have a DBSession to unlink
         if ([DBSession sharedSession] == nil)
         {
@@ -61,12 +61,12 @@
         }
         
         // unlink
-        [[DBSession sharedSession] unlinkAll];
+        //[[DBSession sharedSession] unlinkAll];
         
-        // set 'has run' flag
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LinkedAccount"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+//        // set 'has run' flag
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LinkedAccount"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
 
     
     
@@ -82,14 +82,11 @@
     [self loadTasks];
     [self loadProperties];
     [self loadTenants];
-    
-    
     [self loadSubUnits];
     
     
-    
-    
-    
+
+    [NSThread sleepForTimeInterval:1.0];
     
     return YES;
 }
@@ -187,12 +184,18 @@
             }
             NSLog(@"PROPERTY ARRAY COUNT %lu:", (unsigned long)self.propertyArray.count);
             
+          
+            
         }else{
             
             //Why did it fail?
             NSLog(@"Error: %@ %@", error, [error userInfo]);
+            
+            
         }
     }];
+    
+    
     
     
     
