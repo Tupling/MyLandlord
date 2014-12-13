@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Properties.h"
 #import "Tenants.h"
+#import "SubUnit.h"
 
 @interface MLPropertyDetails : UIViewController
 {
@@ -20,7 +21,8 @@
 -(IBAction)editDetails:(id)sender;
 
 @property (nonatomic, strong)Properties *details;
-@property (nonatomic, strong)Tenants *tenantDetails;
+@property (nonatomic, strong)Tenants    *tenantDetails;
+@property (nonatomic, strong)SubUnit    *subUnitDetails;
 
 
 

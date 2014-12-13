@@ -191,11 +191,9 @@
         if(succeeded)
         {
 
-            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] != nil)
-            {
               [[self restClient] createFolder:[NSString stringWithFormat:@"/Properties/%@", self.propName.text]];
             
-            }
+        
             
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Property Saved" message:@"Property has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             

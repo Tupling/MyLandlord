@@ -8,6 +8,7 @@
 
 #import "MLPropertyUnits.h"
 #import "MLAddUnits.h"
+#import "MLPropertyDetails.h"
 
 @interface MLPropertyUnits ()
 {
@@ -103,7 +104,24 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.subUnitDetails = [unitArray objectAtIndex:indexPath.row];
+    //Filter tenant array for assigned tenant
+    NSPredicate *tenantPred = [NSPredicate predicateWithFormat:@"subUnitId == %@", self.subUnitDetails.unitObjectId];
+    NSArray *localTenantArray =[ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:tenantPred];
     
+    if(localTenantArray.count > 0){
+        
+            self.tenantInfo = [localTenantArray objectAtIndex:0];
+        
+    } else {
+        
+        self.tenantInfo = nil;
+    }
+
+    
+    //Push detailsView to the top of the stack
+    [self performSegueWithIdentifier:@"unitDetails" sender:self];
+
 }
 
 
@@ -117,6 +135,12 @@
         
     } else if([[segue identifier] isEqualToString:@"unitDetails"]){
         
+        MLPropertyDetails *propertyDetails = segue.destinationViewController;
+    
+        
+        propertyDetails.details = self.propDetails;
+        propertyDetails.tenantDetails = self.tenantInfo;
+        propertyDetails.subUnitDetails = self.subUnitDetails;
         
     }
 }

@@ -17,5 +17,6 @@
 @property(nonatomic, strong)IBOutlet UITableView *tableView;
 @property(nonatomic, strong)Properties *propDetails;
 @property(nonatomic, strong)Tenants *tenantInfo;
+@property(nonatomic, strong)SubUnit *subUnitDetails;
 
 @end

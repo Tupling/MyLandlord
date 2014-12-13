@@ -5829,6 +5829,7 @@ Cg
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="ZVG-qj-RSC" id="1Yb-vA-iw5"/>
+                        <segue destination="xSl-vJ-BiD" kind="show" identifier="unitDetails" id="RYl-HA-ohg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIT-nA-SC3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -6353,7 +6354,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNX-Ge-cyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671.75" y="-874.125"/>
+            <point key="canvasLocation" x="1622.25" y="-874.125"/>
         </scene>
     </scenes>
     <resources>
@@ -6378,6 +6379,7 @@ Cg
     <inferredMetricsTieBreakers>
         <segue reference="qsW-Gy-OKK"/>
         <segue reference="FCi-D8-0rG"/>
+        <segue reference="RYl-HA-ohg"/>
         <segue reference="7iu-AO-izv"/>
     </inferredMetricsTieBreakers>
 </document>
