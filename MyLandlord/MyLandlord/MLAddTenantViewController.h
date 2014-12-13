@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "Tenants.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 @interface MLAddTenantViewController : UIViewController
 {
@@ -51,6 +52,9 @@
 @property (nonatomic, retain) NSArray *dayArray;
 
 @property (nonatomic, strong)Tenants *details;
+
+//DropBox RestClient Property
+@property (nonatomic, strong) DBRestClient *restClient;
 
 
 

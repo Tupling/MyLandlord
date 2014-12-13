@@ -8,7 +8,7 @@
 
 #import "MLAddPropertyViewController.h"
 
-@interface MLAddPropertyViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface MLAddPropertyViewController () <UIAlertViewDelegate, UITextFieldDelegate, DBRestClientDelegate>
 {
     UIAlertView *savedAlert;
     
@@ -18,16 +18,24 @@
     
 }
 
+
 @end
 
 @implementation MLAddPropertyViewController
 
 @synthesize propZip, propState, propCity, propAddress, propName, addProp;
 
+
+
+#pragma mark - View Load Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //DropBox
+    self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    self.restClient.delegate = self;
+        
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
     [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
@@ -63,15 +71,17 @@
         }
     }
     
-    
-    
 }
+
+
+#pragma mark - Cancel Method
 
 //Dismiss View
 -(IBAction)cancel:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+#pragma mark
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -79,6 +89,7 @@
 }
 
 
+#pragma mark - Sitch Method
 //MultiFamily toggle action method
 -(IBAction)multFamilyToggle:(id)sender
 {
@@ -106,6 +117,7 @@
 
 
 
+#pragma mark - Save Property
 
 //Save property action button
 -(IBAction)saveProp:(id)sender
@@ -137,6 +149,7 @@
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
+                      
                         [ApplicationDelegate loadProperties];
                         
                         [self.navigationController popViewControllerAnimated:YES];
@@ -177,6 +190,12 @@
     [property saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if(succeeded)
         {
+
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] != nil)
+            {
+              [[self restClient] createFolder:[NSString stringWithFormat:@"/Properties/%@", self.propName.text]];
+            
+            }
             
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Property Saved" message:@"Property has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
@@ -185,7 +204,9 @@
            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
+                
                 [ApplicationDelegate loadProperties];
+            
                 
                 [self.navigationController popViewControllerAnimated:YES];
                 

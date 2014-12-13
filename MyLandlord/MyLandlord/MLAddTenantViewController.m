@@ -41,6 +41,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //DropBox
+    self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    self.restClient.delegate = self;
+    
     DNAProperty = @"Do Not Assign";
     
     tmpPropArray = [@[@""] arrayByAddingObjectsFromArray:[ApplicationDelegate propertyArray]];
@@ -101,13 +105,13 @@
             noProperty = YES;
             self.assignProperty.text = DNAProperty;
         }
-
-    
+        
+        
     } else if([[self.details valueForKey:@"pFirstName"]  isEqual: @""]){
-    self.rentDueTF.text = @"";
-    self.rentTotalTF.text = @"";
+        self.rentDueTF.text = @"";
+        self.rentTotalTF.text = @"";
     }
-
+    
     //Set Nav Bar Image
     UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
     [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
@@ -115,9 +119,9 @@
     self.navigationItem.titleView = image;
     
     
-   
+    
     //Month Day Array
-  dueDay = @[@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12,@13,@14,@15,@16,@17,@18,@19,@20,@21,@22,@23,@24,@25,@26,@27,@28,@29,@30,@31];
+    dueDay = @[@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12,@13,@14,@15,@16,@17,@18,@19,@20,@21,@22,@23,@24,@25,@26,@27,@28,@29,@30,@31];
     
     NSLog(@"DAY ARRAY Count :%lu", (unsigned long)dueDay.count);
     
@@ -146,12 +150,12 @@
     self.dueDayPicker.delegate = self;
     self.dueDayPicker.dataSource = self;
     
-
     
     
-
     
-
+    
+    
+    
     //TODO Check if user is editing Tenant Information
     
 }
@@ -168,6 +172,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Save Tenant
 //Save Tenant Information to DB
 -(IBAction)saveTenant:(id)sender
 {
@@ -175,7 +180,7 @@
     //TODO ADD NETWORK CONNECTION CHECK
     NSLog(@"Tenant ID: %@", _details.tenantId);
     
-       if (_details != nil) {
+    if (_details != nil) {
         
         PFQuery *query = [PFQuery queryWithClassName:@"Tenants"];
         
@@ -235,81 +240,93 @@
                     
                 }
             }];
-
+            
             
         }];
-           
-       } else {
-    
-    PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
-
-    
-    tenant[@"pFirstName"] = self.pFirstName.text;
-    tenant[@"pLastName"] = self.pLastName.text;
-    tenant[@"pEmail"] = self.pEmail.text;
-    tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
-    
-    //Lease Information
-    tenant[@"leaseStart"] = leaseStart;
-    tenant[@"leaseEnd"] = leaseEnd;
-    
-    NSInteger rentValue = [self.rentTotalTF.text integerValue];
-    
-    tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
-    
-    NSInteger rentDueDay = [self.rentDueTF.text integerValue];
-    
-    tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
-           
-    tenant[@"assignedPropId"] = assignPropertyID;
-    tenant[@"subUnitId"] = subUnitId;
-    
-    if (secondTenantState) {
-        BOOL secondTenantTrue = YES;
-        tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+        
+    } else {
+        
+        PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
         
         
-    }else{
-        BOOL secondTenantTrue = NO;
-        tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
-    }
-    
-    
-    
-    //ONLY ALLOW CURRENT USER TO VIEW
-    //Set Access control to user logged in
-    tenant.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-    
-    //Set object to current user (makes it easier to get the data for tables)
-    [tenant setObject:[PFUser currentUser] forKey:@"createdBy"];
-    
-    
-    [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if(succeeded)
-        {
+        tenant[@"pFirstName"] = self.pFirstName.text;
+        tenant[@"pLastName"] = self.pLastName.text;
+        tenant[@"pEmail"] = self.pEmail.text;
+        tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
+        
+        //Lease Information
+        tenant[@"leaseStart"] = leaseStart;
+        tenant[@"leaseEnd"] = leaseEnd;
+        
+        NSInteger rentValue = [self.rentTotalTF.text integerValue];
+        
+        tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
+        
+        NSInteger rentDueDay = [self.rentDueTF.text integerValue];
+        
+        tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
+        
+        NSLog(@"ASSIGN PROP TEXT = %@", self.assignProperty.text);
+        if(![self.assignProperty.text isEqualToString:DNAProperty ]){
             
-            savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            
-            
-            [savedAlert show];
-            
-
-
-        } else {
-            
-            savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            
-            [savedAlert show];
+            tenant[@"assignedPropId"] = assignPropertyID;
+            tenant[@"subUnitId"] = subUnitId;
             
         }
-    }];
-
-       }
+        
+        
+        if (secondTenantState) {
+            BOOL secondTenantTrue = YES;
+            tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+            
+            
+        }else{
+            BOOL secondTenantTrue = NO;
+            tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+        }
+        
+        
+        
+        //ONLY ALLOW CURRENT USER TO VIEW
+        //Set Access control to user logged in
+        tenant.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        
+        //Set object to current user (makes it easier to get the data for tables)
+        [tenant setObject:[PFUser currentUser] forKey:@"createdBy"];
+        
+        
+        [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(succeeded)
+            {
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] != nil)
+                {
+                    NSString *folderPath = [NSString stringWithFormat:@"/Tenants/%@_%@", self.pFirstName.text, self.pLastName.text];
+                    
+                    [[self restClient] createFolder:folderPath];
+                    
+                }
+                savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                
+                [savedAlert show];
+                
+                
+                
+            } else {
+                
+                savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                [savedAlert show];
+                
+            }
+        }];
+        
+    }
 }
 
 -(BOOL)validateInput
 {
-
+    
     
     return true;
 }
@@ -318,7 +335,7 @@
 #pragma mark - AlertView Method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
- 
+    
     if([alertView isEqual:savedAlert]){
         
         if (buttonIndex == 0) {
@@ -333,10 +350,10 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [self.navigationController popViewControllerAnimated:YES];
-                });    
+                });
             });
-
-
+            
+            
         }
     }
     
@@ -374,17 +391,14 @@
     }
     
     else if([textField isEqual:self.assignProperty]) {
-
+        
         textField.inputView = self.assignPropPicker;
         NSLog(@"TMP ARRAY COUNT =  %lu", (unsigned long)tmpPropArray.count);
         //If only 1 propert exists set value for that property name
-        if (tmpPropArray.count == 2) {
-
-            assignPropertyID = [[tmpPropArray objectAtIndex:0] valueForKey:@"propertyId"];
+     
+            [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
             
-        [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
-        
-        }
+
         
     }
     else if([textField isEqual:self.rentDueTF]){
@@ -408,7 +422,7 @@
     }
 }
 
-#pragma mark 
+#pragma mark
 #pragma mark - Date Picker Method
 //DatePicker AddDate Method
 -(IBAction)addDate:(UITextField *)textField
@@ -416,7 +430,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
     if (self.leaseStartTF.isEditing) {
-
+        
         self.leaseStartTF.text = [dateFormatter stringFromDate:[self.datePicker date]];
         
         leaseStart = [self.datePicker date];
@@ -449,7 +463,7 @@
     }else if ([pickerView isEqual:self.subUnitPicker]){
         
         return 1;
-    
+        
     } else {
         
         return 0;
@@ -470,7 +484,7 @@
     } else if ([pickerView isEqual:self.subUnitPicker]){
         
         return subUnitArray.count;
-    
+        
     } else {
         
         return 0;
@@ -484,19 +498,19 @@
         
         Properties *property = [tmpPropArray objectAtIndex:row];
         
-          [self.assignPropPicker selectedRowInComponent:0];
+        [self.assignPropPicker selectedRowInComponent:0];
         
         if(row == 0){
-          
+            
             return DNAProperty;
             
         } else {
-       
+            
             return property.propName;
         }
         
         
-    
+        
     }else if([pickerView isEqual:self.dueDayPicker]){
         
         NSString *dueDayNumber = [NSString stringWithFormat:@"%@", [dueDay objectAtIndex:row]];
@@ -516,7 +530,7 @@
         
         return nil;
     }
-
+    
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
@@ -525,7 +539,7 @@
         
         Properties *propertyInfo = [tmpPropArray objectAtIndex:row];
         [self.assignPropPicker selectedRowInComponent:0];
-   
+        
         
         [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
         
@@ -549,12 +563,14 @@
                 
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", assignPropertyID];
                 subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
-            
+                
+            }else {
+                subUnitId = @"";
             }
             
         }
         
-
+        
         
         NSLog(@"%@", assignPropertyID);
         
@@ -574,13 +590,13 @@
         subUnitId = unitInfo.unitObjectId;
         
         NSLog(@"SUB UNIT ID = %@", subUnitId);
-
+        
         
         [self.assignUnit setText:[self pickerView:self.subUnitPicker titleForRow:[self.subUnitPicker selectedRowInComponent:0] forComponent:0]];
         
     }
     
-
+    
 }
 
 #pragma mark
@@ -592,13 +608,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

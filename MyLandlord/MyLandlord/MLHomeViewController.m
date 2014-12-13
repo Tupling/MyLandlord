@@ -44,6 +44,10 @@
             
         });
         
+        if (![[DBSession sharedSession] isLinked]) {
+            [[DBSession sharedSession] linkFromController:self];
+        }
+        
         
     }else{
         

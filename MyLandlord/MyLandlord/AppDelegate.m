@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import <DropboxSDK/DropboxSDK.h>
 
 #import "MLHomeViewController.h"
 #import "MLPropertyDetails.h"
@@ -34,15 +35,41 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+
+#pragma mark
+#pragma mark - Launching Methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     
     //Parse Setup information
     [Parse setApplicationId:@"JaDJYpRJTZR9QV7OooDivH9uSRlTNYL8mH7AcUbe" clientKey:@"MyEtePxKqaKi2mXL9SALjECDTVL9WN3uqbQ4OWKd"];
-    
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] == nil)
+    {
+        // ensure you have a DBSession to unlink
+        if ([DBSession sharedSession] == nil)
+        {
+            //Dropbox Setup Information
+            DBSession *dbSession = [[DBSession alloc]
+                                    initWithAppKey:@"dce7787ko2d4u1o"
+                                    appSecret:@"9os3cx3aehn2fhe"
+                                    root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
+            [DBSession setSharedSession:dbSession];
+        }
+        
+        // unlink
+        [[DBSession sharedSession] unlinkAll];
+        
+        // set 'has run' flag
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LinkedAccount"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+    
+    
     
     //SetTool Bar Tint
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];
@@ -104,7 +131,7 @@
 }
 
 
-
+#pragma mark
 #pragma mark - LOAD DATA METHOD
 
 
@@ -374,8 +401,8 @@
     
 }
 
-
-
+#pragma mark
+#pragma mark - Delete Core Data
 
 //Delete Property Objects before Loading New
 -(void)deletedAllObjects: (NSString*) entityDescription{
@@ -400,7 +427,8 @@
     }
 }
 
-
+#pragma mark
+#pragma mark - Save Context
 //CoreData save method
 - (void)saveContext
 {
@@ -416,6 +444,24 @@
     }
 }
 
+
+#pragma mark
+#pragma mark - DrobBox Methods
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+  sourceApplication:(NSString *)source annotation:(id)annotation {
+    if ([[DBSession sharedSession] handleOpenURL:url]) {
+        if ([[DBSession sharedSession] isLinked]) {
+            NSLog(@"App linked successfully!");
+            // At this point you can start making API calls
+        }
+        return YES;
+    }
+    // Add whatever other url handling code your app requires here
+    return NO;
+}
+
+#pragma mark
 #pragma mark - Core Data stack
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
