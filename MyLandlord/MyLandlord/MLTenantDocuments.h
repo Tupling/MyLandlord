@@ -19,7 +19,7 @@
      IBOutlet UILabel *fileNameLabel;
 }
 
-
+-(NSString*)tempFilePath;
 
 @property(nonatomic, strong) IBOutlet UITableView *tableView;
 

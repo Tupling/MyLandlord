@@ -127,7 +127,10 @@
     NSString *fileNameString = [[documentsArray objectAtIndex:indexPath.row] valueForKey:@"fileName"];
     NSString *filePathString = [[documentsArray objectAtIndex:indexPath.row] valueForKey:@"filePath"];
     
-    [self restClient:self.restClient loadedFile:filePathString];
+    
+        
+        [self.restClient loadFile:filePathString intoPath:[self tempFilePath]];
+
     
     //Push detailsView to the top of the stack
     //[self performSegueWithIdentifier:@"details" sender:self];
@@ -137,13 +140,34 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)restClient:(DBRestClient*)client loadedFile:(NSString*)destPath
-{
+- (void)restClient:(DBRestClient *)client loadedFile:(NSString *)localPath
+       contentType:(NSString *)contentType metadata:(DBMetadata *)metadata {
+    NSLog(@"File loaded into path: %@", localPath);
+    
+    NSURL *furl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.pdf"]];
+    NSLog(@"%@", furl);
+    
+    NSString *tempFileString = [NSString stringWithFormat:@"%@", furl];
+    
     MJPPdfViewer *pdfViewer = [[MJPPdfViewer alloc] init];
-    pdfViewer.fileName = destPath;
+    pdfViewer.fileName = @"temp.pdf";
     pdfViewer.margin = 10.0;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pdfViewer];
     [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+- (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
+{
+
+}
+
+- (void)restClient:(DBRestClient *)client loadFileFailedWithError:(NSError *)error {
+    NSLog(@"There was an error loading the file: %@", error);
+}
+
+- (NSString*)tempFilePath {
+    return [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.pdf"];
 }
 
 #pragma mark - Navigation

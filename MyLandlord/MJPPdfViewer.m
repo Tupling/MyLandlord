@@ -161,8 +161,8 @@
 
 - (void)setFileName:(NSString *)fileName {
     _fileName = fileName;
-    NSString *withoutExtention = [fileName stringByDeletingPathExtension];
-    NSURL *URL = [[NSBundle mainBundle] URLForResource:withoutExtention withExtension:@"pdf"];
+    //NSString *withoutExtention = [fileName stringByDeletingPathExtension];
+    NSURL *URL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:_fileName]];
     _pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) URL );
     _numberOfPages = CGPDFDocumentGetNumberOfPages( _pdf );
     _allPages = nil;
