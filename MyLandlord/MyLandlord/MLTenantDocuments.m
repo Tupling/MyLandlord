@@ -143,12 +143,7 @@
 - (void)restClient:(DBRestClient *)client loadedFile:(NSString *)localPath
        contentType:(NSString *)contentType metadata:(DBMetadata *)metadata {
     NSLog(@"File loaded into path: %@", localPath);
-    
-    NSURL *furl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.pdf"]];
-    NSLog(@"%@", furl);
-    
-    NSString *tempFileString = [NSString stringWithFormat:@"%@", furl];
-    
+ 
     MJPPdfViewer *pdfViewer = [[MJPPdfViewer alloc] init];
     pdfViewer.fileName = @"temp.pdf";
     pdfViewer.margin = 10.0;
@@ -166,6 +161,8 @@
     NSLog(@"There was an error loading the file: %@", error);
 }
 
+
+//Load File into Temp Directory
 - (NSString*)tempFilePath {
     return [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.pdf"];
 }
