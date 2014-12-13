@@ -51,28 +51,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
-    if (metadata.isDirectory) {
-        NSLog(@"Folder '%@' contains:", metadata.path);
-        for (DBMetadata *file in metadata.contents) {
-            
-            _fileInfo = [[FileInfo alloc] init];
-            
-            _fileInfo.fileName = file.filename;
-            _fileInfo.filePath = file.path;
-            
-            NSLog(@"    %@", file.path);
-            NSLog(@"	%@", file.filename);
-            
-            [documentsArray addObject:_fileInfo];
-            
-        }
-        
-        
-    }
-    
-    [self.tableView reloadData];
-}
+
 
 #pragma mark - TableView Methods
 
@@ -123,13 +102,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-    NSString *fileNameString = [[documentsArray objectAtIndex:indexPath.row] valueForKey:@"fileName"];
     NSString *filePathString = [[documentsArray objectAtIndex:indexPath.row] valueForKey:@"filePath"];
     
     
-        
-        [self.restClient loadFile:filePathString intoPath:[self tempFilePath]];
+    //Get File from Drobbox
+    [self.restClient loadFile:filePathString intoPath:[self tempFilePath]];
 
     
     //Push detailsView to the top of the stack
@@ -139,6 +116,33 @@
     //Deselect Item
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
+#pragma mark - DBRestClient Methods
+
+- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
+    if (metadata.isDirectory) {
+        NSLog(@"Folder '%@' contains:", metadata.path);
+        for (DBMetadata *file in metadata.contents) {
+            
+            _fileInfo = [[FileInfo alloc] init];
+            
+            _fileInfo.fileName = file.filename;
+            _fileInfo.filePath = file.path;
+            
+            NSLog(@"    %@", file.path);
+            NSLog(@"	%@", file.filename);
+            
+            [documentsArray addObject:_fileInfo];
+            
+        }
+        
+        
+    }
+    
+    [self.tableView reloadData];
+}
+
 
 - (void)restClient:(DBRestClient *)client loadedFile:(NSString *)localPath
        contentType:(NSString *)contentType metadata:(DBMetadata *)metadata {

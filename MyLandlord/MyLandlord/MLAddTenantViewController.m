@@ -224,13 +224,7 @@
                     
                     [savedAlert show];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [ApplicationDelegate loadTenants];
-                        
-                        [self.navigationController popToRootViewControllerAnimated:YES];
-                        
-                    });
+
                     
                 } else {
                     
@@ -298,13 +292,13 @@
         [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if(succeeded)
             {
-                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] != nil)
-                {
+                
                     NSString *folderPath = [NSString stringWithFormat:@"/Tenants/%@_%@", self.pFirstName.text, self.pLastName.text];
                     
                     [[self restClient] createFolder:folderPath];
-                    
-                }
+                
+
+                
                 savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                 
                 
@@ -341,18 +335,14 @@
         if (buttonIndex == 0) {
             NSLog(@"Closed Warning");
             
-            dispatch_queue_t backgroundQueue = dispatch_queue_create("BackgroundQ", 0);
-            
-            dispatch_async(backgroundQueue, ^{
+
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [ApplicationDelegate loadTenants];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [self.navigationController popViewControllerAnimated:YES];
-                });
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
             });
-            
             
         }
     }

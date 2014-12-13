@@ -54,7 +54,7 @@
 @property (nonatomic, strong)Tenants *details;
 
 //DropBox RestClient Property
-@property (nonatomic, strong) DBRestClient *restClient;
+@property (nonatomic) DBRestClient *restClient;
 
 
 
