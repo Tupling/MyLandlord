@@ -9,6 +9,7 @@
 #import "MLPropertyDetails.h"
 #import "MLAddPropertyViewController.h"
 #import "MLPropertyExpenses.h"
+#import "MLPropDocuments.h"
 
 @interface MLPropertyDetails ()
 
@@ -84,6 +85,11 @@
     [self performSegueWithIdentifier:@"editDetails" sender:self];
 }
 
+-(IBAction)viewDocuments:(id)sender
+{
+    [self performSegueWithIdentifier:@"showDocuments" sender:self];
+}
+
 
 #pragma mark - Navigation
 
@@ -97,9 +103,16 @@
             editProperty.details = _details;
  
     }
-    if ([[segue identifier] isEqualToString:@"showFinances"]) {
+    else if ([[segue identifier] isEqualToString:@"showFinances"]) {
         
         MLPropertyExpenses *propertyDetails = segue.destinationViewController;
+        
+        propertyDetails.details = _details;
+        
+    }
+    else if ([[segue identifier] isEqualToString:@"showDocuments"]) {
+        
+        MLPropDocuments *propertyDetails = segue.destinationViewController;
         
         propertyDetails.details = _details;
         

@@ -959,6 +959,9 @@
                                                 <state key="normal" image="new_document">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="viewDocuments:" destination="xSl-vJ-BiD" eventType="touchUpInside" id="uTf-y5-ShY"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPj-Of-rHC">
                                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -1405,11 +1408,12 @@ Cg
                         <outlet property="propAddress" destination="8Z5-LV-zPa" id="4ch-2h-3o9"/>
                         <outlet property="tenantInfo" destination="l60-LJ-AhL" id="IeU-7O-Kmc"/>
                         <segue destination="wHX-Qd-HQH" kind="show" identifier="editDetails" id="7iu-AO-izv"/>
+                        <segue destination="iV2-LY-d4O" kind="show" identifier="showDocuments" id="6yj-9n-JeN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFY-cs-YpS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-584.25" y="-874.125"/>
+            <point key="canvasLocation" x="-563.25" y="-874.125"/>
         </scene>
         <!--Property Expenses-->
         <scene sceneID="Kym-xo-Wmp">
@@ -3275,7 +3279,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJX-TX-c4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="26.25" y="-251.625"/>
+            <point key="canvasLocation" x="35.25" y="-267.375"/>
         </scene>
         <!--Pdf Viewer-->
         <scene sceneID="R9m-L8-wR8">
@@ -5275,7 +5279,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqp-jx-N0u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-645.75" y="-254.625"/>
+            <point key="canvasLocation" x="-642.75" y="-267.375"/>
         </scene>
         <!--Add Property-->
         <scene sceneID="ohN-4D-ROk">
@@ -6259,6 +6263,98 @@ Cg
             </objects>
             <point key="canvasLocation" x="-2445.75" y="-2129.625"/>
         </scene>
+        <!--Documents-->
+        <scene sceneID="zkF-tH-eCC">
+            <objects>
+                <viewController title="Documents" id="iV2-LY-d4O" customClass="MLPropDocuments" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7TK-eU-0gY"/>
+                        <viewControllerLayoutGuide type="bottom" id="XxW-iE-qbi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zke-Xf-bX8">
+                        <rect key="frame" x="0.0" y="64" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LqH-59-Txm">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="48" id="QDz-8j-rhV">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QDz-8j-rhV" id="8gp-aX-4Lw">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztx-SK-Cdi">
+                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="8" y="13" width="310" height="21"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="ztx-SK-Cdi"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="ztx-SK-Cdi"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="iV2-LY-d4O" id="Bbr-2D-TL2"/>
+                                    <outlet property="delegate" destination="iV2-LY-d4O" id="s5e-ms-72e"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LqH-59-Txm" firstAttribute="leading" secondItem="Zke-Xf-bX8" secondAttribute="leading" id="2P2-oI-fEB"/>
+                            <constraint firstItem="LqH-59-Txm" firstAttribute="top" secondItem="7TK-eU-0gY" secondAttribute="bottom" id="kl2-4N-Md3"/>
+                            <constraint firstAttribute="bottom" secondItem="LqH-59-Txm" secondAttribute="bottom" id="nk7-MN-q4B"/>
+                            <constraint firstAttribute="trailing" secondItem="LqH-59-Txm" secondAttribute="trailing" id="rKj-TH-u03"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="LqH-59-Txm"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="nk7-MN-q4B"/>
+                                <exclude reference="rKj-TH-u03"/>
+                                <exclude reference="kl2-4N-Md3"/>
+                                <exclude reference="2P2-oI-fEB"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="LqH-59-Txm"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="nk7-MN-q4B"/>
+                                <include reference="rKj-TH-u03"/>
+                                <include reference="kl2-4N-Md3"/>
+                                <include reference="2P2-oI-fEB"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="lsk-mQ-1GV"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="LqH-59-Txm" id="Cfa-kT-8mt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NNX-Ge-cyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1671.75" y="-874.125"/>
+        </scene>
     </scenes>
     <resources>
         <image name="calendar" width="22" height="24"/>
@@ -6281,7 +6377,7 @@ Cg
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qsW-Gy-OKK"/>
-        <segue reference="8Uo-kb-fsf"/>
-        <segue reference="LiA-5c-JOF"/>
+        <segue reference="FCi-D8-0rG"/>
+        <segue reference="7iu-AO-izv"/>
     </inferredMetricsTieBreakers>
 </document>
