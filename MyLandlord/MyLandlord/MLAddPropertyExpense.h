@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "AppDelegate.h"
 #import "Properties.h"
 #import "SubUnit.h"
 

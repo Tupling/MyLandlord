@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Expense" representedClassName="Expense" parentEntity="Properties" syncable="YES">
-        <attribute name="expAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="expCategory" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="expDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="expDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="expPropertyId" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="Income" representedClassName="Income" parentEntity="Tenants" syncable="YES">
-        <attribute name="incAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="incDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="incDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="incTenantId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="incType" optional="YES" attributeType="String" syncable="YES"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Financials" representedClassName="Financials" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="fAmount" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="fDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Properties" representedClassName="Properties" syncable="YES">
         <attribute name="multiFamily" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -59,11 +53,10 @@
         <attribute name="tenantId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Expense" positionX="-4032" positionY="-7" width="128" height="118"/>
-        <element name="Income" positionX="-3537" positionY="-234" width="128" height="118"/>
         <element name="Properties" positionX="-4025" positionY="-207" width="128" height="180"/>
         <element name="SubUnit" positionX="-3843" positionY="-162" width="128" height="90"/>
         <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="165"/>
         <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="283"/>
+        <element name="Financials" positionX="-3834" positionY="-162" width="128" height="133"/>
     </elements>
 </model>

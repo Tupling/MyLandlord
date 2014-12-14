@@ -26,14 +26,14 @@
     
     [self viewWillAppear:YES];
     
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     
-
+    
     //Check for valid Current User
     if ([PFUser currentUser]) {
         
@@ -61,7 +61,7 @@
             
             
             [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
-
+            
             
             [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
             [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
@@ -121,15 +121,6 @@
     [self viewWillAppear:YES];
     
 }
-
-
-
-
-
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {
@@ -207,26 +198,26 @@
 {
     NSLog(@"%@ Logged In",[[PFUser currentUser] username]);
     
-
-        
-        [ApplicationDelegate loadProperties];
-        [ApplicationDelegate loadTenants];
-        [ApplicationDelegate loadSubUnits];
-        
-        [ApplicationDelegate loadTasks];
-        
     
-       [self dismissViewControllerAnimated:YES completion:nil];
-   
-   
-   
+    
+    [ApplicationDelegate loadProperties];
+    [ApplicationDelegate loadTenants];
+    [ApplicationDelegate loadSubUnits];
+    [ApplicationDelegate loadTasks];
+    [ApplicationDelegate loadFinancials];
+    
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+    
 }
 
 
 #pragma mark LOGOUT
 -(IBAction)logOut:(id)sender
 {
-
+    
     
     logOutAlert = [[UIAlertView alloc] initWithTitle:@"Logout User" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     

@@ -36,7 +36,7 @@
 @property (nonatomic, retain) NSArray *tenantDataArray;
 @property (nonatomic, retain) NSMutableArray *tenantsArray;
 
-@property (nonatomic, retain) NSMutableArray *financesArray;
+
 
 @property (nonatomic, retain) NSArray *taskDataArray;
 @property (nonatomic, retain) NSMutableArray *tasksArray;
@@ -46,6 +46,9 @@
 
 @property (nonatomic, retain) NSArray *subUnitDataArray;
 @property (nonatomic, retain) NSMutableArray *subUnitArray;
+
+@property (nonatomic, retain) NSArray *financesDataArray;
+@property (nonatomic, retain) NSMutableArray *financesArray;
 
 @property(strong, nonatomic) NSUserDefaults *storedData;
 
@@ -58,7 +61,7 @@
 //Load Data Methods
 - (void)loadProperties;
 - (void)loadTenants;
-//- (void)loadFinances;
+- (void)loadFinancials;
 - (void)loadTasks;
 - (void)loadSubUnits;
 

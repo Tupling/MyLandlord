@@ -8,19 +8,101 @@
 
 #import "MLPropertyExpenses.h"
 #import "MLAddPropertyExpense.h"
+#import "Financials.h"
 
 
 //Page Dimensions Declarations
 #define kDefaultPageHeight 792
 #define kDefaultPageWidth  612
-#define kMargin 50
-#define kColumnMargin 10
+#define kMargin 40
+#define kColumnMargin 2
 
-@interface MLPropertyExpenses ()
+@interface MLPropertyExpenses () <UITableViewDataSource, UITableViewDelegate>
+{
+    NSArray *currentPropFinances;
+
+}
 
 @end
 
 @implementation MLPropertyExpenses
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    self.context = [ApplicationDelegate managedObjectContext];
+    
+    //Create new Fetch Request
+    self.fetchRequest = [[NSFetchRequest alloc] init];
+    
+    //Request Entity EventInfo
+    self.financeEntity = [NSEntityDescription entityForName:@"Financials" inManagedObjectContext:self.context];
+    
+    //Set fetchRequest entity to EventInfo Description
+    [self.fetchRequest setEntity:self.financeEntity];
+    
+    if(self.subUnitDetails != nil){
+        
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subUnitDetails.unitObjectId];
+        
+    } else {
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.propertyId];
+    }
+    
+    
+    [self.fetchRequest setPredicate:self.predicate];
+    
+    NSError * error;
+    //Set events array to data in core data
+    currentPropFinances = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+    
+    
+    
+    NSLog(@"%lu", (unsigned long)[currentPropFinances count]);
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+    self.context = [ApplicationDelegate managedObjectContext];
+    
+    //Create new Fetch Request
+    self.fetchRequest = [[NSFetchRequest alloc] init];
+    
+    //Request Entity EventInfo
+    self.financeEntity = [NSEntityDescription entityForName:@"Financials" inManagedObjectContext:self.context];
+    
+    //Set fetchRequest entity to EventInfo Description
+    [self.fetchRequest setEntity:self.financeEntity];
+    
+    if(self.subUnitDetails != nil){
+        
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subUnitDetails.unitObjectId];
+        
+    } else {
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.propertyId];
+    }
+    
+    
+    [self.fetchRequest setPredicate:self.predicate];
+    
+    NSError * error;
+    //Set events array to data in core data
+    currentPropFinances = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+    
+    
+    
+    NSLog(@"%lu", (unsigned long)[currentPropFinances count]);
+    
+    
+            [self.tableView reloadData];
+    });
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,6 +126,9 @@
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:addNewExpense];
     [self.navigationController.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithRed:0.09 green:0.18 blue:0.2 alpha:1]];
     self.navigationController.navigationItem.rightBarButtonItem = rightBarButton;
+    
+
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,10 +141,14 @@
     [self performSegueWithIdentifier:@"addNewFinance" sender:self];
 }
 
+
+#pragma mark - Tableview Methods
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [currentPropFinances count];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -71,6 +160,20 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    self.amount = (UILabel*)[cell viewWithTag:3];
+    self.category = (UILabel*)[cell viewWithTag:2];
+    self.date = (UILabel*)[cell viewWithTag:4];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+    
+    
+    Financials *finance = [currentPropFinances objectAtIndex:indexPath.row];
+    
+    self.date.text = [dateFormatter stringFromDate:finance.date];
+    self.category.text = finance.category;
+    self.amount.text = [NSString stringWithFormat:@"$%.02f", finance.fAmount];
+
 
     return cell;
 }
@@ -101,19 +204,20 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)pdfPressed:(id)sender {
+- (IBAction)exportData:(id)sender {
     
     
-    // create some sample data. In a real application, this would come from the database or an API.
+    //Create file path to temp directory
     NSString* path = [self tempFilePath];
-    //NSArray* students = [data objectForKey:@"Students"];
     
     // get a temprorary filename for this PDF
     path = NSTemporaryDirectory();
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"MMMM dd, yyyy"];
-    self.pdfFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%f.pdf", [[NSDate date] timeIntervalSince1970] ]];
+    [df setDateFormat:@"MMMM_dd_yyyy"];
+    
+    NSDate *today = [NSDate date];
+    self.pdfFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [df stringFromDate:today]]];
     
     // Create the PDF context using the default page size of 612 x 792.
     // This default is spelled out in the iOS documentation for UIGraphicsBeginPDFContextToFile
@@ -124,70 +228,85 @@
     
     int currentPage = 0;
     
-    // maximum height and width of the content on the page, byt taking margins into account.
+    // maximum height and width of the content on the page
     CGFloat maxWidth = kDefaultPageWidth - kMargin * 2;
     CGFloat maxHeight = kDefaultPageHeight - kMargin * 2;
     
-    // we're going to cap the name of the class to using half of the horizontal page, which is why we're dividing by 2
-    CGFloat classNameMaxWidth = maxWidth / 2;
+    //Set Property Name Max width
+    CGFloat propNameMaxWidth = maxWidth / 3;
     
-    // the max width of the grade is also half, minus the margin
-    CGFloat gradeMaxWidth = (maxWidth / 2) - kColumnMargin;
+    //Set Expense Type max width
+    CGFloat expenseMaxWidth = (maxWidth / 3) - kColumnMargin;
     
     
     // only create the fonts once since it is a somewhat expensive operation
-    UIFont* studentNameFont = [UIFont boldSystemFontOfSize:17];
-    UIFont* classFont = [UIFont systemFontOfSize:15];
+    UIFont* propertyNameFont = [UIFont boldSystemFontOfSize:17];
+    UIFont* expenseFont = [UIFont systemFontOfSize:15];
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    [paragraphStyle setAlignment:NSTextAlignmentLeft];
     
-    CGFloat currentPageY = 0;
+    NSDictionary *attributes = @{ NSFontAttributeName: expenseFont,
+                                  NSParagraphStyleAttributeName: paragraphStyle };
     
-    // iterate through out students, adding to the pdf each time.
-    for (NSDictionary* student in student)
-    {
-        // every student gets their own page
-        // Mark the beginning of a new page.
+    NSDictionary *headerAttributes = @{ NSFontAttributeName: propertyNameFont, NSParagraphStyleAttributeName: paragraphStyle};
+    
+    CGFloat currentPageY = 10;
+    
+
+        //Create Page Begining
         UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, kDefaultPageWidth, kDefaultPageHeight), nil);
         currentPageY = kMargin;
         
-        // draw the student's name at the top of the page.
-        NSString* name = [NSString stringWithFormat:@"%@ %@",
-                          [student objectForKey:@"FirstName"],
-                          [student objectForKey:@"LastName"]];
-        
-        CGSize size = [name sizeWithFont:studentNameFont forWidth:maxWidth lineBreakMode:UILineBreakModeWordWrap];
-        [name drawAtPoint:CGPointMake(kMargin, currentPageY) forWidth:maxWidth withFont:studentNameFont lineBreakMode:UILineBreakModeWordWrap];
+        //Draw Property Name
+        NSString* name = _details.propName;
+    
+        NSString *amountLabel = @"Amount";
+    
+        CGSize size = [name sizeWithFont:propertyNameFont forWidth:maxWidth lineBreakMode:NSLineBreakByWordWrapping];
+    
+        [name drawInRect:CGRectMake(250, 15, propNameMaxWidth, maxHeight) withAttributes:headerAttributes];
+    
+        [name drawInRect:CGRectMake(kMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+    
+        [amountLabel drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+    
         currentPageY += size.height;
         
-        // draw a one pixel line under the student's name
+        //Draw header linebreak under Property Name
         CGContextSetStrokeColorWithColor(context, [[UIColor blueColor] CGColor]);
         CGContextMoveToPoint(context, kMargin, currentPageY);
         CGContextAddLineToPoint(context, kDefaultPageWidth - kMargin, currentPageY);
         CGContextStrokePath(context);
         
-        // iterate through the list of classes and add these to the PDF.
-        NSArray* classes = [student objectForKey:@"Classes"];
-        for(NSDictionary* class in classes)
+        //Get Current Property Finance Data
+        NSArray* expenses = currentPropFinances;
+        
+        NSLog(@"Expense Array = %@", expenses.description);
+    
+        //Iterate through property finances
+        for(NSObject* data in expenses)
         {
-            NSString* className = [class objectForKey:@"Name"];
-            NSString* grade = [class objectForKey:@"Grade"];
+            NSString* expenseType = [data valueForKey:@"category"];
+            NSString* amount = [NSString stringWithFormat:@"$ %@",[data valueForKey:@"fAmount"]];
             
             // before we render any text to the PDF, we need to measure it, so we'll know where to render the
             // next line.
-            size = [className sizeWithFont:classFont constrainedToSize:CGSizeMake(classNameMaxWidth, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap];
+            size = [expenseType sizeWithFont:expenseFont constrainedToSize:CGSizeMake(expenseMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
             
-            // if the current text would render beyond the bounds of the page,
-            // start a new page and render it there instead
+            //Check page bounds and create new page if text drawn exceeds boundaries
             if (size.height + currentPageY > maxHeight) {
                 // create a new page and reset the current page's Y value
                 UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, kDefaultPageWidth, kDefaultPageHeight), nil);
                 currentPageY = kMargin;
             }
             
-            // render the text
-            [className drawInRect:CGRectMake(kMargin, currentPageY, classNameMaxWidth, maxHeight) withFont:classFont lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentLeft];
             
-            // print the grade to the right of the class name
-            [grade drawInRect:CGRectMake(kMargin + classNameMaxWidth + kColumnMargin, currentPageY, gradeMaxWidth, maxHeight) withFont:classFont lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentLeft];
+            [expenseType drawInRect:CGRectMake(kMargin, currentPageY, expenseMaxWidth, maxHeight) withAttributes:attributes];
+            
+            //Put Expense amount next to expenses type
+            [amount drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, expenseMaxWidth, maxHeight) withAttributes:attributes];
+            
             
             currentPageY += size.height;
             
@@ -196,8 +315,7 @@
         
         // increment the page number.
         currentPage++;
-        
-    }
+    
     
     // end and save the PDF.
     UIGraphicsEndPDFContext();

@@ -20,15 +20,25 @@
     NSString* pdfFilePath;
 }
 
-- (IBAction)pdfPressed:(id)sender;
+- (IBAction)exportData:(id)sender;
 
 @property (nonatomic, retain) NSString* pdfFilePath;
 
 @property(nonatomic, strong) IBOutlet UITableView *tableView;
 @property(nonatomic, strong) IBOutlet UIButton *exportButton;
 
+@property (nonatomic, strong)IBOutlet UILabel *category;
+@property (nonatomic, strong)IBOutlet UILabel *amount;
+@property (nonatomic, strong)IBOutlet UILabel *date;
+
 @property(nonatomic, strong) Properties *details;
 @property(nonatomic, strong) SubUnit *subUnitDetails;
+
+//Core Data
+@property(nonatomic, strong) NSManagedObjectContext *context;
+@property(nonatomic, strong) NSFetchRequest *fetchRequest;
+@property(nonatomic, strong) NSEntityDescription *financeEntity;
+@property(nonatomic, strong) NSPredicate *predicate;
 
 
 @end

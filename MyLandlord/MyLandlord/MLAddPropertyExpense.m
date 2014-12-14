@@ -216,13 +216,12 @@
     //Check if Expense is Related to SubUnit
     if(self.subUnitDetails !=nil){
         
-        expense[@"parentPropId"] = self.subUnitDetails.unitObjectId;
+    expense[@"parentId"] = self.subUnitDetails.unitObjectId;
         
-    }else{
-        
-        expense[@"parentPropId"] = self.details.propertyId;
-    }
+    } else {
     
+    expense[@"parentId"] = self.details.propertyId;
+    }
     
     
     //ONLY ALLOW CURRENT USER TO VIEW
@@ -241,13 +240,12 @@
             
             [savedAlert show];
             
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //
-            //                [ApplicationDelegate loadTasks];
-            //
-            //                [self.navigationController popViewControllerAnimated:YES];
-            //
-            //            });
+                        dispatch_async(dispatch_get_main_queue(), ^{
+            
+                            [ApplicationDelegate loadFinancials];
+        
+
+                        });
             
         } else {
             
@@ -271,7 +269,7 @@
             NSLog(@"Closed Warning");
             
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+             [self.navigationController popViewControllerAnimated:YES];
             
             
             

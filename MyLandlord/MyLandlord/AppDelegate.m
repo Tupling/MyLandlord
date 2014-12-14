@@ -17,6 +17,7 @@
 #import "Tenants.h"
 #import "Tasks.h"
 #import "SubUnit.h"
+#import "Financials.h"
 
 @interface AppDelegate ()
 {
@@ -47,27 +48,27 @@
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-//    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] == nil)
-//    {
-        // ensure you have a DBSession to unlink
-        if ([DBSession sharedSession] == nil)
-        {
-            //Dropbox Setup Information
-            DBSession *dbSession = [[DBSession alloc]
-                                    initWithAppKey:@"dce7787ko2d4u1o"
-                                    appSecret:@"9os3cx3aehn2fhe"
-                                    root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
-            [DBSession setSharedSession:dbSession];
-        }
-        
-        // unlink
-        //[[DBSession sharedSession] unlinkAll];
-        
-//        // set 'has run' flag
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LinkedAccount"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//    }
-
+    //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] == nil)
+    //    {
+    // ensure you have a DBSession to unlink
+    if ([DBSession sharedSession] == nil)
+    {
+        //Dropbox Setup Information
+        DBSession *dbSession = [[DBSession alloc]
+                                initWithAppKey:@"dce7787ko2d4u1o"
+                                appSecret:@"9os3cx3aehn2fhe"
+                                root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
+        [DBSession setSharedSession:dbSession];
+    }
+    
+    // unlink
+    //[[DBSession sharedSession] unlinkAll];
+    
+    //        // set 'has run' flag
+    //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LinkedAccount"];
+    //        [[NSUserDefaults standardUserDefaults] synchronize];
+    //    }
+    
     
     
     
@@ -83,9 +84,10 @@
     [self loadProperties];
     [self loadTenants];
     [self loadSubUnits];
+    [self loadFinancials];
     
     
-
+    
     [NSThread sleepForTimeInterval:1.0];
     
     return YES;
@@ -184,7 +186,7 @@
             }
             NSLog(@"PROPERTY ARRAY COUNT %lu:", (unsigned long)self.propertyArray.count);
             
-          
+            
             
         }else{
             
@@ -293,46 +295,46 @@
             for(int i = 0; i <objects.count; i++){
                 NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
                 
- 
-                    Tasks *taskInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:context];
-                    
-                    
-                    
-                    taskInfo.taskId = [objects[i] valueForKey:@"objectId"];
-                    
-                    taskInfo.task = [objects[i] valueForKey:@"task"];
-                    taskInfo.priority = [objects[i] valueForKey:@"priority"];
-                    taskInfo.taskDescription = [objects[i] valueForKey:@"taskDesc"];
-                    taskInfo.dueDate = [objects[i] valueForKey:@"dueDate"];
-                    
-                    taskInfo.isComplete = [objects[i] valueForKey:@"isComplete"];
-                    taskInfo.createdDate = [objects[i] valueForKey:@"createdAt"];
-                    taskInfo.propId = [objects[i] valueForKey:@"propId"];
-                    
-                    
-                    NSError * error;
-                    if(![context save:&error])
-                    {
-                        NSLog(@"Failed to save: %@", [error localizedDescription]);
-                    }
-                    
-                    //Create new Fetch Request
-                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-                    
-                    //Request Entity TaskInfo
-                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:context];
-                    
-                    //Set fetchRequest entity to EventInfo Description
-                    [fetchRequest setEntity:entity];
-                    
-                    //Set events array to data in core data
-                    self.taskDataArray = [context executeFetchRequest:fetchRequest error:&error];
-                    
-                    self.tasksArray = [[NSMutableArray alloc] initWithArray:self.taskDataArray];
-                    
-                    
-                    
-
+                
+                Tasks *taskInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:context];
+                
+                
+                
+                taskInfo.taskId = [objects[i] valueForKey:@"objectId"];
+                
+                taskInfo.task = [objects[i] valueForKey:@"task"];
+                taskInfo.priority = [objects[i] valueForKey:@"priority"];
+                taskInfo.taskDescription = [objects[i] valueForKey:@"taskDesc"];
+                taskInfo.dueDate = [objects[i] valueForKey:@"dueDate"];
+                
+                taskInfo.isComplete = [objects[i] valueForKey:@"isComplete"];
+                taskInfo.createdDate = [objects[i] valueForKey:@"createdAt"];
+                taskInfo.propId = [objects[i] valueForKey:@"propId"];
+                
+                
+                NSError * error;
+                if(![context save:&error])
+                {
+                    NSLog(@"Failed to save: %@", [error localizedDescription]);
+                }
+                
+                //Create new Fetch Request
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                
+                //Request Entity TaskInfo
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:context];
+                
+                //Set fetchRequest entity to EventInfo Description
+                [fetchRequest setEntity:entity];
+                
+                //Set events array to data in core data
+                self.taskDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                
+                self.tasksArray = [[NSMutableArray alloc] initWithArray:self.taskDataArray];
+                
+                
+                
+                
             }
             
         }else{
@@ -401,6 +403,72 @@
         }
         
     }];
+    
+}
+
+-(void)loadFinancials
+{
+    
+    [self deletedAllObjects:@"Financials"];
+    PFQuery *results = [PFQuery queryWithClassName:@"Financials"];
+    //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    [results orderByAscending:@"date"];
+    
+    [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error)
+        {
+            for(int i = 0; i <objects.count; i++){
+                NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
+                
+                
+                Financials *financial = [NSEntityDescription insertNewObjectForEntityForName:@"Financials" inManagedObjectContext:context];
+                
+                
+                
+                financial.parentId = [objects[i] valueForKey:@"parentId"];
+                financial.type = [objects[i] valueForKey:@"type"];
+                financial.date = [objects[i] valueForKey:@"date"];
+                financial.fAmount = [[objects[i] valueForKey:@"amount"] floatValue];
+                financial.category = [objects[i] valueForKey:@"category"];
+                financial.fDescription = [objects[i] valueForKey:@"expDescription"];
+                
+
+                NSError * error;
+                if(![context save:&error])
+                {
+                    NSLog(@"Failed to save: %@", [error localizedDescription]);
+                }
+                
+                //Create new Fetch Request
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                
+                //Request Entity TaskInfo
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"Financials" inManagedObjectContext:context];
+                
+                //Set fetchRequest entity to EventInfo Description
+                [fetchRequest setEntity:entity];
+                
+                //Set events array to data in core data
+                self.financesDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                
+                self.financesArray = [[NSMutableArray alloc] initWithArray:self.financesDataArray];
+                
+                
+                
+                NSLog(@"Financial Data == %@", self.financesArray.description);
+            }
+            
+        }else{
+            
+            //Why did it fail?
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+        
+        
+        
+    }];
+    
+    
     
 }
 
