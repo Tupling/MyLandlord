@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 #import "Properties.h"
+#import "SubUnit.h"
 
 @interface MLAddPropertyExpense : UIViewController
 
 @property(nonatomic, strong)Properties * details;
+
+@property(nonatomic, strong)SubUnit * subUnitDetails;
 
 @property(nonatomic, strong)IBOutlet UIButton * saveExpense;
 
@@ -23,5 +27,7 @@
 
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, strong) IBOutlet UIPickerView *catPicker;
+
+@property (nonatomic, strong) NSString * parentPropId;
 
 @end

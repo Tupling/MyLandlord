@@ -10,7 +10,7 @@
 #import "Properties.h"
 #import "SubUnit.h"
 
-@interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface MLAddTenantViewController () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, DBRestClientDelegate>
 {
     UIAlertView *savedAlert;
     NSDate *leaseStart;

@@ -11,6 +11,11 @@
 @interface MLAddPropertyExpense () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate>
 {
     NSArray *catArray;
+    
+    NSDate *expenseDate;
+    
+    UIAlertView *savedAlert;
+    UIAlertView *saveError;
 }
 @end
 
@@ -18,26 +23,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
     
     catArray = @[@"", @"Repair", @"Utility"];
     
-    self.catPicker = [[UIPickerView alloc] init];
-    self.catPicker.delegate = self;
-    self.catPicker.dataSource = self;
-    
+    //TextField Delegate Declarations
     self.expCategory.delegate = self;
+    self.expDate.delegate = self;
     
+    
+    //Button Radius
     self.saveExpense.layer.cornerRadius = 5;
     
-    self.propertyName.text = self.details.propName;
+    if(self.subUnitDetails != nil){
+        
+        self.propertyName.text = [NSString stringWithFormat:@"%@ - Unit %@", self.details.propName, self.subUnitDetails.unitNumber];
+        
+    } else {
+        //Static Textfield Text Delcarations
+        self.propertyName.text = self.details.propName;
+        
+    }
+    
+    
+    //DISMISS KEYBOARD
+    //Tap screen to make keyboard disappear
+    UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardDisappear)];
+    
+    //set to NO, so not all touches are cancelled. If set to YES User will not be able to touch ShowDate or Info Buttons
+    tapOnScreen.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapOnScreen];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma mark - Textfield Delegate Method
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if ([textField isEqual:self.expCategory]) {
@@ -48,26 +71,41 @@
         actionSheet.tag = 20;
         [actionSheet showInView:self.view];
         actionSheet = nil;
-
+        
+    } else if ([textField isEqual:self.expDate]){
+        
+        
+        self.datePicker = [[UIDatePicker alloc] init];
+        self.datePicker.datePickerMode = UIDatePickerModeDate;
+        textField.inputView = self.datePicker;
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+        
+        expenseDate = [self.datePicker date];
+        
+        self.expDate.text = [dateFormatter stringFromDate:expenseDate];
+        
+        [self.datePicker addTarget:self action:@selector(addDate:) forControlEvents:UIControlEventValueChanged];
     }
     
 }
 
-//-(IBAction)addDate:(UITextField *)textField
-//{
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
-//    
-//    if (self.dueDateTF.isEditing) {
-//        
-//        self.dueDateTF.text = [dateFormatter stringFromDate:[self.dueDatePicker date]];
-//        
-//        dueDate = [self.dueDatePicker date];
-//        
-//        // NSLog(@"DATE %@", leaseStart);
-//        
-//    }
-//}
+
+#pragma mark - Date Methods
+-(IBAction)addDate:(UITextField *)textField
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+    
+    if (self.expDate.isEditing) {
+        
+        self.expDate.text = [dateFormatter stringFromDate:[self.datePicker date]];
+        
+        expenseDate = [self.datePicker date];
+        
+    }
+}
 
 #pragma mark - Picker View
 // returns the number of 'columns' to display.
@@ -117,7 +155,7 @@
 {
     if([pickerView isEqual:self.catPicker]){
         
-       
+        
         
         [self.catPicker selectedRowInComponent:0];
         
@@ -152,19 +190,127 @@
                 
                 break;
         }
-
+        
     }
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Save Expense Method
+-(IBAction)saveExpense:(id)sender
+{
+    
+    
+    PFObject *expense = [PFObject objectWithClassName:@"Financials"];
+    
+    float amountFloatValue = [self.expAmount.text floatValue];
+    
+    NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
+    
+    expense[@"amount"] = amount;
+    expense[@"type"] = @"Expense";
+    expense[@"date"] = expenseDate;
+    expense[@"category"] = self.expCategory.text;
+    expense[@"expDescription"] = self.expDescription.text;
+    
+    
+    //Check if Expense is Related to SubUnit
+    if(self.subUnitDetails !=nil){
+        
+        expense[@"parentPropId"] = self.subUnitDetails.unitObjectId;
+        
+    }else{
+        
+        expense[@"parentPropId"] = self.details.propertyId;
+    }
+    
+    
+    
+    //ONLY ALLOW CURRENT USER TO VIEW
+    //Set Access control to user logged in
+    expense.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    
+    //Set object to current user (makes it easier to get the data for tables)
+    [expense setObject:[PFUser currentUser] forKey:@"createdBy"];
+    
+    
+    [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(succeeded)
+        {
+            
+            savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [savedAlert show];
+            
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //
+            //                [ApplicationDelegate loadTasks];
+            //
+            //                [self.navigationController popViewControllerAnimated:YES];
+            //
+            //            });
+            
+        } else {
+            
+            saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [saveError show];
+            
+        }
+    }];
+    
 }
-*/
+
+#pragma mark - Alertview Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if([alertView isEqual:savedAlert]){
+        
+        if (buttonIndex == 0) {
+            NSLog(@"Closed Warning");
+            
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            
+            
+        }
+    }
+    if([alertView isEqual:savedAlert]){
+        
+        if (buttonIndex == 0) {
+            NSLog(@"Closed Warning");
+            
+            [saveError dismissWithClickedButtonIndex:0 animated:YES];
+        }
+    }
+    
+}
+
+#pragma mark
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+//Function for Gesture tapOnScreen
+- (void) keyboardDisappear {
+    
+    [self.view endEditing:YES];
+}
+
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

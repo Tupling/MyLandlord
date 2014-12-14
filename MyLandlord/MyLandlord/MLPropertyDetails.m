@@ -116,12 +116,21 @@
         
         propertyDetails.details = _details;
         
+        if(self.subUnitDetails != nil){
+            propertyDetails.subUnitDetails = _subUnitDetails;
+        }
+        
     }
     else if ([[segue identifier] isEqualToString:@"showDocuments"]) {
         
         MLPropDocuments *propertyDetails = segue.destinationViewController;
         
         propertyDetails.details = _details;
+        
+        if(self.subUnitDetails != nil){
+            
+            propertyDetails.subUnitDetails = _subUnitDetails;
+        }
         
     }
 }

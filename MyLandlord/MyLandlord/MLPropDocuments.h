@@ -10,6 +10,7 @@
 #import "Properties.h"
 #import <DropboxSDK/DropboxSDK.h>
 #import "FileInfo.h"
+#import "SubUnit.h"
 
 @interface MLPropDocuments : UIViewController
 {
@@ -21,6 +22,7 @@
 @property(nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nonatomic) Properties *details;
+@property (nonatomic) SubUnit *subUnitDetails;
 
 //DropBox RestClient Property
 @property (nonatomic, strong) DBRestClient *restClient;
