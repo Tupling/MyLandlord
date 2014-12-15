@@ -37,6 +37,7 @@
         
         tenantInfo.text = @"No Assigned Tenant";
         leaseInfo.text = @"No Lease Information Available";
+        rentStatus.text = @"N/A";
         
     } else {
         

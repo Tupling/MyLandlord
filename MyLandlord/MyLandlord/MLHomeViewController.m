@@ -14,6 +14,7 @@
 @interface MLHomeViewController () <UIAlertViewDelegate>
 {
     UIAlertView *logOutAlert;
+    UIAlertView *dropBoxLink;
 }
 
 @end
@@ -119,7 +120,9 @@
     self.addTenant.layer.cornerRadius = 5;
     self.addTask.layer.cornerRadius = 5;
     
-    [self viewWillAppear:YES];
+    
+
+
     
 }
 
@@ -133,23 +136,8 @@
 #pragma mark REQUIRE LOGIN
 -(void)requireLogin
 {
-    MLLoginViewController *login = [[MLLoginViewController alloc] init];
+    [self performSegueWithIdentifier:@"login" sender:self];
     
-    
-    //Setup login view
-    //PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-    login.fields = PFLogInFieldsLogInButton | PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton;
-    [login setDelegate:self];
-    
-    //Setup sign up view
-    MLSignUpViewController *signUpView = [[MLSignUpViewController alloc] init];
-    [signUpView setDelegate:self];
-    
-    [login setSignUpController:signUpView];
-    
-    
-    
-    [self presentViewController:login animated:YES completion:nil];
 }
 #pragma SIGNUP
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
@@ -210,7 +198,20 @@
     [ApplicationDelegate loadFinancials];
     
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLaunch"] == nil)
+    {
+        
+        
+        dropBoxLink = [[UIAlertView alloc] initWithTitle:@"Link DropBox" message:@"This application uses DropBox in order to store document. You must link your DropBox in order ot utilize some features. \n Would you like to link your account now?"  delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        
+        [dropBoxLink show];
+        
+        
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    //[self dismissViewControllerAnimated:YES completion:nil];
     
     
     
@@ -243,9 +244,45 @@
             [self requireLogin];
             
         }
+    } if (alertView == dropBoxLink){
+        
+        if(buttonIndex == 0){
+            
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstLaunch"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+        } else if(buttonIndex == 1){
+            
+            [ApplicationDelegate createDropBoxLink];
+            
+            if (![[DBSession sharedSession] isLinked]) {
+                [[DBSession sharedSession] linkFromController:self];
+            }
+        }
     }
     
 }
 
+
+//In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"login"]) {
+        MLLoginViewController *login = [[MLLoginViewController alloc] init];
+        
+        MLSignUpViewController *signUp = [[MLSignUpViewController alloc] init];
+        
+        //Setup login view
+        //PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
+        login.fields = PFLogInFieldsLogInButton | PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton;
+        [login setDelegate:self];
+        
+        [signUp setDelegate:self];
+        
+        [login setSignUpController:signUp];
+
+    }
+ 
+}
 
 @end

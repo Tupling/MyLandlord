@@ -41,33 +41,14 @@
 #pragma mark - Launching Methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+
     
     //Parse Setup information
     [Parse setApplicationId:@"JaDJYpRJTZR9QV7OooDivH9uSRlTNYL8mH7AcUbe" clientKey:@"MyEtePxKqaKi2mXL9SALjECDTVL9WN3uqbQ4OWKd"];
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] == nil)
-    //    {
-    // ensure you have a DBSession to unlink
-    if ([DBSession sharedSession] == nil)
-    {
-        //Dropbox Setup Information
-        DBSession *dbSession = [[DBSession alloc]
-                                initWithAppKey:@"dce7787ko2d4u1o"
-                                appSecret:@"9os3cx3aehn2fhe"
-                                root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
-        [DBSession setSharedSession:dbSession];
-    }
-    
-    // unlink
-    //[[DBSession sharedSession] unlinkAll];
-    
-    //        // set 'has run' flag
-    //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LinkedAccount"];
-    //        [[NSUserDefaults standardUserDefaults] synchronize];
-    //    }
+
     
     
     
@@ -101,6 +82,18 @@
     NetworkStatus status = [connected currentReachabilityStatus];
     
     return status;
+}
+
+-(void)createDropBoxLink
+{
+
+        //Dropbox Setup Information
+        DBSession *dbSession = [[DBSession alloc]
+                                initWithAppKey:@"dce7787ko2d4u1o"
+                                appSecret:@"9os3cx3aehn2fhe"
+                                root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
+        [DBSession setSharedSession:dbSession];
+
 }
 
 
@@ -525,7 +518,12 @@
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         if ([[DBSession sharedSession] isLinked]) {
             NSLog(@"App linked successfully!");
-            // At this point you can start making API calls
+            
+            UIAlertView *linkedAlert = [[UIAlertView alloc] initWithTitle:@"DropBox Linked!" message:@"You DropBox has been linked with MyLandlord." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [linkedAlert show];
+        } else {
+            NSLog(@"Dropbox Login Cancelled!");
         }
         return YES;
     }
