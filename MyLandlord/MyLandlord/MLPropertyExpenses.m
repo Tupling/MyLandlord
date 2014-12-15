@@ -14,7 +14,7 @@
 //Page Dimensions Declarations
 #define kDefaultPageHeight 792
 #define kDefaultPageWidth  612
-#define kMargin 40
+#define kMargin 70
 #define kColumnMargin 2
 
 @interface MLPropertyExpenses () <UITableViewDataSource, UITableViewDelegate>
@@ -163,6 +163,7 @@
     self.amount = (UILabel*)[cell viewWithTag:3];
     self.category = (UILabel*)[cell viewWithTag:2];
     self.date = (UILabel*)[cell viewWithTag:4];
+    self.itemName = (UILabel*)[cell viewWithTag:104];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
@@ -173,6 +174,7 @@
     self.date.text = [dateFormatter stringFromDate:finance.date];
     self.category.text = finance.category;
     self.amount.text = [NSString stringWithFormat:@"$%.02f", finance.fAmount];
+    self.itemName.text = finance.itemName;
 
 
     return cell;
@@ -198,11 +200,10 @@
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+
+
+
+#pragma mark - Export Data Method
 
 - (IBAction)exportData:(id)sender {
     
@@ -217,11 +218,10 @@
     [df setDateFormat:@"MMMM_dd_yyyy"];
     
     NSDate *today = [NSDate date];
-    self.pdfFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [df stringFromDate:today]]];
+    self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [df stringFromDate:today]]];
     
-    // Create the PDF context using the default page size of 612 x 792.
-    // This default is spelled out in the iOS documentation for UIGraphicsBeginPDFContextToFile
-    UIGraphicsBeginPDFContextToFile(self.pdfFilePath, CGRectZero, nil);
+ 
+    UIGraphicsBeginPDFContextToFile(self.exportFilePath, CGRectZero, nil);
     
     // get the context reference so we can render to it.
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -251,7 +251,7 @@
     
     NSDictionary *headerAttributes = @{ NSFontAttributeName: propertyNameFont, NSParagraphStyleAttributeName: paragraphStyle};
     
-    CGFloat currentPageY = 10;
+    CGFloat currentPageY = 0;
     
 
         //Create Page Begining
@@ -259,17 +259,24 @@
         currentPageY = kMargin;
         
         //Draw Property Name
-        NSString* name = _details.propName;
+    
+        NSString *reportTile = [NSString stringWithFormat:@"%@ Expense Report", _details.propName];
+    
+        NSString *categoryLabel = @"Category";
     
         NSString *amountLabel = @"Amount";
     
-        CGSize size = [name sizeWithFont:propertyNameFont forWidth:maxWidth lineBreakMode:NSLineBreakByWordWrapping];
+        NSString *dateLabel = @"Date";
     
-        [name drawInRect:CGRectMake(250, 15, propNameMaxWidth, maxHeight) withAttributes:headerAttributes];
+        CGSize size = [categoryLabel sizeWithFont:propertyNameFont forWidth:maxWidth lineBreakMode:NSLineBreakByWordWrapping];
     
-        [name drawInRect:CGRectMake(kMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+        [reportTile drawInRect:CGRectMake(250, 15, propNameMaxWidth, maxHeight) withAttributes:headerAttributes];
+    
+        [categoryLabel drawInRect:CGRectMake(kMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
     
         [amountLabel drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+    
+        [dateLabel drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin + propNameMaxWidth, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
     
         currentPageY += size.height;
         
@@ -290,6 +297,11 @@
             NSString* expenseType = [data valueForKey:@"category"];
             NSString* amount = [NSString stringWithFormat:@"$ %@",[data valueForKey:@"fAmount"]];
             
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+            
+            NSString *dateString = [dateFormatter stringFromDate:[data valueForKey:@"date"]];
+            
             // before we render any text to the PDF, we need to measure it, so we'll know where to render the
             // next line.
             size = [expenseType sizeWithFont:expenseFont constrainedToSize:CGSizeMake(expenseMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
@@ -307,6 +319,8 @@
             //Put Expense amount next to expenses type
             [amount drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, expenseMaxWidth, maxHeight) withAttributes:attributes];
             
+            
+            [dateString drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin + propNameMaxWidth, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
             
             currentPageY += size.height;
             
@@ -332,6 +346,12 @@
     
     
     
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 //Load File into Temp Directory
@@ -366,7 +386,7 @@
         // email the PDF File.
         MFMailComposeViewController* mailComposer = [[MFMailComposeViewController alloc] init];
         mailComposer.mailComposeDelegate = self;
-        [mailComposer addAttachmentData:[NSData dataWithContentsOfFile:self.pdfFilePath]
+        [mailComposer addAttachmentData:[NSData dataWithContentsOfFile:self.exportFilePath]
                                mimeType:@"application/pdf" fileName:@"report.pdf"];
         
         
@@ -384,7 +404,7 @@
 
 - (id <QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index
 {
-    return [NSURL fileURLWithPath:self.pdfFilePath];
+    return [NSURL fileURLWithPath:self.exportFilePath];
 }
 
 

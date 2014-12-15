@@ -25,6 +25,7 @@
 @property(nonatomic, strong)IBOutlet UITextField *expDate;
 @property(nonatomic, strong)IBOutlet UITextField *expCategory;
 @property(nonatomic, strong)IBOutlet UITextField *expDescription;
+@property(nonatomic, strong)IBOutlet UITextField *itemName;
 
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, strong) IBOutlet UIPickerView *catPicker;

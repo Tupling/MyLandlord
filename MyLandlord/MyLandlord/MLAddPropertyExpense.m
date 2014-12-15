@@ -211,6 +211,7 @@
     expense[@"date"] = expenseDate;
     expense[@"category"] = self.expCategory.text;
     expense[@"expDescription"] = self.expDescription.text;
+    expense[@"itemName"] = self.itemName.text;
     
     
     //Check if Expense is Related to SubUnit

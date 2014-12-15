@@ -5,6 +5,7 @@
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="fAmount" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="fDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="parentId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -57,6 +58,6 @@
         <element name="SubUnit" positionX="-3843" positionY="-162" width="128" height="90"/>
         <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="165"/>
         <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="283"/>
-        <element name="Financials" positionX="-3834" positionY="-162" width="128" height="133"/>
+        <element name="Financials" positionX="-3834" positionY="-162" width="128" height="148"/>
     </elements>
 </model>

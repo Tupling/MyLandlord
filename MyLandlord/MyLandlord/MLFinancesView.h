@@ -11,6 +11,8 @@
 @interface MLFinancesView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 -(IBAction)closeView:(id)sender;
+
+
 -(IBAction)exportFinance:(id)sender;
 
 @end

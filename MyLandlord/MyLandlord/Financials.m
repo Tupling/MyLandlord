@@ -17,6 +17,7 @@
 @dynamic fAmount;
 @dynamic category;
 @dynamic fDescription;
+@dynamic itemName;
 
 
 @end

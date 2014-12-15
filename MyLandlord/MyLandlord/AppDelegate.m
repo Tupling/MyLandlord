@@ -424,13 +424,14 @@
                 Financials *financial = [NSEntityDescription insertNewObjectForEntityForName:@"Financials" inManagedObjectContext:context];
                 
                 
-                
+                financial.itemName = [objects[i] valueForKey:@"itemName"];
                 financial.parentId = [objects[i] valueForKey:@"parentId"];
                 financial.type = [objects[i] valueForKey:@"type"];
                 financial.date = [objects[i] valueForKey:@"date"];
                 financial.fAmount = [[objects[i] valueForKey:@"amount"] floatValue];
                 financial.category = [objects[i] valueForKey:@"category"];
                 financial.fDescription = [objects[i] valueForKey:@"expDescription"];
+                
                 
 
                 NSError * error;

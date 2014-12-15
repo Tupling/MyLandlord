@@ -18,6 +18,7 @@
 @property (nonatomic) float  fAmount;
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSString * fDescription;
+@property (nonatomic, retain) NSString * itemName;
 
 
 @end
