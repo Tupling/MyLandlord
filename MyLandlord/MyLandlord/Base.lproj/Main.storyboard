@@ -2303,6 +2303,9 @@ Cg
                                                 <include reference="WtF-mg-Dj3"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="taskComplete:" destination="NeY-Ce-XOl" eventType="touchUpInside" id="5Iz-C6-iCP"/>
+                                        </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgD-Y8-hi2">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>

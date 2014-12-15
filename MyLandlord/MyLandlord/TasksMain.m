@@ -170,7 +170,7 @@
     
     Tasks *task = [selectedArray objectAtIndex:indexPath.row];
     //NSLog(@"TENANT ARRAY = %@", ApplicationDelegate.tenantsArray);
-    NSLog(@"INDEX PROPERTY ID = %@", task.task);
+    NSLog(@"INDEX PROPERTY ID = %@", task.propId);
 
         //Filter through tenants array to get assigned tenants
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"propertyId == %@", task.propId];
