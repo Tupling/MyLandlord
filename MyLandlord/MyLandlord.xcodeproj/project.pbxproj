@@ -66,13 +66,11 @@
 		1EC04E751A1B82EB0020B759 /* vertical_divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E711A1B82EB0020B759 /* vertical_divider.png */; };
 		1EC04E761A1B82EB0020B759 /* vertical_divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */; };
 		1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */; };
-		1ECDD2C21A202966001C0CDA /* MLFinancesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2C11A202966001C0CDA /* MLFinancesView.m */; };
 		1ECDD2DC1A2D5202001C0CDA /* MJPPdfPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2D51A2D5202001C0CDA /* MJPPdfPage.m */; };
 		1ECDD2DD1A2D5202001C0CDA /* MJPPdfTiledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2D71A2D5202001C0CDA /* MJPPdfTiledView.m */; };
 		1ECDD2DE1A2D5202001C0CDA /* MJPPdfView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2D91A2D5202001C0CDA /* MJPPdfView.m */; };
 		1ECDD2DF1A2D5202001C0CDA /* MJPPdfViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2DB1A2D5202001C0CDA /* MJPPdfViewer.m */; };
 		1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */; };
-		1EDAF3791A2F41D300833713 /* MLAddNewFinance.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDAF3781A2F41D300833713 /* MLAddNewFinance.m */; };
 		1EF280C01A2CFED20038D340 /* Tenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280BF1A2CFED20038D340 /* Tenants.m */; };
 		1EF280C31A2CFED30038D340 /* Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280C21A2CFED30038D340 /* Properties.m */; };
 		1EF280C61A2CFED30038D340 /* SubTenants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF280C51A2CFED30038D340 /* SubTenants.m */; };
@@ -179,8 +177,6 @@
 		1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vertical_divider@2x.png"; sourceTree = "<group>"; };
 		1ECDD2B91A1D80BD001C0CDA /* MLAddPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddPropertyViewController.h; sourceTree = "<group>"; };
 		1ECDD2BA1A1D80BD001C0CDA /* MLAddPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddPropertyViewController.m; sourceTree = "<group>"; };
-		1ECDD2C01A202966001C0CDA /* MLFinancesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFinancesView.h; sourceTree = "<group>"; };
-		1ECDD2C11A202966001C0CDA /* MLFinancesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFinancesView.m; sourceTree = "<group>"; };
 		1ECDD2D21A2D4B6F001C0CDA /* MyLandlord 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MyLandlord 2.xcdatamodel"; sourceTree = "<group>"; };
 		1ECDD2D41A2D5202001C0CDA /* MJPPdfPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPdfPage.h; sourceTree = "<group>"; };
 		1ECDD2D51A2D5202001C0CDA /* MJPPdfPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPdfPage.m; sourceTree = "<group>"; };
@@ -194,8 +190,6 @@
 		1ECDD2E41A2E8C64001C0CDA /* MLPropertyExpenses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyExpenses.m; sourceTree = "<group>"; };
 		1EDAF3751A2E485E00833713 /* MyLandlordData2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData2.xcdatamodel; sourceTree = "<group>"; };
 		1EDAF3761A2E52D900833713 /* MyLandlordData3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyLandlordData3.xcdatamodel; sourceTree = "<group>"; };
-		1EDAF3771A2F41D300833713 /* MLAddNewFinance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddNewFinance.h; sourceTree = "<group>"; };
-		1EDAF3781A2F41D300833713 /* MLAddNewFinance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddNewFinance.m; sourceTree = "<group>"; };
 		1EF280BE1A2CFED20038D340 /* Tenants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tenants.h; path = ../Tenants.h; sourceTree = "<group>"; };
 		1EF280BF1A2CFED20038D340 /* Tenants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tenants.m; path = ../Tenants.m; sourceTree = "<group>"; };
 		1EF280C11A2CFED30038D340 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = ../Properties.h; sourceTree = "<group>"; };
@@ -442,7 +436,6 @@
 			isa = PBXGroup;
 			children = (
 				1E4A67DC1A31F6EE0026E8F7 /* ML-Task Controllers */,
-				1ECDD2BF1A20293C001C0CDA /* ML-FInanes Controllers */,
 				1E181EFD1A1F95B40047AD12 /* ML-Document Controllers */,
 				1E181EFC1A1F95A00047AD12 /* ML- Main Controllers */,
 				1E181EFB1A1F95440047AD12 /* ML-Tenant Controllers */,
@@ -462,17 +455,6 @@
 				1EC04E721A1B82EB0020B759 /* vertical_divider@2x.png */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		1ECDD2BF1A20293C001C0CDA /* ML-FInanes Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				1ECDD2C01A202966001C0CDA /* MLFinancesView.h */,
-				1ECDD2C11A202966001C0CDA /* MLFinancesView.m */,
-				1EDAF3771A2F41D300833713 /* MLAddNewFinance.h */,
-				1EDAF3781A2F41D300833713 /* MLAddNewFinance.m */,
-			);
-			name = "ML-FInanes Controllers";
 			sourceTree = "<group>";
 		};
 		1ECDD2D31A2D51DE001C0CDA /* PDFViewer */ = {
@@ -621,7 +603,6 @@
 				1E1447AC1A3883CF008F4BA4 /* MLTaskDetails.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
 				1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */,
-				1EDAF3791A2F41D300833713 /* MLAddNewFinance.m in Sources */,
 				1EF280C31A2CFED30038D340 /* Properties.m in Sources */,
 				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
 				1ECDD2DD1A2D5202001C0CDA /* MJPPdfTiledView.m in Sources */,
@@ -644,7 +625,6 @@
 				1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */,
 				1EF280C01A2CFED20038D340 /* Tenants.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
-				1ECDD2C21A202966001C0CDA /* MLFinancesView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,10 +34,16 @@
     self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     self.restClient.delegate = self;
     
+    if(self.subUnitDetails != nil){
     
+    NSString *folderName = [NSString stringWithFormat:@"/Properties/%@/%@",self.details.propName, self.subUnitDetails.unitNumber];
+        [self.restClient loadMetadata:folderName];
+    }else {
+        
     NSString *folderName = [NSString stringWithFormat:@"/Properties/%@", self.details.propName];
+        [self.restClient loadMetadata:folderName];
+    }
     
-    [self.restClient loadMetadata:folderName];
     
     
     
