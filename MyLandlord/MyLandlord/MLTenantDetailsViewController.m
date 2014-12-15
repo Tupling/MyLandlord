@@ -11,6 +11,7 @@
 #import "MLTenantsViewController.h"
 #import "MLAddTenantViewController.h"
 #import "MLTenantDocuments.h"
+#import "MLTenantFinances.h"
 
 @interface MLTenantDetailsViewController () <UIActionSheetDelegate>
 
@@ -146,6 +147,11 @@
 }
 
 
+-(IBAction)viewFinances:(id)sender
+{
+    [self performSegueWithIdentifier:@"viewFinances" sender:self];
+}
+
 
 #pragma mark - ActionSheet Method
 
@@ -244,6 +250,13 @@
         
     }else if ([[segue identifier] isEqualToString:@"viewDocuments"]) {
         MLTenantDocuments *tenantDetails = segue.destinationViewController;
+        
+        tenantDetails.details = _details;
+        
+        
+    }
+    else if ([[segue identifier] isEqualToString:@"viewFinances"]) {
+        MLTenantFinances *tenantDetails = segue.destinationViewController;
         
         tenantDetails.details = _details;
         

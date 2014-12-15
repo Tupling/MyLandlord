@@ -42,3 +42,4 @@
 @property(nonatomic, strong) NSEntityDescription *financeEntity;
 @property(nonatomic, strong) NSPredicate *predicate;
 
+@end

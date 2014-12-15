@@ -80,9 +80,6 @@
         self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.tenantId];
         
         
-        
-        
-        
         [self.fetchRequest setPredicate:self.predicate];
         
         NSError * error;
@@ -131,10 +128,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)addNewExpense:(id)sender
-{
-    [self performSegueWithIdentifier:@"addNewFinance" sender:self];
-}
 
 
 #pragma mark - Tableview Methods
@@ -175,7 +168,10 @@
     return cell;
 }
 
-
+-(IBAction)addNewFinance:(id)sender
+{
+    [self performSegueWithIdentifier:@"addNewFinance" sender:self];
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
