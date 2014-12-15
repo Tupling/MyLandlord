@@ -26,6 +26,29 @@
 #pragma mark
 #pragma mark -View Methods
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    //[self.tableView reloadData];
+    
+    NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
+    
+    
+    NSString *badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[selectedArray count]];
+    
+    [self.navigationController.tabBarItem setBadgeValue:badgeValue];
+    
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    
+    [self.tableView reloadData];
+    
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -57,32 +80,12 @@
     //badgeArray = [NSArray arrayWithArray:selectedArray];
     NSLog(@"%lu", (unsigned long)[selectedArray count]);
 
-    
-}
-
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
-    
     [self.tableView reloadData];
-    
-    
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    
-        //[self.tableView reloadData];
 
-    NSLog(@"Task Array = %lu", (unsigned long)[self.inCompleteTasks count]);
-    
-    
-    NSString *badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)[selectedArray count]];
-    
-    [self.navigationController.tabBarItem setBadgeValue:badgeValue];
-    
-    
-}
+
+
 
 
 
