@@ -214,11 +214,11 @@
     // get a temprorary filename for this PDF
     path = NSTemporaryDirectory();
     
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"MMMM_dd_yyyy"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM_dd_yyyy"];
     
     NSDate *today = [NSDate date];
-    self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [df stringFromDate:today]]];
+    self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [dateFormatter stringFromDate:today]]];
     
  
     UIGraphicsBeginPDFContextToFile(self.exportFilePath, CGRectZero, nil);
@@ -383,11 +383,16 @@
     }
     else if(buttonIndex == 1)
     {
-        // email the PDF File.
+        
+        NSDate *today = [NSDate date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM_dd_yyyy"];
+        
+        //Mail Report
         MFMailComposeViewController* mailComposer = [[MFMailComposeViewController alloc] init];
         mailComposer.mailComposeDelegate = self;
         [mailComposer addAttachmentData:[NSData dataWithContentsOfFile:self.exportFilePath]
-                               mimeType:@"application/pdf" fileName:@"report.pdf"];
+                               mimeType:@"application/pdf" fileName:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [dateFormatter stringFromDate:today]]];
         
         
         [self presentViewController:mailComposer animated:YES completion:nil];
