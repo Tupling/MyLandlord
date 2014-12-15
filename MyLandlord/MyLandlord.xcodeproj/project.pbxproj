@@ -27,6 +27,8 @@
 		1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CE1A3C8C8900F431AB /* MLTenantDocuments.m */; };
 		1EB679D21A3CA0BD00F431AB /* FileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679D11A3CA0BD00F431AB /* FileInfo.m */; };
 		1EB679D81A3E170300F431AB /* Financials.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679D71A3E170300F431AB /* Financials.m */; };
+		1EB679DB1A3E706100F431AB /* MLTenantFinances.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679DA1A3E706100F431AB /* MLTenantFinances.m */; };
+		1EB679DE1A3E707700F431AB /* MLAddTenantFinance.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679DD1A3E707700F431AB /* MLAddTenantFinance.m */; };
 		1EC04E0E1A1A49330020B759 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E0D1A1A49330020B759 /* main.m */; };
 		1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E101A1A49330020B759 /* AppDelegate.m */; };
 		1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC04E131A1A49330020B759 /* MLHomeViewController.m */; };
@@ -124,6 +126,10 @@
 		1EB679D11A3CA0BD00F431AB /* FileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileInfo.m; sourceTree = "<group>"; };
 		1EB679D61A3E170300F431AB /* Financials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Financials.h; sourceTree = "<group>"; };
 		1EB679D71A3E170300F431AB /* Financials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Financials.m; sourceTree = "<group>"; };
+		1EB679D91A3E706100F431AB /* MLTenantFinances.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantFinances.h; sourceTree = "<group>"; };
+		1EB679DA1A3E706100F431AB /* MLTenantFinances.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTenantFinances.m; sourceTree = "<group>"; };
+		1EB679DC1A3E707700F431AB /* MLAddTenantFinance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTenantFinance.h; sourceTree = "<group>"; };
+		1EB679DD1A3E707700F431AB /* MLAddTenantFinance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantFinance.m; sourceTree = "<group>"; };
 		1EC04E081A1A49330020B759 /* MyLandlord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLandlord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC04E0C1A1A49330020B759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EC04E0D1A1A49330020B759 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -272,6 +278,10 @@
 				1E181EF81A1F86C30047AD12 /* MLTenantDetailsViewController.m */,
 				1E4A67D61A2FB6290026E8F7 /* MLAddSecondTenantInfo.h */,
 				1E4A67D71A2FB6290026E8F7 /* MLAddSecondTenantInfo.m */,
+				1EB679D91A3E706100F431AB /* MLTenantFinances.h */,
+				1EB679DA1A3E706100F431AB /* MLTenantFinances.m */,
+				1EB679DC1A3E707700F431AB /* MLAddTenantFinance.h */,
+				1EB679DD1A3E707700F431AB /* MLAddTenantFinance.m */,
 			);
 			name = "ML-Tenant Controllers";
 			sourceTree = "<group>";
@@ -603,6 +613,7 @@
 				1E4A67E21A31F72C0026E8F7 /* MLAddTask.m in Sources */,
 				1ECDD2DC1A2D5202001C0CDA /* MJPPdfPage.m in Sources */,
 				1E1447A91A378015008F4BA4 /* SubUnit.m in Sources */,
+				1EB679DE1A3E707700F431AB /* MLAddTenantFinance.m in Sources */,
 				1E4A67D81A2FB6290026E8F7 /* MLAddSecondTenantInfo.m in Sources */,
 				1EC04E111A1A49330020B759 /* AppDelegate.m in Sources */,
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
@@ -617,6 +628,7 @@
 				1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */,
 				1EB679D81A3E170300F431AB /* Financials.m in Sources */,
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
+				1EB679DB1A3E706100F431AB /* MLTenantFinances.m in Sources */,
 				1EC04E141A1A49330020B759 /* MLHomeViewController.m in Sources */,
 				1E1447B11A3A0813008F4BA4 /* MLAddPropertyExpense.m in Sources */,
 				1EB679D21A3CA0BD00F431AB /* FileInfo.m in Sources */,

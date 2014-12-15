@@ -412,7 +412,7 @@
     [self deletedAllObjects:@"Financials"];
     PFQuery *results = [PFQuery queryWithClassName:@"Financials"];
     //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
-    [results orderByAscending:@"date"];
+    [results orderByDescending:@"date"];
     
     [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error)
