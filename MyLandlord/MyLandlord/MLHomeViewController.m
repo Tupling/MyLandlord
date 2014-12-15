@@ -8,6 +8,7 @@
 
 #import "MLHomeViewController.h"
 #import "MLLoginViewController.h"
+#import "MLSignUpViewController.h"
 #import "AppDelegate.h"
 
 @interface MLHomeViewController () <UIAlertViewDelegate>
@@ -141,7 +142,7 @@
     [login setDelegate:self];
     
     //Setup sign up view
-    PFSignUpViewController *signUpView = [[PFSignUpViewController alloc] init];
+    MLSignUpViewController *signUpView = [[MLSignUpViewController alloc] init];
     [signUpView setDelegate:self];
     
     [login setSignUpController:signUpView];
@@ -153,6 +154,8 @@
 #pragma SIGNUP
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
+    
+    
     [[[UIAlertView alloc] initWithTitle:@"User Created" message:@"Your user account has been created!"delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     
     [self dismissViewControllerAnimated:YES completion:nil];

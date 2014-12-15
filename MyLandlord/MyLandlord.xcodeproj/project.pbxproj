@@ -22,6 +22,7 @@
 		1E4A67DF1A31F7140026E8F7 /* TasksMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67DE1A31F7140026E8F7 /* TasksMain.m */; };
 		1E4A67E21A31F72C0026E8F7 /* MLAddTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */; };
 		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
+		1E826D1C1A3F15A70043F70E /* MLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E826D1B1A3F15A70043F70E /* MLSignUpViewController.m */; };
 		1EB679C91A3BAFDD00F431AB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */; };
 		1EB679CC1A3C8C7300F431AB /* MLPropDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */; };
 		1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CE1A3C8C8900F431AB /* MLTenantDocuments.m */; };
@@ -115,6 +116,8 @@
 		1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTask.m; sourceTree = "<group>"; };
 		1E4DAE891A1CF4F50097FA23 /* MLAddTenantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddTenantViewController.h; sourceTree = "<group>"; };
 		1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantViewController.m; sourceTree = "<group>"; };
+		1E826D1A1A3F15A70043F70E /* MLSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSignUpViewController.h; sourceTree = "<group>"; };
+		1E826D1B1A3F15A70043F70E /* MLSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSignUpViewController.m; sourceTree = "<group>"; };
 		1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		1EB679CA1A3C8C7300F431AB /* MLPropDocuments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropDocuments.h; sourceTree = "<group>"; };
 		1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropDocuments.m; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				1EC04E131A1A49330020B759 /* MLHomeViewController.m */,
 				1EC04E6B1A1A92040020B759 /* MLLoginViewController.h */,
 				1EC04E6C1A1A92040020B759 /* MLLoginViewController.m */,
+				1E826D1A1A3F15A70043F70E /* MLSignUpViewController.h */,
+				1E826D1B1A3F15A70043F70E /* MLSignUpViewController.m */,
 			);
 			name = "ML- Main Controllers";
 			sourceTree = "<group>";
@@ -607,6 +612,7 @@
 				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
 				1ECDD2DD1A2D5202001C0CDA /* MJPPdfTiledView.m in Sources */,
 				1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */,
+				1E826D1C1A3F15A70043F70E /* MLSignUpViewController.m in Sources */,
 				1EB679D81A3E170300F431AB /* Financials.m in Sources */,
 				1EC04E6D1A1A92040020B759 /* MLLoginViewController.m in Sources */,
 				1EB679DB1A3E706100F431AB /* MLTenantFinances.m in Sources */,
