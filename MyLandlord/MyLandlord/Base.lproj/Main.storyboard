@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -2554,7 +2554,7 @@ Cg
                                             <constraint firstAttribute="width" constant="171" id="z0L-8n-1mS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="sbj-bx-iLc"/>
@@ -2592,7 +2592,7 @@ Cg
                                             <constraint firstAttribute="height" constant="40" id="z3c-Md-ZCz"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="z3c-Md-ZCz"/>
@@ -2847,7 +2847,7 @@ Cg
                                             <constraint firstAttribute="height" constant="40" id="YEs-og-fdl"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="T6c-Dz-AJR"/>
@@ -3610,7 +3610,7 @@ Cg
                                             <constraint firstAttribute="height" constant="45" id="fl4-W3-32G"/>
                                         </constraints>
                                         <attributedString key="attributedText"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="fl4-W3-32G"/>
@@ -3931,7 +3931,7 @@ Cg
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Jzi-LI-ELd"/>
@@ -3958,7 +3958,7 @@ Cg
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="ce7-2p-Ka4"/>
@@ -5171,7 +5171,7 @@ Cg
                                             <constraint firstAttribute="height" constant="45" id="Xju-a6-gKi"/>
                                         </constraints>
                                         <attributedString key="attributedText"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="numbersAndPunctuation"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="TBB-Wp-xRl"/>
@@ -6243,7 +6243,7 @@ Cg
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="yYV-WD-UfG"/>
@@ -6387,7 +6387,7 @@ Cg
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="nJc-2g-vZN"/>
@@ -6806,31 +6806,31 @@ Cg
                                                     <exclude reference="uTp-03-qlU"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="6lg-8z-iep"/>
-                                                    <exclude reference="97h-PR-YgT"/>
-                                                    <exclude reference="TLV-qN-9WD"/>
-                                                    <exclude reference="fC8-by-3P5"/>
-                                                    <exclude reference="gxh-yn-5Df"/>
-                                                    <exclude reference="xh0-ix-HJQ"/>
-                                                    <exclude reference="HWQ-sL-Xfd"/>
-                                                    <exclude reference="LUd-Fs-G2s"/>
-                                                    <exclude reference="NQd-aX-GQF"/>
-                                                    <exclude reference="VeP-xt-yYo"/>
-                                                    <exclude reference="2pa-x5-C46"/>
-                                                    <exclude reference="M4t-sL-X5l"/>
-                                                    <exclude reference="idu-17-DRa"/>
-                                                    <exclude reference="jRy-SH-m50"/>
-                                                    <exclude reference="5oJ-bb-d9U"/>
-                                                    <exclude reference="TMM-WK-X3W"/>
-                                                    <exclude reference="aMg-TS-z3P"/>
-                                                    <exclude reference="vgv-jg-5Jn"/>
-                                                    <exclude reference="xIA-H7-4Xd"/>
                                                     <exclude reference="BeX-2O-hJE"/>
                                                     <exclude reference="GDq-zi-K18"/>
                                                     <exclude reference="I6K-Tt-Da5"/>
                                                     <exclude reference="b8D-CS-BXD"/>
                                                     <exclude reference="oQH-Lq-JEb"/>
                                                     <exclude reference="weU-bO-x1D"/>
+                                                    <exclude reference="2pa-x5-C46"/>
+                                                    <exclude reference="M4t-sL-X5l"/>
+                                                    <exclude reference="idu-17-DRa"/>
+                                                    <exclude reference="jRy-SH-m50"/>
+                                                    <exclude reference="HWQ-sL-Xfd"/>
+                                                    <exclude reference="LUd-Fs-G2s"/>
+                                                    <exclude reference="NQd-aX-GQF"/>
+                                                    <exclude reference="VeP-xt-yYo"/>
+                                                    <exclude reference="5oJ-bb-d9U"/>
+                                                    <exclude reference="TMM-WK-X3W"/>
+                                                    <exclude reference="aMg-TS-z3P"/>
+                                                    <exclude reference="vgv-jg-5Jn"/>
+                                                    <exclude reference="xIA-H7-4Xd"/>
+                                                    <exclude reference="6lg-8z-iep"/>
+                                                    <exclude reference="97h-PR-YgT"/>
+                                                    <exclude reference="TLV-qN-9WD"/>
+                                                    <exclude reference="fC8-by-3P5"/>
+                                                    <exclude reference="gxh-yn-5Df"/>
+                                                    <exclude reference="xh0-ix-HJQ"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -6842,31 +6842,31 @@ Cg
                                                     <include reference="uTp-03-qlU"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="6lg-8z-iep"/>
-                                                    <exclude reference="97h-PR-YgT"/>
-                                                    <include reference="TLV-qN-9WD"/>
-                                                    <include reference="fC8-by-3P5"/>
-                                                    <exclude reference="gxh-yn-5Df"/>
-                                                    <include reference="xh0-ix-HJQ"/>
-                                                    <include reference="HWQ-sL-Xfd"/>
-                                                    <include reference="LUd-Fs-G2s"/>
-                                                    <include reference="NQd-aX-GQF"/>
-                                                    <include reference="VeP-xt-yYo"/>
-                                                    <exclude reference="2pa-x5-C46"/>
-                                                    <include reference="M4t-sL-X5l"/>
-                                                    <include reference="idu-17-DRa"/>
-                                                    <include reference="jRy-SH-m50"/>
-                                                    <include reference="5oJ-bb-d9U"/>
-                                                    <exclude reference="TMM-WK-X3W"/>
-                                                    <exclude reference="aMg-TS-z3P"/>
-                                                    <include reference="vgv-jg-5Jn"/>
-                                                    <exclude reference="xIA-H7-4Xd"/>
                                                     <include reference="BeX-2O-hJE"/>
                                                     <include reference="GDq-zi-K18"/>
                                                     <exclude reference="I6K-Tt-Da5"/>
                                                     <exclude reference="b8D-CS-BXD"/>
                                                     <include reference="oQH-Lq-JEb"/>
                                                     <include reference="weU-bO-x1D"/>
+                                                    <exclude reference="2pa-x5-C46"/>
+                                                    <include reference="M4t-sL-X5l"/>
+                                                    <include reference="idu-17-DRa"/>
+                                                    <include reference="jRy-SH-m50"/>
+                                                    <include reference="HWQ-sL-Xfd"/>
+                                                    <include reference="LUd-Fs-G2s"/>
+                                                    <include reference="NQd-aX-GQF"/>
+                                                    <include reference="VeP-xt-yYo"/>
+                                                    <include reference="5oJ-bb-d9U"/>
+                                                    <exclude reference="TMM-WK-X3W"/>
+                                                    <exclude reference="aMg-TS-z3P"/>
+                                                    <include reference="vgv-jg-5Jn"/>
+                                                    <exclude reference="xIA-H7-4Xd"/>
+                                                    <exclude reference="6lg-8z-iep"/>
+                                                    <exclude reference="97h-PR-YgT"/>
+                                                    <include reference="TLV-qN-9WD"/>
+                                                    <include reference="fC8-by-3P5"/>
+                                                    <exclude reference="gxh-yn-5Df"/>
+                                                    <include reference="xh0-ix-HJQ"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
