@@ -26,4 +26,6 @@
 
 @property(nonatomic, strong) IBOutlet UIButton *saveTask;
 
+-(BOOL)validateStringTask:(NSString*)task priorityValue:(NSString*)priority dueDateValue:(NSDate*)dueDateString taskDescValue:(NSString*)taskDescString;
+
 @end

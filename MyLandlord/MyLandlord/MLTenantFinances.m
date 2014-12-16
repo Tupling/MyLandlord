@@ -27,6 +27,8 @@
 
 @implementation MLTenantFinances
 
+@synthesize exportFilePath, exportButton;
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];

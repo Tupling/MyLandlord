@@ -228,7 +228,7 @@
                 tenantInfo.leaseEnd = [objects[i] valueForKey:@"leaseEnd"];
                 tenantInfo.leaseStart = [objects[i] valueForKey:@"leaseStart"];
                 tenantInfo.rentAmount = [objects[i] valueForKey:@"rentTotal"];
-                tenantInfo.secondTenant = [objects[i] valueForKey:@"secondTenant"];
+                tenantInfo.secondTenant = [[objects[i] valueForKey:@"secondTenant"]boolValue];
                 tenantInfo.dueDay = [objects[i] valueForKey:@"dueDay"];
                 tenantInfo.propertyId = [objects[i] valueForKey:@"assignedPropId"];
                 tenantInfo.subUnitId = [objects[i] valueForKey:@"subUnitId"];

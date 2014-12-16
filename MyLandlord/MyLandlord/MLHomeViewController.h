@@ -29,6 +29,9 @@
 @property(nonatomic, strong) IBOutlet UIButton *addProp;
 @property(nonatomic, strong) IBOutlet UIButton *addTenant;
 @property(nonatomic, strong) IBOutlet UIButton *addTask;
+@property(nonatomic, strong) IBOutlet UIButton *viewProperties;
+@property(nonatomic, strong) IBOutlet UIButton *rentsDueButton;
+@property(nonatomic, strong) IBOutlet UIButton *tasksButton;
 
 //Core Data
 @property(nonatomic, strong) NSManagedObjectContext *context;

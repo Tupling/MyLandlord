@@ -19,7 +19,7 @@
 
 @implementation MLTenantDetailsViewController
 
-@synthesize sTenantphoneButton, sTenantEmailButton;
+@synthesize sTenantphoneButton, sTenantEmailButton, sTenantEmailHeader, sTenantPhoneHeader;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

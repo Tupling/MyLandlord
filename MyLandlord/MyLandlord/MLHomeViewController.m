@@ -65,8 +65,24 @@
             
             [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
+            self.viewProperties.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.viewProperties.titleLabel.textAlignment = NSTextAlignmentCenter;
+            self.viewProperties.titleLabel.numberOfLines = 2;
             
-            [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
+            self.rentsDueButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.rentsDueButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+            self.rentsDueButton.titleLabel.numberOfLines = 2;
+            
+            self.tasksButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.tasksButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+            self.tasksButton.titleLabel.numberOfLines = 2;
+            
+            [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n 4"] forState:UIControlStateNormal];
+            
+            [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n 4"] forState:UIControlStateNormal];
+            
+            [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n 4"] forState:UIControlStateNormal];
+            
             [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
             
@@ -79,7 +95,7 @@
         
     }else{
         
-            [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.1];
+        [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.1];
     }
     
     
@@ -122,8 +138,8 @@
     self.addTask.layer.cornerRadius = 5;
     
     
-
-
+    
+    
     
 }
 
@@ -150,7 +166,7 @@
     
     [login setSignUpController:signUp];
     
-
+    
     
     [self.tabBarController presentViewController:login animated:YES completion:nil];
     

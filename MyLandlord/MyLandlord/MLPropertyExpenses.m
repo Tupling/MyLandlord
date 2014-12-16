@@ -27,6 +27,8 @@
 
 @implementation MLPropertyExpenses
 
+@synthesize exportButton, exportFilePath;
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
