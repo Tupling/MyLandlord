@@ -22,12 +22,12 @@
 @implementation MLHomeViewController
 
 @synthesize profileImg;
+
+
+#pragma mark - View Load Methods
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self viewWillAppear:YES];
-    
     
 }
 
@@ -67,21 +67,21 @@
             
             self.viewProperties.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             self.viewProperties.titleLabel.textAlignment = NSTextAlignmentCenter;
-            self.viewProperties.titleLabel.numberOfLines = 2;
+            self.viewProperties.titleLabel.numberOfLines = 0;
             
             self.rentsDueButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             self.rentsDueButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-            self.rentsDueButton.titleLabel.numberOfLines = 2;
+            self.rentsDueButton.titleLabel.numberOfLines = 0;
             
             self.tasksButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             self.tasksButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-            self.tasksButton.titleLabel.numberOfLines = 2;
+            self.tasksButton.titleLabel.numberOfLines = 0;
             
-            [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n 4"] forState:UIControlStateNormal];
+            [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n%lu",(unsigned long)[ApplicationDelegate.propertyArray count]] forState:UIControlStateNormal];
             
-            [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n 4"] forState:UIControlStateNormal];
+            [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n0"] forState:UIControlStateNormal];
             
-            [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n 4"] forState:UIControlStateNormal];
+            [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[taskDueArray count]] forState:UIControlStateNormal];
             
             [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
@@ -142,7 +142,7 @@
     
     
 }
-
+#pragma mark
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -150,7 +150,20 @@
 }
 
 
-#pragma mark REQUIRE LOGIN
+-(IBAction)propertiesClicked:(id)sender
+{
+    
+    [self.tabBarController setSelectedIndex:1];
+}
+
+-(IBAction)tasksClicked:(id)sender
+{
+    [self.tabBarController setSelectedIndex:3];
+    
+}
+
+#pragma mark
+#pragma mark PFLogin/Signup Delegate Methods
 -(void)requireLogin:(id)sender
 {
     MLLoginViewController *login = [[MLLoginViewController alloc] init];
@@ -173,7 +186,7 @@
 }
 
 
-#pragma SIGNUP
+
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
     
@@ -183,7 +196,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark LOGIN
+
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
     
     
@@ -218,7 +231,7 @@
     
 }
 
-#pragma mark LOGIN SUCCESS
+
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
 {
     NSLog(@"%@ Logged In",[[PFUser currentUser] username]);
@@ -252,7 +265,7 @@
 }
 
 
-#pragma mark LOGOUT
+
 -(IBAction)logOut:(id)sender
 {
     
