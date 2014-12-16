@@ -33,9 +33,9 @@
     self.taskDescriptionTv.text = self.taskDetails.taskDescription;
     self.taskPriorityLbl.text = self.taskDetails.priority;
     
-  
+    BOOL complete = 1;
     
-    if (self.taskDetails.isComplete) {
+    if (self.taskDetails.isComplete == [NSNumber numberWithBool:complete]) {
         self.checkComplete.hidden = YES;
     }
 
