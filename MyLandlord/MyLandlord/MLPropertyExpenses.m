@@ -20,7 +20,7 @@
 @interface MLPropertyExpenses () <UITableViewDataSource, UITableViewDelegate>
 {
     NSArray *currentPropFinances;
-
+    
 }
 
 @end
@@ -70,40 +70,40 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-    self.context = [ApplicationDelegate managedObjectContext];
-    
-    //Create new Fetch Request
-    self.fetchRequest = [[NSFetchRequest alloc] init];
-    
-    //Request Entity EventInfo
-    self.financeEntity = [NSEntityDescription entityForName:@"Financials" inManagedObjectContext:self.context];
-    
-    //Set fetchRequest entity to EventInfo Description
-    [self.fetchRequest setEntity:self.financeEntity];
-    
-    if(self.subUnitDetails != nil){
+        self.context = [ApplicationDelegate managedObjectContext];
         
-        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subUnitDetails.unitObjectId];
+        //Create new Fetch Request
+        self.fetchRequest = [[NSFetchRequest alloc] init];
         
-    } else {
-        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.propertyId];
-    }
-    
-    
-    [self.fetchRequest setPredicate:self.predicate];
-    
-    NSError * error;
-    //Set events array to data in core data
-    currentPropFinances = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
-    
-    
-    
-    NSLog(@"%lu", (unsigned long)[currentPropFinances count]);
-    
-    
-            [self.tableView reloadData];
+        //Request Entity EventInfo
+        self.financeEntity = [NSEntityDescription entityForName:@"Financials" inManagedObjectContext:self.context];
+        
+        //Set fetchRequest entity to EventInfo Description
+        [self.fetchRequest setEntity:self.financeEntity];
+        
+        if(self.subUnitDetails != nil){
+            
+            self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subUnitDetails.unitObjectId];
+            
+        } else {
+            self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.propertyId];
+        }
+        
+        
+        [self.fetchRequest setPredicate:self.predicate];
+        
+        NSError * error;
+        //Set events array to data in core data
+        currentPropFinances = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+        
+        
+        
+        NSLog(@"%lu", (unsigned long)[currentPropFinances count]);
+        
+        
+        [self.tableView reloadData];
     });
-
+    
 }
 
 - (void)viewDidLoad {
@@ -129,7 +129,7 @@
     [self.navigationController.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithRed:0.09 green:0.18 blue:0.2 alpha:1]];
     self.navigationController.navigationItem.rightBarButtonItem = rightBarButton;
     
-
+    
     
 }
 
@@ -177,8 +177,8 @@
     self.category.text = finance.category;
     self.amount.text = [NSString stringWithFormat:@"$%.02f", finance.fAmount];
     self.itemName.text = finance.itemName;
-
-
+    
+    
     return cell;
 }
 
@@ -196,7 +196,7 @@
         
         if(self.subUnitDetails != nil){
             
-        propertyDetails.subUnitDetails = _subUnitDetails;
+            propertyDetails.subUnitDetails = _subUnitDetails;
             
         }
     }
@@ -222,7 +222,7 @@
     NSDate *today = [NSDate date];
     self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [dateFormatter stringFromDate:today]]];
     
- 
+    
     UIGraphicsBeginPDFContextToFile(self.exportFilePath, CGRectZero, nil);
     
     // get the context reference so we can render to it.
@@ -248,6 +248,8 @@
     [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
     [paragraphStyle setAlignment:NSTextAlignmentLeft];
     
+    
+    //Label Attributes
     NSDictionary *attributes = @{ NSFontAttributeName: expenseFont,
                                   NSParagraphStyleAttributeName: paragraphStyle };
     
@@ -255,82 +257,88 @@
     
     CGFloat currentPageY = 0;
     
-
-        //Create Page Begining
-        UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, kDefaultPageWidth, kDefaultPageHeight), nil);
-        currentPageY = kMargin;
+    
+    //Create Page Begining
+    UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, kDefaultPageWidth, kDefaultPageHeight), nil);
+    currentPageY = kMargin;
+    
+    //Draw Property Name
+    
+    NSString *reportTile = [NSString stringWithFormat:@"%@ Expense Report", _details.propName];
+    NSString *categoryLabel = @"Category";
+    NSString *amountLabel = @"Amount";
+    NSString *dateLabel = @"Date";
+    
+    NSAttributedString *categoryString = [[NSAttributedString alloc] initWithString:@"Category" attributes:@{NSFontAttributeName: propertyNameFont}];
+    
+    CGRect rect = [categoryString boundingRectWithSize:(CGSize){maxWidth, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    CGSize size = rect.size;
+    
+    [reportTile drawInRect:CGRectMake(250, 15, propNameMaxWidth, maxHeight) withAttributes:headerAttributes];
+    
+    [categoryLabel drawInRect:CGRectMake(kMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+    
+    [amountLabel drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+    
+    [dateLabel drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin + propNameMaxWidth, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+    
+    currentPageY += size.height;
+    
+    //Draw header linebreak under Property Name
+    CGContextSetStrokeColorWithColor(context, [[UIColor blueColor] CGColor]);
+    CGContextMoveToPoint(context, kMargin, currentPageY);
+    CGContextAddLineToPoint(context, kDefaultPageWidth - kMargin, currentPageY);
+    CGContextStrokePath(context);
+    
+    //Get Current Property Finance Data
+    NSArray* expenses = currentPropFinances;
+    
+    NSLog(@"Expense Array = %@", expenses.description);
+    
+    //Iterate through property finances
+    for(NSObject* data in expenses)
+    {
+        NSString* expenseType = [data valueForKey:@"category"];
+        NSString* amount = [NSString stringWithFormat:@"$ %@",[data valueForKey:@"fAmount"]];
         
-        //Draw Property Name
-    
-        NSString *reportTile = [NSString stringWithFormat:@"%@ Expense Report", _details.propName];
-    
-        NSString *categoryLabel = @"Category";
-    
-        NSString *amountLabel = @"Amount";
-    
-        NSString *dateLabel = @"Date";
-    
-        CGSize size = [categoryLabel sizeWithFont:propertyNameFont forWidth:maxWidth lineBreakMode:NSLineBreakByWordWrapping];
-    
-        [reportTile drawInRect:CGRectMake(250, 15, propNameMaxWidth, maxHeight) withAttributes:headerAttributes];
-    
-        [categoryLabel drawInRect:CGRectMake(kMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
-    
-        [amountLabel drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
-    
-        [dateLabel drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin + propNameMaxWidth, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
-    
-        currentPageY += size.height;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
         
-        //Draw header linebreak under Property Name
-        CGContextSetStrokeColorWithColor(context, [[UIColor blueColor] CGColor]);
-        CGContextMoveToPoint(context, kMargin, currentPageY);
-        CGContextAddLineToPoint(context, kDefaultPageWidth - kMargin, currentPageY);
-        CGContextStrokePath(context);
+        NSString *dateString = [dateFormatter stringFromDate:[data valueForKey:@"date"]];
         
-        //Get Current Property Finance Data
-        NSArray* expenses = currentPropFinances;
+        // Get line measurements to place additional lines after each line correctly
         
-        NSLog(@"Expense Array = %@", expenses.description);
-    
-        //Iterate through property finances
-        for(NSObject* data in expenses)
-        {
-            NSString* expenseType = [data valueForKey:@"category"];
-            NSString* amount = [NSString stringWithFormat:@"$ %@",[data valueForKey:@"fAmount"]];
-            
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
-            
-            NSString *dateString = [dateFormatter stringFromDate:[data valueForKey:@"date"]];
-            
-            // before we render any text to the PDF, we need to measure it, so we'll know where to render the
-            // next line.
-            size = [expenseType sizeWithFont:expenseFont constrainedToSize:CGSizeMake(expenseMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-            
-            //Check page bounds and create new page if text drawn exceeds boundaries
-            if (size.height + currentPageY > maxHeight) {
-                // create a new page and reset the current page's Y value
-                UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, kDefaultPageWidth, kDefaultPageHeight), nil);
-                currentPageY = kMargin;
-            }
-            
-            
-            [expenseType drawInRect:CGRectMake(kMargin, currentPageY, expenseMaxWidth, maxHeight) withAttributes:attributes];
-            
-            //Put Expense amount next to expenses type
-            [amount drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, expenseMaxWidth, maxHeight) withAttributes:attributes];
-            
-            
-            [dateString drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin + propNameMaxWidth, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
-            
-            currentPageY += size.height;
-            
+        NSAttributedString *expenseString = [[NSAttributedString alloc] initWithString:[data valueForKey:@"category"] attributes:@{NSFontAttributeName: expenseFont}];
+        
+        CGRect rect = [expenseString boundingRectWithSize:(CGSize){expenseMaxWidth, MAXFLOAT} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+        
+        CGSize size = rect.size;
+        
+        
+        //Check page bounds and create new page if text drawn exceeds boundaries
+        if (size.height + currentPageY > maxHeight) {
+            // create a new page and reset the current page's Y value
+            UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, kDefaultPageWidth, kDefaultPageHeight), nil);
+            currentPageY = kMargin;
         }
         
         
-        // increment the page number.
-        currentPage++;
+        [expenseType drawInRect:CGRectMake(kMargin, currentPageY, expenseMaxWidth, maxHeight) withAttributes:attributes];
+        
+        //Put Expense amount next to expenses type
+        [amount drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin, currentPageY, expenseMaxWidth, maxHeight) withAttributes:attributes];
+        
+        
+        [dateString drawInRect:CGRectMake(kMargin + propNameMaxWidth + kColumnMargin + propNameMaxWidth, currentPageY, propNameMaxWidth, maxHeight) withAttributes:attributes];
+        
+        currentPageY += size.height;
+        
+    }
+    
+    
+    // increment the page number.
+    currentPage++;
     
     
     // end and save the PDF.
@@ -380,7 +388,7 @@
         preview.dataSource = self;
         [self presentViewController:preview animated:YES completion:nil];
         
-
+        
         
     }
     else if(buttonIndex == 1)
@@ -398,7 +406,7 @@
         
         
         [self presentViewController:mailComposer animated:YES completion:nil];
-
+        
     }
     
 }

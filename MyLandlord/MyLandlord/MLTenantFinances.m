@@ -256,7 +256,11 @@
     
     NSString *dateLabel = @"Date";
     
-    CGSize size = [categoryLabel sizeWithFont:propertyNameFont forWidth:maxWidth lineBreakMode:NSLineBreakByWordWrapping];
+    NSAttributedString *categoryString = [[NSAttributedString alloc] initWithString:@"Category" attributes:@{NSFontAttributeName: propertyNameFont}];
+    
+    CGRect rect = [categoryString boundingRectWithSize:(CGSize){maxWidth, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    CGSize size = rect.size;
     
     [reportTile drawInRect:CGRectMake(250, 15, propNameMaxWidth, maxHeight) withAttributes:headerAttributes];
     
@@ -290,9 +294,13 @@
         
         NSString *dateString = [dateFormatter stringFromDate:[data valueForKey:@"date"]];
         
-        // before we render any text to the PDF, we need to measure it, so we'll know where to render the
-        // next line.
-        size = [expenseType sizeWithFont:expenseFont constrainedToSize:CGSizeMake(expenseMaxWidth, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+        // Get line measurements to place additional lines after each line correctly
+        
+        NSAttributedString *expenseString = [[NSAttributedString alloc] initWithString:[data valueForKey:@"category"] attributes:@{NSFontAttributeName: expenseFont}];
+        
+        CGRect rect = [expenseString boundingRectWithSize:(CGSize){expenseMaxWidth, MAXFLOAT} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+        
+        CGSize size = rect.size;
         
         //Check page bounds and create new page if text drawn exceeds boundaries
         if (size.height + currentPageY > maxHeight) {
