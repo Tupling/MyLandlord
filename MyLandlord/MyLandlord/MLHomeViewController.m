@@ -11,7 +11,7 @@
 #import "MLSignUpViewController.h"
 #import "AppDelegate.h"
 
-@interface MLHomeViewController () <UIAlertViewDelegate>
+@interface MLHomeViewController () <UIAlertViewDelegate, DBRestClientDelegate>
 {
     UIAlertView *logOutAlert;
     UIAlertView *dropBoxLink;
@@ -29,6 +29,8 @@
 {
     [super viewDidLoad];
     
+
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -40,8 +42,7 @@
     //Check for valid Current User
     if ([PFUser currentUser]) {
         
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+    
             //Get TabBar Badge Count
             self.context = [ApplicationDelegate managedObjectContext];
             
@@ -86,11 +87,9 @@
             [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
             
-        });
         
-        if (![[DBSession sharedSession] isLinked]) {
-            [[DBSession sharedSession] linkFromController:self];
-        }
+        self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+        self.restClient.delegate = self;
         
         
     }else{
@@ -307,6 +306,8 @@
             [ApplicationDelegate createDropBoxLink];
             
             if (![[DBSession sharedSession] isLinked]) {
+                
+                //[[DBSession sharedSession]unlinkAll];
                 [[DBSession sharedSession] linkFromController:self];
             }
         }

@@ -39,6 +39,8 @@
 @property(nonatomic, strong) NSEntityDescription *taskEntity;
 @property(nonatomic, strong) NSPredicate *predicate;
 
+@property (nonatomic) DBRestClient *restClient;
+
 -(IBAction)logOut:(id)sender;
 -(void)requireLogin:(id)sender;
 
