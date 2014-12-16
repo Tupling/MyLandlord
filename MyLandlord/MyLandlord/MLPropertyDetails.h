@@ -16,6 +16,7 @@
     IBOutlet UILabel *propAddress;
     IBOutlet UILabel *tenantInfo;
     IBOutlet UILabel *leaseInfo;
+    IBOutlet UILabel *rentStatus;
 }
 
 -(IBAction)editDetails:(id)sender;

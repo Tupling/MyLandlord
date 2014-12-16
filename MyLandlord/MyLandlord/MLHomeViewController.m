@@ -14,6 +14,7 @@
 @interface MLHomeViewController () <UIAlertViewDelegate>
 {
     UIAlertView *logOutAlert;
+    UIAlertView *dropBoxLink;
 }
 
 @end
@@ -34,6 +35,7 @@
 {
     [super viewWillAppear:YES];
     
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"FirstLaunch"]);
     
     //Check for valid Current User
     if ([PFUser currentUser]) {
@@ -77,7 +79,7 @@
         
     }else{
         
-        [self requireLogin];
+            [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.1];
     }
     
     
@@ -119,7 +121,9 @@
     self.addTenant.layer.cornerRadius = 5;
     self.addTask.layer.cornerRadius = 5;
     
-    [self viewWillAppear:YES];
+    
+
+
     
 }
 
@@ -131,26 +135,28 @@
 
 
 #pragma mark REQUIRE LOGIN
--(void)requireLogin
+-(void)requireLogin:(id)sender
 {
     MLLoginViewController *login = [[MLLoginViewController alloc] init];
     
+    MLSignUpViewController *signUp = [[MLSignUpViewController alloc] init];
     
     //Setup login view
     //PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
     login.fields = PFLogInFieldsLogInButton | PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton;
     [login setDelegate:self];
     
-    //Setup sign up view
-    MLSignUpViewController *signUpView = [[MLSignUpViewController alloc] init];
-    [signUpView setDelegate:self];
+    [signUp setDelegate:self];
     
-    [login setSignUpController:signUpView];
+    [login setSignUpController:signUp];
     
+
     
+    [self.tabBarController presentViewController:login animated:YES completion:nil];
     
-    [self presentViewController:login animated:YES completion:nil];
 }
+
+
 #pragma SIGNUP
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
@@ -210,6 +216,19 @@
     [ApplicationDelegate loadFinancials];
     
     
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLaunch"] == nil)
+    {
+        
+        
+        dropBoxLink = [[UIAlertView alloc] initWithTitle:@"Link Dropbox\u00AE" message:@"This application utilizes Dropbox\u00AE in order to store documents. You must link your Dropbox\u00AE in order to utilize the document features. \n\n Would you like to link your account now?"  delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        
+        [dropBoxLink show];
+        
+        
+    }
+    
+    
+    
     [self dismissViewControllerAnimated:YES completion:nil];
     
     
@@ -229,6 +248,8 @@
     
 }
 
+
+#pragma mark - Alertview Delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     //LogOut AlertView Actions
@@ -240,12 +261,30 @@
             [PFUser logOut];
             
             //Present user with login screen
-            [self requireLogin];
+            [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.0];
             
+        }
+    } if (alertView == dropBoxLink){
+        
+        if(buttonIndex == 0){
+            
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstLaunch"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        } else if(buttonIndex == 1){
+            
+            [ApplicationDelegate createDropBoxLink];
+            
+            if (![[DBSession sharedSession] isLinked]) {
+                [[DBSession sharedSession] linkFromController:self];
+            }
         }
     }
     
 }
+
 
 
 @end

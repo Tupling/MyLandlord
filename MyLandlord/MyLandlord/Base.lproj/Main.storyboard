@@ -1410,6 +1410,7 @@ Cg
                     <connections>
                         <outlet property="leaseInfo" destination="vve-Gj-VPU" id="pO1-DI-bmu"/>
                         <outlet property="propAddress" destination="8Z5-LV-zPa" id="4ch-2h-3o9"/>
+                        <outlet property="rentStatus" destination="Z57-uq-uv6" id="xct-EA-403"/>
                         <outlet property="tenantInfo" destination="l60-LJ-AhL" id="IeU-7O-Kmc"/>
                         <segue destination="wHX-Qd-HQH" kind="show" identifier="editDetails" id="7iu-AO-izv"/>
                         <segue destination="iV2-LY-d4O" kind="show" identifier="showDocuments" id="6yj-9n-JeN"/>
@@ -3306,7 +3307,7 @@ Cg
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="48" id="MlW-S9-I8y">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="Cell" rowHeight="48" id="MlW-S9-I8y">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MlW-S9-I8y" id="6f5-jj-fQL">
@@ -5666,6 +5667,25 @@ Cg
             </objects>
             <point key="canvasLocation" x="992.25" y="-267.375"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="fam-7o-vcA">
+            <objects>
+                <viewController autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" id="Nl0-5g-fPR" customClass="MLLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nzc-TR-Dmf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pgl-Y8-zdb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YGz-71-h9t">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="egG-0b-MSr"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ObU-ha-bx5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2984.25" y="-1555.875"/>
+        </scene>
         <!--Home-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -5719,7 +5739,8 @@ Cg
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="Fe9-R5-noU"/>
+                        <segue destination="Nl0-5g-fPR" kind="presentation" identifier="login" modalPresentationStyle="fullScreen" id="ME8-fx-Hrf"/>
+                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="rootViewController" id="JmF-XG-fKK"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A08-wp-Hvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -6967,9 +6988,9 @@ Cg
         <image name="vertical_divider.png" width="320" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="qsW-Gy-OKK"/>
         <segue reference="RYl-HA-ohg"/>
         <segue reference="7iu-AO-izv"/>
-        <segue reference="qsW-Gy-OKK"/>
         <segue reference="FCi-D8-0rG"/>
     </inferredMetricsTieBreakers>
 </document>

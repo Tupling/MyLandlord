@@ -41,33 +41,14 @@
 #pragma mark - Launching Methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+
     
     //Parse Setup information
     [Parse setApplicationId:@"JaDJYpRJTZR9QV7OooDivH9uSRlTNYL8mH7AcUbe" clientKey:@"MyEtePxKqaKi2mXL9SALjECDTVL9WN3uqbQ4OWKd"];
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LinkedAccount"] == nil)
-    //    {
-    // ensure you have a DBSession to unlink
-    if ([DBSession sharedSession] == nil)
-    {
-        //Dropbox Setup Information
-        DBSession *dbSession = [[DBSession alloc]
-                                initWithAppKey:@"dce7787ko2d4u1o"
-                                appSecret:@"9os3cx3aehn2fhe"
-                                root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
-        [DBSession setSharedSession:dbSession];
-    }
-    
-    // unlink
-    //[[DBSession sharedSession] unlinkAll];
-    
-    //        // set 'has run' flag
-    //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LinkedAccount"];
-    //        [[NSUserDefaults standardUserDefaults] synchronize];
-    //    }
+
     
     
     
@@ -103,6 +84,18 @@
     return status;
 }
 
+-(void)createDropBoxLink
+{
+
+        //Dropbox Setup Information
+        DBSession *dbSession = [[DBSession alloc]
+                                initWithAppKey:@"dce7787ko2d4u1o"
+                                appSecret:@"9os3cx3aehn2fhe"
+                                root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
+        [DBSession setSharedSession:dbSession];
+
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -127,6 +120,10 @@
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+    
+    
+    //Log User out if Application is Terminated
+    [PFUser logOut];
 }
 
 
@@ -525,7 +522,15 @@
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         if ([[DBSession sharedSession] isLinked]) {
             NSLog(@"App linked successfully!");
-            // At this point you can start making API calls
+            
+            UIAlertView *linkedAlert = [[UIAlertView alloc] initWithTitle:@"Dropbox Linked!" message:@"You Dropbox has been linked with MyLandlord." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstLaunch"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [linkedAlert show];
+        } else {
+            NSLog(@"Dropbox Login Cancelled!");
         }
         return YES;
     }

@@ -37,6 +37,7 @@
 @property(nonatomic, strong) NSPredicate *predicate;
 
 -(IBAction)logOut:(id)sender;
+-(void)requireLogin:(id)sender;
 
 
 @end
