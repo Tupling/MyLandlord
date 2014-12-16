@@ -11,7 +11,7 @@
 #import "MLSignUpViewController.h"
 #import "AppDelegate.h"
 
-@interface MLHomeViewController () <UIAlertViewDelegate>
+@interface MLHomeViewController () <UIAlertViewDelegate, DBRestClientDelegate>
 {
     UIAlertView *logOutAlert;
     UIAlertView *dropBoxLink;
@@ -22,12 +22,14 @@
 @implementation MLHomeViewController
 
 @synthesize profileImg;
+
+
+#pragma mark - View Load Methods
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self viewWillAppear:YES];
-    
+
     
 }
 
@@ -40,8 +42,7 @@
     //Check for valid Current User
     if ([PFUser currentUser]) {
         
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+    
             //Get TabBar Badge Count
             self.context = [ApplicationDelegate managedObjectContext];
             
@@ -65,21 +66,35 @@
             
             [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
+            self.viewProperties.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.viewProperties.titleLabel.textAlignment = NSTextAlignmentCenter;
+            self.viewProperties.titleLabel.numberOfLines = 0;
             
-            [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
+            self.rentsDueButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.rentsDueButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+            self.rentsDueButton.titleLabel.numberOfLines = 0;
+            
+            self.tasksButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.tasksButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+            self.tasksButton.titleLabel.numberOfLines = 0;
+            
+            [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n%lu",(unsigned long)[ApplicationDelegate.propertyArray count]] forState:UIControlStateNormal];
+            
+            [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n0"] forState:UIControlStateNormal];
+            
+            [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[taskDueArray count]] forState:UIControlStateNormal];
+            
             [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
             
-        });
         
-        if (![[DBSession sharedSession] isLinked]) {
-            [[DBSession sharedSession] linkFromController:self];
-        }
+        self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+        self.restClient.delegate = self;
         
         
     }else{
         
-            [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.1];
+        [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.1];
     }
     
     
@@ -122,11 +137,11 @@
     self.addTask.layer.cornerRadius = 5;
     
     
-
-
+    
+    
     
 }
-
+#pragma mark
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -134,7 +149,20 @@
 }
 
 
-#pragma mark REQUIRE LOGIN
+-(IBAction)propertiesClicked:(id)sender
+{
+    
+    [self.tabBarController setSelectedIndex:1];
+}
+
+-(IBAction)tasksClicked:(id)sender
+{
+    [self.tabBarController setSelectedIndex:3];
+    
+}
+
+#pragma mark
+#pragma mark PFLogin/Signup Delegate Methods
 -(void)requireLogin:(id)sender
 {
     MLLoginViewController *login = [[MLLoginViewController alloc] init];
@@ -150,14 +178,14 @@
     
     [login setSignUpController:signUp];
     
-
+    
     
     [self.tabBarController presentViewController:login animated:YES completion:nil];
     
 }
 
 
-#pragma SIGNUP
+
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
     
@@ -167,7 +195,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark LOGIN
+
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
     
     
@@ -202,7 +230,7 @@
     
 }
 
-#pragma mark LOGIN SUCCESS
+
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
 {
     NSLog(@"%@ Logged In",[[PFUser currentUser] username]);
@@ -236,7 +264,7 @@
 }
 
 
-#pragma mark LOGOUT
+
 -(IBAction)logOut:(id)sender
 {
     
@@ -278,6 +306,8 @@
             [ApplicationDelegate createDropBoxLink];
             
             if (![[DBSession sharedSession] isLinked]) {
+                
+                //[[DBSession sharedSession]unlinkAll];
                 [[DBSession sharedSession] linkFromController:self];
             }
         }

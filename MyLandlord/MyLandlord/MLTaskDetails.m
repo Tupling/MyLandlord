@@ -33,10 +33,12 @@
     self.taskDescriptionTv.text = self.taskDetails.taskDescription;
     self.taskPriorityLbl.text = self.taskDetails.priority;
     
-    if ([self.taskDetails.isComplete isEqualToNumber:[NSNumber numberWithBool:self.taskDetails.isComplete]]) {
+    BOOL complete = 1;
+    
+    if (self.taskDetails.isComplete == [NSNumber numberWithBool:complete]) {
         self.checkComplete.hidden = YES;
     }
-    
+
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMMM dd, yyyy"];

@@ -78,13 +78,15 @@
 -(IBAction)saveTask:(id)sender
 {
     
-
+    BOOL isFormValid = [self validateStringTask:self.taskName.text priorityValue:self.taskPriority.text dueDateValue:dueDate taskDescValue:self.taskDesc.text];
+    
+    if(isFormValid){
     
         PFObject *task = [PFObject objectWithClassName:@"ToDo"];
     
         BOOL isComplete = NO;
     
-        
+    
         task[@"task"] = self.taskName.text;
         task[@"priority"] = self.taskPriority.text;
         task[@"isComplete"] = [NSNumber numberWithBool:isComplete];
@@ -130,7 +132,18 @@
         
     }
 
+}
 
+#pragma mark - Valid Form Values
+
+-(BOOL)validateStringTask:(NSString *)task priorityValue:(NSString *)priority dueDateValue:(NSDate *)dueDateString taskDescValue:(NSString *)taskDescString
+{
+
+    
+    return YES;
+}
+
+#pragma mark - TextEdit Field Delegate Methods
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if ([textField isEqual:self.assignProperty]) {
@@ -166,6 +179,8 @@
     }
 }
 
+
+#pragma mark - Date Picker Method
 -(IBAction)addDate:(UITextField *)textField
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -204,6 +219,8 @@
     }
 }
 
+
+#pragma mark - Picker View Delegate Methods
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
@@ -281,6 +298,7 @@
 }
 */
 
+#pragma mark - Dismiss Keyboard
 //Function for Gesture tapOnScreen
 - (void) keyboardDisappear {
     

@@ -8,7 +8,7 @@
 
 #import "MLAddTenantFinance.h"
 
-@interface MLAddTenantFinance ()<UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate>
+@interface MLAddTenantFinance ()<UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate>
 {
     NSArray *catArray;
     

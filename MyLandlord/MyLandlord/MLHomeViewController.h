@@ -29,12 +29,17 @@
 @property(nonatomic, strong) IBOutlet UIButton *addProp;
 @property(nonatomic, strong) IBOutlet UIButton *addTenant;
 @property(nonatomic, strong) IBOutlet UIButton *addTask;
+@property(nonatomic, strong) IBOutlet UIButton *viewProperties;
+@property(nonatomic, strong) IBOutlet UIButton *rentsDueButton;
+@property(nonatomic, strong) IBOutlet UIButton *tasksButton;
 
 //Core Data
 @property(nonatomic, strong) NSManagedObjectContext *context;
 @property(nonatomic, strong) NSFetchRequest *fetchRequest;
 @property(nonatomic, strong) NSEntityDescription *taskEntity;
 @property(nonatomic, strong) NSPredicate *predicate;
+
+@property (nonatomic) DBRestClient *restClient;
 
 -(IBAction)logOut:(id)sender;
 -(void)requireLogin:(id)sender;

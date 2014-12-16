@@ -272,7 +272,9 @@
         taskDetails.taskDetails = self.taskInfo;
         taskDetails.propDetails = self.propInfo;
         
-        NSLog(@"Property Details == %@", self.propInfo);
+        
+        
+        NSLog(@"Task Details == %@", self.taskInfo);
 
     }
 
