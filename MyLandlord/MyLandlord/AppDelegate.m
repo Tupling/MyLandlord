@@ -120,6 +120,10 @@
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+    
+    
+    //Log User out if Application is Terminated
+    [PFUser logOut];
 }
 
 
@@ -519,7 +523,10 @@
         if ([[DBSession sharedSession] isLinked]) {
             NSLog(@"App linked successfully!");
             
-            UIAlertView *linkedAlert = [[UIAlertView alloc] initWithTitle:@"DropBox Linked!" message:@"You DropBox has been linked with MyLandlord." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *linkedAlert = [[UIAlertView alloc] initWithTitle:@"Dropbox Linked!" message:@"You Dropbox has been linked with MyLandlord." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstLaunch"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             [linkedAlert show];
         } else {

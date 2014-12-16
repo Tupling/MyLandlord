@@ -35,6 +35,7 @@
 {
     [super viewWillAppear:YES];
     
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] valueForKey:@"FirstLaunch"]);
     
     //Check for valid Current User
     if ([PFUser currentUser]) {
@@ -78,7 +79,7 @@
         
     }else{
         
-        [self requireLogin];
+            [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.1];
     }
     
     
@@ -134,11 +135,28 @@
 
 
 #pragma mark REQUIRE LOGIN
--(void)requireLogin
+-(void)requireLogin:(id)sender
 {
-    [self performSegueWithIdentifier:@"login" sender:self];
+    MLLoginViewController *login = [[MLLoginViewController alloc] init];
+    
+    MLSignUpViewController *signUp = [[MLSignUpViewController alloc] init];
+    
+    //Setup login view
+    //PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
+    login.fields = PFLogInFieldsLogInButton | PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton;
+    [login setDelegate:self];
+    
+    [signUp setDelegate:self];
+    
+    [login setSignUpController:signUp];
+    
+
+    
+    [self.tabBarController presentViewController:login animated:YES completion:nil];
     
 }
+
+
 #pragma SIGNUP
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
@@ -202,16 +220,16 @@
     {
         
         
-        dropBoxLink = [[UIAlertView alloc] initWithTitle:@"Link DropBox" message:@"This application uses DropBox in order to store document. You must link your DropBox in order ot utilize some features. \n Would you like to link your account now?"  delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        dropBoxLink = [[UIAlertView alloc] initWithTitle:@"Link Dropbox\u00AE" message:@"This application utilizes Dropbox\u00AE in order to store documents. You must link your Dropbox\u00AE in order to utilize the document features. \n\n Would you like to link your account now?"  delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         
         [dropBoxLink show];
         
         
     }
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
     
-    //[self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     
     
@@ -230,6 +248,8 @@
     
 }
 
+
+#pragma mark - Alertview Delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     //LogOut AlertView Actions
@@ -241,7 +261,7 @@
             [PFUser logOut];
             
             //Present user with login screen
-            [self requireLogin];
+            [self performSelector:@selector(requireLogin:) withObject:nil afterDelay:0.0];
             
         }
     } if (alertView == dropBoxLink){
@@ -250,6 +270,8 @@
             
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstLaunch"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
             
         } else if(buttonIndex == 1){
             
@@ -264,25 +286,5 @@
 }
 
 
-//In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"login"]) {
-        MLLoginViewController *login = [[MLLoginViewController alloc] init];
-        
-        MLSignUpViewController *signUp = [[MLSignUpViewController alloc] init];
-        
-        //Setup login view
-        //PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-        login.fields = PFLogInFieldsLogInButton | PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton;
-        [login setDelegate:self];
-        
-        [signUp setDelegate:self];
-        
-        [login setSignUpController:signUp];
-
-    }
- 
-}
 
 @end
