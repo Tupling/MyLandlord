@@ -92,13 +92,13 @@
     {
             
         case 0:
-        
+           
             [self.tableView reloadData];
 
             break;
             
         case 1:
-            
+            [self viewDidAppear:YES];
             [self.tableView reloadData];
 
             break;
@@ -183,9 +183,11 @@
             
             NSDate *taskDueDate = task.dueDate;
             
-            [taskName setText:task.task];
-            taskName.text = task.task;
-            dueDate.text = [dateFormatter stringFromDate:taskDueDate];
+                
+                [taskName setText:task.task];
+                taskName.text = task.task;
+                dueDate.text = [dateFormatter stringFromDate:taskDueDate];
+            
             
             if ([task.priority isEqualToString:@"High"]) {
                 

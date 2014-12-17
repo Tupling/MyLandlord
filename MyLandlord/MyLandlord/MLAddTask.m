@@ -7,6 +7,7 @@
 //
 
 #import "MLAddTask.h"
+#import "TasksMain.h"
 
 @interface MLAddTask () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate>
 
@@ -116,6 +117,8 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [ApplicationDelegate loadInCompleteTasks];
+                    
+                    
                     
                     [self.navigationController popViewControllerAnimated:YES];
                     

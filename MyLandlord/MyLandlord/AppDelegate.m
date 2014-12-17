@@ -347,7 +347,7 @@
 
 -(void)loadCompletedTasks
 {
-    [self deletedAllObjects:@"Tasks"];
+    [self deletedAllObjects:@"CompletedTasks"];
     PFQuery *results = [PFQuery queryWithClassName:@"ToDo"];
     [results whereKey:@"isComplete" equalTo:[NSNumber numberWithBool:YES]];
     [results orderByAscending:@"date"];
