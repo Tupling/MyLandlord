@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E0BF27A1A41DA0900BDC99F /* CompletedTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0BF2791A41DA0900BDC99F /* CompletedTasks.m */; };
 		1E1447A31A37321B008F4BA4 /* MLPropertyUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */; };
 		1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A51A373231008F4BA4 /* MLAddUnits.m */; };
 		1E1447A91A378015008F4BA4 /* SubUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A81A378015008F4BA4 /* SubUnit.m */; };
@@ -89,6 +90,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E0BF2781A41DA0900BDC99F /* CompletedTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletedTasks.h; sourceTree = "<group>"; };
+		1E0BF2791A41DA0900BDC99F /* CompletedTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedTasks.m; sourceTree = "<group>"; };
 		1E1447A11A37321B008F4BA4 /* MLPropertyUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyUnits.h; sourceTree = "<group>"; };
 		1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyUnits.m; sourceTree = "<group>"; };
 		1E1447A41A373231008F4BA4 /* MLAddUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddUnits.h; sourceTree = "<group>"; };
@@ -425,6 +428,8 @@
 				1EC04E5E1A1A7F430020B759 /* Reachability.h */,
 				1EC04E5F1A1A7F430020B759 /* Reachability.m */,
 				1EC04E611A1A7F6C0020B759 /* MyLandlord.xcdatamodeld */,
+				1E0BF2781A41DA0900BDC99F /* CompletedTasks.h */,
+				1E0BF2791A41DA0900BDC99F /* CompletedTasks.m */,
 				1EB679D61A3E170300F431AB /* Financials.h */,
 				1EB679D71A3E170300F431AB /* Financials.m */,
 				1E1447A71A378015008F4BA4 /* SubUnit.h */,
@@ -629,6 +634,7 @@
 				1E1447A31A37321B008F4BA4 /* MLPropertyUnits.m in Sources */,
 				1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */,
 				1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */,
+				1E0BF27A1A41DA0900BDC99F /* CompletedTasks.m in Sources */,
 				1EF280C01A2CFED20038D340 /* Tenants.m in Sources */,
 				1EC04E0E1A1A49330020B759 /* main.m in Sources */,
 			);

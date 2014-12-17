@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-
+    
     
 }
 
@@ -42,55 +42,30 @@
     //Check for valid Current User
     if ([PFUser currentUser]) {
         
-    
-            //Get TabBar Badge Count
-            self.context = [ApplicationDelegate managedObjectContext];
-            
-            //Create new Fetch Request
-            self.fetchRequest = [[NSFetchRequest alloc] init];
-            
-            //Request Entity EventInfo
-            self.taskEntity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:self.context];
-            
-            //Set fetchRequest entity to EventInfo Description
-            [self.fetchRequest setEntity:self.taskEntity];
-            
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isComplete == 0"];
-            
-            [self.fetchRequest setPredicate:predicate];
-            
-            NSError * error;
-            //Set events array to data in core data
-            taskDueArray = [self.context executeFetchRequest:self.fetchRequest error:&error];
-            
-            
-            [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
-            
-            self.viewProperties.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            self.viewProperties.titleLabel.textAlignment = NSTextAlignmentCenter;
-            self.viewProperties.titleLabel.numberOfLines = 0;
-            
-            self.rentsDueButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            self.rentsDueButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-            self.rentsDueButton.titleLabel.numberOfLines = 0;
-            
-            self.tasksButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            self.tasksButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-            self.tasksButton.titleLabel.numberOfLines = 0;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n%lu",(unsigned long)[ApplicationDelegate.propertyArray count]] forState:UIControlStateNormal];
-            
-            [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n0"] forState:UIControlStateNormal];
-            
-            [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[taskDueArray count]] forState:UIControlStateNormal];
-            
-            
-        });
-            
-
-  
+        self.viewProperties.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.viewProperties.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.viewProperties.titleLabel.numberOfLines = 0;
+        
+        self.rentsDueButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.rentsDueButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.rentsDueButton.titleLabel.numberOfLines = 0;
+        
+        self.tasksButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.tasksButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.tasksButton.titleLabel.numberOfLines = 0;
+        
+        
+        [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n%lu",(unsigned long)[ApplicationDelegate.propertyArray count]] forState:UIControlStateNormal];
+        
+        [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n0"] forState:UIControlStateNormal];
+        
+        [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[ApplicationDelegate.inCompleteTaskArray count]] forState:UIControlStateNormal];
+        
+        [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.inCompleteTaskArray count]]];
+        
+        
+        
         
         self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
         self.restClient.delegate = self;
@@ -120,13 +95,15 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-
+    
     [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n%lu",(unsigned long)[ApplicationDelegate.propertyArray count]] forState:UIControlStateNormal];
     
     [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n0"] forState:UIControlStateNormal];
     
-    [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[taskDueArray count]] forState:UIControlStateNormal];
-
+    [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[ApplicationDelegate.inCompleteTaskArray count]] forState:UIControlStateNormal];
+    
+    [[[[[self tabBarController] tabBar] items] objectAtIndex:3] setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.inCompleteTaskArray count]]];
+    
     
     //Add radius to profile image
     self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width / 2;
@@ -140,6 +117,7 @@
     self.addTask.layer.cornerRadius = 5;
     
     
+    [self.view setNeedsDisplay];
     
     
     
@@ -243,7 +221,8 @@
     [ApplicationDelegate loadProperties];
     [ApplicationDelegate loadTenants];
     [ApplicationDelegate loadSubUnits];
-    [ApplicationDelegate loadTasks];
+    [ApplicationDelegate loadInCompleteTasks];
+    [ApplicationDelegate loadCompletedTasks];
     [ApplicationDelegate loadFinancials];
     
     
@@ -305,8 +284,6 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             
         } else if(buttonIndex == 1){
-            
-            [ApplicationDelegate createDropBoxLink];
             
             if (![[DBSession sharedSession] isLinked]) {
                 

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CompletedTasks" representedClassName="CompletedTasks" syncable="YES">
+        <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isComplete" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="task" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="taskDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Financials" representedClassName="Financials" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -54,10 +64,11 @@
         <attribute name="tenantId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Financials" positionX="-3834" positionY="-162" width="128" height="148"/>
         <element name="Properties" positionX="-4025" positionY="-207" width="128" height="180"/>
         <element name="SubUnit" positionX="-3843" positionY="-162" width="128" height="90"/>
         <element name="Tasks" positionX="-3834" positionY="-162" width="128" height="165"/>
         <element name="Tenants" positionX="-3798" positionY="-306" width="137" height="283"/>
-        <element name="Financials" positionX="-3834" positionY="-162" width="128" height="148"/>
+        <element name="CompletedTasks" positionX="-3906" positionY="-171" width="128" height="163"/>
     </elements>
 </model>

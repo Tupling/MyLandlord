@@ -34,10 +34,6 @@
 @property(nonatomic, strong)Tasks *taskInfo;
 
 
-//Data elements
-@property (nonatomic, retain) NSMutableArray *inCompleteTasks;
-@property (nonatomic, retain) NSMutableArray *completedTasks;
-
 
 //Methods
 

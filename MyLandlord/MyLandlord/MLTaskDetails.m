@@ -35,7 +35,7 @@
     
     BOOL complete = 1;
     
-    if (self.taskDetails.isComplete == [NSNumber numberWithBool:complete]) {
+    if ([self.taskDetails.isComplete isEqualToNumber:[NSNumber numberWithBool:complete]]) {
         self.checkComplete.hidden = YES;
     }
 
@@ -107,11 +107,14 @@
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
-                            [ApplicationDelegate loadTasks];
+                            [ApplicationDelegate loadCompletedTasks];
+                            [ApplicationDelegate loadInCompleteTasks];
+                            
                             
                             [self.navigationController popViewControllerAnimated:YES];
                             
                         });
+
                         
                         [savedAlert show];
                         
