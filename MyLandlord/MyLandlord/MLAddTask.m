@@ -8,7 +8,7 @@
 
 #import "MLAddTask.h"
 
-@interface MLAddTask () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface MLAddTask () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate>
 
 {
     UIAlertView *savedAlert;
@@ -160,9 +160,11 @@
         
     }else if ([textField isEqual:self.taskPriority]){
         
-        textField.inputView = self.priorityPicker;
-        [self.taskPriority setText:[self pickerView:self.priorityPicker titleForRow:[self.priorityPicker selectedRowInComponent:0] forComponent:0]];
-        
+        [self.taskPriority resignFirstResponder];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Task Priority" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"High", @"Medium", @"Low", nil];
+        actionSheet.tag = 20;
+        [actionSheet showInView:self.view];
+        actionSheet = nil;
         
     }else if ([textField isEqual:self.dueDateTF]){
         
@@ -209,11 +211,7 @@
         
         return 1;
         
-    } else if([pickerView isEqual:self.priorityPicker]) {
-        
-        return 1;
-        
-    } else {
+    }  else {
         
         return 0;
     }
@@ -227,10 +225,6 @@
     if([pickerView isEqual:self.propertyPicker]){
         
         return [ApplicationDelegate.propertyArray count];
-        
-    } else if ([pickerView isEqual:self.priorityPicker]) {
-        
-        return priorityArray.count ;
         
     } else {
         
@@ -248,12 +242,6 @@
         [self.propertyPicker selectedRowInComponent:0];
         
         return property.propName;
-        
-    }else if([pickerView isEqual:self.priorityPicker]){
-        
-        NSString *priorityString = [NSString stringWithFormat:@"%@", [priorityArray objectAtIndex:row]];
-        
-        return priorityString;
         
     } else {
         
@@ -277,15 +265,34 @@
         
         NSLog(@"%@", assignPropertyID);
         
-    } else if([pickerView isEqual:self.priorityPicker]){
-        
-        [self.priorityPicker selectedRowInComponent:0];
-        
-        [self.taskPriority setText:[self pickerView:self.priorityPicker titleForRow:[self.priorityPicker selectedRowInComponent:0] forComponent:0]];
-        
     }
     
     
+}
+
+#pragma mark - ActionSheet Method
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *selectedValue = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if (![selectedValue.lowercaseString isEqualToString:@"cancel"]) {
+        
+        
+        switch (actionSheet.tag) {
+                
+            case 20:
+                //20 = Category
+                self.taskPriority.text = selectedValue;
+                
+                break;
+                
+            default:
+                
+                break;
+        }
+        
+    }
 }
 
 /*

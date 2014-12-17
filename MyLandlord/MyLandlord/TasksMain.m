@@ -86,7 +86,17 @@
 
 
 
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    
+    [self.taskSelection setSelectedSegmentIndex:0];
+    
+    [self indexChanged:self.taskSelection];
+    
+    [self.tableView reloadData];
+    
+}
 
 
 
@@ -98,8 +108,9 @@
     {
         
         case 0:
-    
+        {
             selectedArray = nil;
+            
             self.predicate = [NSPredicate predicateWithFormat:@"isComplete == 0"];
             
             [self.fetchRequest setPredicate:self.predicate];
@@ -108,9 +119,13 @@
             
             selectedArray = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
     
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+                
+            });
             break;
-    
+        }
         case 1:
     
             selectedArray = nil;
@@ -127,7 +142,13 @@
             selectedArray = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
             
             NSLog(@"%lu", (unsigned long)[selectedArray count]);
-            [self.tableView reloadData];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+                
+            });
+            
             
             break;
 

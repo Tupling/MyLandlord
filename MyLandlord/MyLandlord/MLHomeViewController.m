@@ -77,6 +77,8 @@
             self.tasksButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             self.tasksButton.titleLabel.textAlignment = NSTextAlignmentCenter;
             self.tasksButton.titleLabel.numberOfLines = 0;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             
             [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n%lu",(unsigned long)[ApplicationDelegate.propertyArray count]] forState:UIControlStateNormal];
             
@@ -84,9 +86,11 @@
             
             [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[taskDueArray count]] forState:UIControlStateNormal];
             
-            [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[taskDueArray count]]];
             
+        });
             
+
+  
         
         self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
         self.restClient.delegate = self;
@@ -116,14 +120,13 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-    self.propCount.text = [NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]];
+
+    [self.viewProperties setTitle:[NSString stringWithFormat:@"Properties\n%lu",(unsigned long)[ApplicationDelegate.propertyArray count]] forState:UIControlStateNormal];
     
-    //    [self.propCount setText:[NSString stringWithFormat:@"%lu",(unsigned long)[ApplicationDelegate.propertyArray count]]];
-    //    [self.toDoCount setText:[NSString stringWithFormat:@"%lu", (unsigned long)[ApplicationDelegate.tasksArray count]]];
-    //
-    [self.propCount setNeedsDisplay];
+    [self.rentsDueButton setTitle:[NSString stringWithFormat:@"Rents Due\n0"] forState:UIControlStateNormal];
     
-    
+    [self.tasksButton setTitle:[NSString stringWithFormat:@"Tasks\n%lu", (unsigned long)[taskDueArray count]] forState:UIControlStateNormal];
+
     
     //Add radius to profile image
     self.profileImg.layer.cornerRadius = self.profileImg.frame.size.width / 2;

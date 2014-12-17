@@ -64,11 +64,17 @@
     //Check for Network Connection
     self.networkStatus = [Reachability reachabilityForInternetConnection];
     
-    [self loadTasks];
-    [self loadProperties];
-    [self loadTenants];
-    [self loadSubUnits];
-    [self loadFinancials];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self loadTasks];
+        [self loadProperties];
+        [self loadTenants];
+        [self loadSubUnits];
+        [self loadFinancials];
+        
+    });
+
     
     
     
