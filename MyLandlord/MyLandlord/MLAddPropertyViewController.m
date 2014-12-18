@@ -71,6 +71,14 @@
         }
     }
     
+    //DISMISS KEYBOARD
+    //Tap screen to make keyboard disappear
+    UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardDisappear)];
+    
+    //set to NO, so not all touches are cancelled. If set to YES User will not be able to touch ShowDate or Info Buttons
+    tapOnScreen.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapOnScreen];
+    
 }
 
 
@@ -235,6 +243,13 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+//Function for Gesture tapOnScreen
+- (void) keyboardDisappear {
+    
+    [self.view endEditing:YES];
+}
+
 
 /*
 #pragma mark - Navigation

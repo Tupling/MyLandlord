@@ -27,6 +27,8 @@
     [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
+    
+    
    self.saveInfo.layer.cornerRadius = 5;
     
     if (![[self.details valueForKey:@"sFirstName"]  isEqual: @""]) {
@@ -35,6 +37,14 @@
         self.email.text = _details.sEmail;
         self.phoneNumber.text = _details.sPhoneNumber;
     }
+    
+    //DISMISS KEYBOARD
+    //Tap screen to make keyboard disappear
+    UITapGestureRecognizer *tapOnScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardDisappear)];
+    
+    //set to NO, so not all touches are cancelled. If set to YES User will not be able to touch ShowDate or Info Buttons
+    tapOnScreen.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapOnScreen];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,6 +110,13 @@
     }
     
 }
+
+//Function for Gesture tapOnScreen
+- (void) keyboardDisappear {
+    
+    [self.view endEditing:YES];
+}
+
 
 /*
 #pragma mark - Navigation

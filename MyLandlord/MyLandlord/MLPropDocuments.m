@@ -167,6 +167,10 @@
             
             
             [self.restClient deletePath:self.fileInfo.filePath];
+            
+            [documentsArray removeObjectAtIndex:rowIndex];
+            
+            [self.tableView reloadData];
         }
     }
     
