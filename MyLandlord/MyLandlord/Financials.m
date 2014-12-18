@@ -18,6 +18,7 @@
 @dynamic category;
 @dynamic fDescription;
 @dynamic itemName;
+@dynamic finObjectId;
 
 
 @end

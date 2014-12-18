@@ -500,6 +500,7 @@
                 financial.fAmount = [[objects[i] valueForKey:@"amount"] floatValue];
                 financial.category = [objects[i] valueForKey:@"category"];
                 financial.fDescription = [objects[i] valueForKey:@"expDescription"];
+                financial.finObjectId = [objects[i] valueForKey:@"objectId"];
                 
                 
                 

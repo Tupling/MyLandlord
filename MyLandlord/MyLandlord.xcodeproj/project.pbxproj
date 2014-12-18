@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E0BF27A1A41DA0900BDC99F /* CompletedTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0BF2791A41DA0900BDC99F /* CompletedTasks.m */; };
 		1E0BF27E1A434A6800BDC99F /* MLSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0BF27D1A434A6800BDC99F /* MLSettings.m */; };
+		1E0BF2811A437A3200BDC99F /* MLTenantFinanceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0BF2801A437A3200BDC99F /* MLTenantFinanceDetails.m */; };
 		1E1447A31A37321B008F4BA4 /* MLPropertyUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */; };
 		1E1447A61A373231008F4BA4 /* MLAddUnits.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A51A373231008F4BA4 /* MLAddUnits.m */; };
 		1E1447A91A378015008F4BA4 /* SubUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E1447A81A378015008F4BA4 /* SubUnit.m */; };
@@ -95,6 +96,8 @@
 		1E0BF2791A41DA0900BDC99F /* CompletedTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletedTasks.m; sourceTree = "<group>"; };
 		1E0BF27C1A434A6800BDC99F /* MLSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSettings.h; sourceTree = "<group>"; };
 		1E0BF27D1A434A6800BDC99F /* MLSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSettings.m; sourceTree = "<group>"; };
+		1E0BF27F1A437A3200BDC99F /* MLTenantFinanceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTenantFinanceDetails.h; sourceTree = "<group>"; };
+		1E0BF2801A437A3200BDC99F /* MLTenantFinanceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTenantFinanceDetails.m; sourceTree = "<group>"; };
 		1E1447A11A37321B008F4BA4 /* MLPropertyUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyUnits.h; sourceTree = "<group>"; };
 		1E1447A21A37321B008F4BA4 /* MLPropertyUnits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyUnits.m; sourceTree = "<group>"; };
 		1E1447A41A373231008F4BA4 /* MLAddUnits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddUnits.h; sourceTree = "<group>"; };
@@ -294,6 +297,8 @@
 				1EB679DA1A3E706100F431AB /* MLTenantFinances.m */,
 				1EB679DC1A3E707700F431AB /* MLAddTenantFinance.h */,
 				1EB679DD1A3E707700F431AB /* MLAddTenantFinance.m */,
+				1E0BF27F1A437A3200BDC99F /* MLTenantFinanceDetails.h */,
+				1E0BF2801A437A3200BDC99F /* MLTenantFinanceDetails.m */,
 			);
 			name = "ML-Tenant Controllers";
 			sourceTree = "<group>";
@@ -630,6 +635,7 @@
 				1ECDD2BB1A1D80BD001C0CDA /* MLAddPropertyViewController.m in Sources */,
 				1E0BF27E1A434A6800BDC99F /* MLSettings.m in Sources */,
 				1ECDD2DD1A2D5202001C0CDA /* MJPPdfTiledView.m in Sources */,
+				1E0BF2811A437A3200BDC99F /* MLTenantFinanceDetails.m in Sources */,
 				1E181F001A1FBD8B0047AD12 /* MLPropertyDetails.m in Sources */,
 				1E826D1C1A3F15A70043F70E /* MLSignUpViewController.m in Sources */,
 				1EB679D81A3E170300F431AB /* Financials.m in Sources */,

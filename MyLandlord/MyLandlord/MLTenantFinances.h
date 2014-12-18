@@ -13,6 +13,7 @@
 
 #import "AppDelegate.h"
 #import "Tenants.h"
+#import "Financials.h"
 
 
 @interface MLTenantFinances : UIViewController<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate,QLPreviewControllerDataSource>
@@ -33,7 +34,8 @@
 @property (nonatomic, strong)IBOutlet UILabel *date;
 @property (nonatomic, strong)IBOutlet UILabel *itemName;
 
-@property(nonatomic, strong) Tenants *details;
+@property(nonatomic, strong) Tenants *tenDetails;
+@property(nonatomic, strong) Financials *finDetails;
 
 
 //Core Data

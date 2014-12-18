@@ -15,6 +15,7 @@
     NSDate *expenseDate;
     
     UIAlertView *savedAlert;
+    UIAlertView *updateSaved;
     UIAlertView *saveError;
 }
 
@@ -31,7 +32,7 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-   
+    
     
     //TextField Delegate Declarations
     self.expCategory.delegate = self;
@@ -41,9 +42,22 @@
     //Button Radius
     self.saveExpense.layer.cornerRadius = 5;
     
-
+    if(self.finDetails != nil){
+        self.expAmount.text = [NSString stringWithFormat:@"%0.2f", self.finDetails.fAmount];
+        self.expCategory.text = self.finDetails.category;
         
-    self.tenantName.text = [NSString stringWithFormat:@"%@ %@", self.details.pFirstName, self.details.pLastName];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+        self.expDate.text = [dateFormatter stringFromDate:self.finDetails.date];
+        expenseDate = self.finDetails.date;
+        
+        self.expDescription.text = self.finDetails.fDescription;
+        self.itemName.text = self.finDetails.itemName;
+        
+    }
+    
+    
+    self.tenantName.text = [NSString stringWithFormat:@"%@ %@", self.tenDetails.pFirstName, self.tenDetails.pLastName];
     
     
     
@@ -135,56 +149,107 @@
 -(IBAction)saveExpense:(id)sender
 {
     
-    
-    PFObject *expense = [PFObject objectWithClassName:@"Financials"];
-    
-    float amountFloatValue = [self.expAmount.text floatValue];
-    
-    NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
-    
-    expense[@"amount"] = amount;
-    expense[@"type"] = @"Expense";
-    expense[@"date"] = expenseDate;
-    expense[@"category"] = self.expCategory.text;
-    expense[@"expDescription"] = self.expDescription.text;
-    expense[@"itemName"] = self.itemName.text;
-    expense[@"parentId"] = self.details.tenantId;
-
-    
-    
-    //ONLY ALLOW CURRENT USER TO VIEW
-    //Set Access control to user logged in
-    expense.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-    
-    //Set object to current user (makes it easier to get the data for tables)
-    [expense setObject:[PFUser currentUser] forKey:@"createdBy"];
-    
-    
-    [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if(succeeded)
-        {
+    if(self.finDetails != nil){
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Financials"];
+        
+        [query getObjectInBackgroundWithId:self.finDetails.finObjectId block:^(PFObject *expense, NSError *error) {
             
-            savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            float amountFloatValue = [self.expAmount.text floatValue];
             
+            NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
             
+            expense[@"amount"] = amount;
+            expense[@"type"] = @"Expense";
+            expense[@"date"] = expenseDate;
+            expense[@"category"] = self.expCategory.text;
+            expense[@"expDescription"] = self.expDescription.text;
+            expense[@"itemName"] = self.itemName.text;
+            expense[@"parentId"] = self.tenDetails.tenantId;
+        
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded)
+                {
+                    
+                    updateSaved = [[UIAlertView alloc] initWithTitle:@"Expense Updated" message:@"Expense data has been updated!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [ApplicationDelegate loadFinancials];
+                        
+                        
+                    });
+                    
+                    [updateSaved show];
+                    
+                } else {
+                    
+                    saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [saveError show];
+                    
+                }
+            }];
+        
+        }];
+        
+        
+        
+    }else {
+        
+        PFObject *expense = [PFObject objectWithClassName:@"Financials"];
+        
+        float amountFloatValue = [self.expAmount.text floatValue];
+        
+        NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
+        
+        expense[@"amount"] = amount;
+        expense[@"type"] = @"Expense";
+        expense[@"date"] = expenseDate;
+        expense[@"category"] = self.expCategory.text;
+        expense[@"expDescription"] = self.expDescription.text;
+        expense[@"itemName"] = self.itemName.text;
+        expense[@"parentId"] = self.tenDetails.tenantId;
+        
+        
+        
+        //ONLY ALLOW CURRENT USER TO VIEW
+        //Set Access control to user logged in
+        expense.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        
+        //Set object to current user (makes it easier to get the data for tables)
+        [expense setObject:[PFUser currentUser] forKey:@"createdBy"];
+        
+        
+        [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(succeeded)
+            {
                 
-                [ApplicationDelegate loadFinancials];
+                savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                 
                 
-            });
-            
-            [savedAlert show];
-            
-        } else {
-            
-            saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            
-            [saveError show];
-            
-        }
-    }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [ApplicationDelegate loadFinancials];
+                    
+                    
+                });
+                
+                [savedAlert show];
+                
+            } else {
+                
+                saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                [saveError show];
+                
+            }
+        }];
+    }
     
 }
 
@@ -194,6 +259,18 @@
 {
     
     if([alertView isEqual:savedAlert]){
+        
+        if (buttonIndex == 0) {
+            NSLog(@"Closed Warning");
+            
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+            
+        }
+    }
+    if([alertView isEqual:updateSaved]){
         
         if (buttonIndex == 0) {
             NSLog(@"Closed Warning");

@@ -260,7 +260,7 @@
     else if ([[segue identifier] isEqualToString:@"viewFinances"]) {
         MLTenantFinances *tenantDetails = segue.destinationViewController;
         
-        tenantDetails.details = _details;
+        tenantDetails.tenDetails = _details;
         
         
     }
