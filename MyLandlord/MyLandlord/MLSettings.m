@@ -55,7 +55,7 @@
     
     if([[DBSession sharedSession] isLinked]){
         
-        dropBoxUnlinked = [[UIAlertView alloc] initWithTitle:@"Unlink Dropbox\uA99E" message:@"Are you sure you want to unlink your Dropbox\uA99E?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        dropBoxUnlinked = [[UIAlertView alloc] initWithTitle:@"Unlink Dropbox\u00AE" message:@"Are you sure you want to unlink your Dropbox\u00AE?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         
         [dropBoxUnlinked show];
         
