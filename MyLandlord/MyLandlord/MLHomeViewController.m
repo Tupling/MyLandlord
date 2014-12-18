@@ -152,7 +152,7 @@
     
     //Setup login view
     //PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-    login.fields = PFLogInFieldsLogInButton | PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton;
+    login.fields = PFLogInFieldsLogInButton | PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton | PFLogInFieldsPasswordForgotten;
     [login setDelegate:self];
     
     [signUp setDelegate:self];
