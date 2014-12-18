@@ -5825,56 +5825,145 @@ Cg
                     <view key="view" contentMode="scaleToFill" id="GvQ-wD-2Q4">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQh-y7-6G4">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Unlink Dropbox:">
-                                        <attributes>
-                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <font key="NSFont" size="15" name="Helvetica-Light"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="72" width="120" height="21"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWs-Gl-w8e">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQh-y7-6G4">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="evl-sp-KKN"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Unlink Dropbox:">
+                                                <attributes>
+                                                    <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <font key="NSFont" size="15" name="Helvetica-Light"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="evl-sp-KKN"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="evl-sp-KKN"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LwL-XH-erE">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <color key="backgroundColor" red="0.98823535439999999" green="0.0" blue="0.078431375319999996" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Wtx-vi-8iQ"/>
+                                        </constraints>
+                                        <state key="normal" title="Unlink">
+                                            <color key="titleColor" red="0.99607849120000003" green="0.99215692280000001" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Wtx-vi-8iQ"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                            <mask key="constraints">
+                                                <include reference="Wtx-vi-8iQ"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="unLinkDropBox:" destination="9Df-ju-H8F" eventType="touchUpInside" id="Lew-k1-QpS"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XQh-y7-6G4" firstAttribute="top" secondItem="IWs-Gl-w8e" secondAttribute="topMargin" id="2J7-zl-2R2"/>
+                                    <constraint firstAttribute="trailing" secondItem="XQh-y7-6G4" secondAttribute="trailing" constant="24" id="90K-c6-oDf"/>
+                                    <constraint firstItem="LwL-XH-erE" firstAttribute="leading" secondItem="IWs-Gl-w8e" secondAttribute="leadingMargin" id="dvJ-YC-c5b"/>
+                                    <constraint firstItem="XQh-y7-6G4" firstAttribute="leading" secondItem="LwL-XH-erE" secondAttribute="leading" id="eZW-9Y-zmX"/>
+                                    <constraint firstItem="LwL-XH-erE" firstAttribute="centerX" secondItem="IWs-Gl-w8e" secondAttribute="centerX" id="ehb-GQ-17a"/>
+                                    <constraint firstItem="LwL-XH-erE" firstAttribute="top" secondItem="XQh-y7-6G4" secondAttribute="bottom" constant="8" symbolic="YES" id="kyv-5Z-bZS"/>
+                                    <constraint firstItem="LwL-XH-erE" firstAttribute="trailing" secondItem="IWs-Gl-w8e" secondAttribute="trailingMargin" id="mye-qH-66p"/>
+                                    <constraint firstAttribute="bottom" secondItem="LwL-XH-erE" secondAttribute="bottom" constant="586" id="xpH-QJ-oV8">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="522"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="XQh-y7-6G4"/>
+                                        <exclude reference="LwL-XH-erE"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="2J7-zl-2R2"/>
+                                        <exclude reference="90K-c6-oDf"/>
+                                        <exclude reference="eZW-9Y-zmX"/>
+                                        <exclude reference="dvJ-YC-c5b"/>
+                                        <exclude reference="ehb-GQ-17a"/>
+                                        <exclude reference="kyv-5Z-bZS"/>
+                                        <exclude reference="mye-qH-66p"/>
+                                        <exclude reference="xpH-QJ-oV8"/>
+                                    </mask>
                                 </variation>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LwL-XH-erE">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.98823535439999999" green="0.0" blue="0.078431375319999996" alpha="1" colorSpace="deviceRGB"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Unlink">
-                                            <attributes>
-                                                <color key="NSColor" red="0.99607849120000003" green="0.99215692280000001" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
-                                                <font key="NSFont" size="17" name="Helvetica-Bold"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="101" width="343" height="44"/>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="XQh-y7-6G4"/>
+                                        <include reference="LwL-XH-erE"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="2J7-zl-2R2"/>
+                                        <include reference="90K-c6-oDf"/>
+                                        <include reference="eZW-9Y-zmX"/>
+                                        <include reference="dvJ-YC-c5b"/>
+                                        <include reference="ehb-GQ-17a"/>
+                                        <include reference="kyv-5Z-bZS"/>
+                                        <include reference="mye-qH-66p"/>
+                                        <include reference="xpH-QJ-oV8"/>
+                                    </mask>
                                 </variation>
-                            </button>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="IWs-Gl-w8e" secondAttribute="trailing" id="8hf-qt-UZy"/>
+                            <constraint firstItem="IWs-Gl-w8e" firstAttribute="leading" secondItem="GvQ-wD-2Q4" secondAttribute="leading" id="QWm-e0-EkG"/>
+                            <constraint firstItem="IWs-Gl-w8e" firstAttribute="top" secondItem="IQ2-Op-uX2" secondAttribute="bottom" id="hqX-KD-U4F"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="IWs-Gl-w8e" secondAttribute="bottom" constant="-64" id="leo-zR-fey">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="XQh-y7-6G4"/>
-                                <exclude reference="LwL-XH-erE"/>
+                                <exclude reference="IWs-Gl-w8e"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="8hf-qt-UZy"/>
+                                <exclude reference="QWm-e0-EkG"/>
+                                <exclude reference="hqX-KD-U4F"/>
+                                <exclude reference="leo-zR-fey"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="XQh-y7-6G4"/>
-                                <include reference="LwL-XH-erE"/>
+                                <include reference="IWs-Gl-w8e"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="8hf-qt-UZy"/>
+                                <include reference="QWm-e0-EkG"/>
+                                <include reference="hqX-KD-U4F"/>
+                                <include reference="leo-zR-fey"/>
                             </mask>
                         </variation>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="ngx-mC-eY1"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="dropBoxStatus" destination="XQh-y7-6G4" id="ufH-Ih-l3t"/>
+                        <outlet property="linkDropBox" destination="LwL-XH-erE" id="30n-Eo-wV0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AAU-PI-ikb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
