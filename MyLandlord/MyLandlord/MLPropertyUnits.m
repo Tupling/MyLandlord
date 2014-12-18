@@ -27,6 +27,13 @@
 {
     [super viewWillAppear:YES];
     
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
+    
     //Filter through unit array to get assigned units the belong to parent property
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", self.propDetails.propertyId];
     unitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];

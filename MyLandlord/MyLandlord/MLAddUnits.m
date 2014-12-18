@@ -21,6 +21,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
+    
     //DropBox
     self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     self.restClient.delegate = self;

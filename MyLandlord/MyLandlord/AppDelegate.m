@@ -48,13 +48,14 @@
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
+ 
     //Dropbox Setup Information
     DBSession *dbSession = [[DBSession alloc]
                             initWithAppKey:@"dce7787ko2d4u1o"
                             appSecret:@"9os3cx3aehn2fhe"
                             root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
     [DBSession setSharedSession:dbSession];
+    
     
     //SetTool Bar Tint
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];

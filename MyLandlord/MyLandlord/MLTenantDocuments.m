@@ -23,6 +23,12 @@
 {
     [super viewWillAppear:YES];
     
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
     [self.tableView reloadData];
 }
 
