@@ -225,7 +225,11 @@
             
             tenant[@"assignedPropId"] = assignPropertyID;
             
-            tenant[@"subUnitId"] = subUnitId;
+            if(subUnitId != nil){
+            
+                tenant[@"subUnitId"] = subUnitId;
+            }
+
             
             //Check for Assigned Tenants
             if(subUnitId != nil || ![subUnitId isEqualToString:@""]){
@@ -424,6 +428,14 @@
     } else if ((primProTenantResults.count == 1) && (subUnitId == nil || [subUnitId isEqualToString:@""])){
         
         return YES;
+        
+    }else if(primPropertyPredResults.count > 0){
+        for (int i = 0; i < primProTenantResults.count; i++){
+            if (([self.details.tenantId isEqual:[primProTenantResults[i] valueForKey:@"tenantId"]])) {
+                return YES;
+            }
+        }
+        return NO;
         
     }else if (subUnitPredicateResults.count > 0){
         for (int i = 0; i < subUnitTenantResults.count; i++){

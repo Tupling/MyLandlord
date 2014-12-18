@@ -25,7 +25,7 @@
     //Set property Address
     if (self.subUnitDetails != nil) {
         
-        propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n%@", _details.propAddress, _details.propCity, _details.propState, _details.propZip, _subUnitDetails.unitNumber];
+        propAddress.text = [NSString stringWithFormat:@"%@ - Unit %@\n%@, %@ %@", _details.propAddress, _subUnitDetails.unitNumber, _details.propCity, _details.propState, _details.propZip];
         
     } else {
         

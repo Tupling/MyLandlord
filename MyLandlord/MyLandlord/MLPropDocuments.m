@@ -13,6 +13,8 @@
 {
     NSMutableDictionary *fileDictionary;
     NSMutableArray *documentsArray;
+    
+    UIAlertView *deleteObject;
 }
 @end
 
@@ -121,6 +123,47 @@
     //Deselect Item
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        self.fileInfo = [documentsArray objectAtIndex:indexPath.row];
+        
+        
+        deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Document" message:@"This will remove the document from your Dropbox\u00AE.\nAre you sure you want to delete this document?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        
+        //Set alert tag do index path. Allows me to pass the table index of item being deleted.
+        deleteObject.tag = indexPath.row;
+        
+        [deleteObject show];
+        
+
+    
+        
+    }
+}
+
+#pragma mark - Alertview Delegate Methods
+//Alert user of actions
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(alertView == deleteObject){
+        
+        //If User selected YES to remove tenant
+        if (buttonIndex == 1) {
+            
+            //Get tenant object from Parse
+            NSUInteger rowIndex = deleteObject.tag;
+            
+            self.fileInfo = [documentsArray objectAtIndex:rowIndex];
+            
+            
+            [self.restClient deletePath:self.fileInfo.filePath];
+        }
+    }
+    
+}
+
 
 
 #pragma mark - DBRestClient Methods
