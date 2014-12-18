@@ -31,6 +31,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
+    
+    
     [self.tableView reloadData];
     
     
@@ -45,6 +47,13 @@
     [super viewDidAppear:YES];
     
     [self.tableView reloadData];
+    //[self performSelectorOnMainThread:@selector(updateLabels) withObject:nil waitUntilDone:NO];
+    
+    
+    [self performSelector:@selector(updateLabels) withObject:nil afterDelay:0.5];
+    
+    
+    
     
     
 }
@@ -58,10 +67,8 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-    //Set events array to data in core data
-    selectedArray = [ApplicationDelegate inCompleteTaskArray];
     
-    badgeArray = [NSArray arrayWithArray:selectedArray];
+    badgeArray = [NSArray arrayWithArray:[ApplicationDelegate inCompleteTaskArray]];
     NSLog(@"%lu", (unsigned long)[selectedArray count]);
     
     [self.tableView reloadData];
@@ -92,15 +99,17 @@
     {
             
         case 0:
-           
+            
             [self.tableView reloadData];
-
+            
             break;
             
         case 1:
-            [self viewDidAppear:YES];
+            
             [self.tableView reloadData];
-
+            
+            [self performSelectorOnMainThread:@selector(updateLabels) withObject:nil waitUntilDone:NO];
+            
             break;
             
             
@@ -183,11 +192,10 @@
             
             NSDate *taskDueDate = task.dueDate;
             
-                
-                [taskName setText:task.task];
-                taskName.text = task.task;
-                dueDate.text = [dateFormatter stringFromDate:taskDueDate];
             
+            [taskName setText:task.task];
+            taskName.text = task.task;
+            dueDate.text = [dateFormatter stringFromDate:taskDueDate];
             
             if ([task.priority isEqualToString:@"High"]) {
                 
@@ -207,8 +215,9 @@
             }
             
             
+            
             return cell;
-
+            
             break;
         }
             
@@ -235,8 +244,6 @@
             
             
             
-            
-            
             task =  [ApplicationDelegate.completedTasks objectAtIndex:indexPath.row];
             
             //NSLog(@"TENANT ARRAY = %@", ApplicationDelegate.tenantsArray);
@@ -252,11 +259,11 @@
                 NSLog(@"Predicate Results == %@", self.propInfo);
                 propertyName.text = [NSString stringWithFormat:@"%@", self.propInfo.propName];
             }
-            
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
             
             NSDate *taskDueDate = task.dueDate;
+            
             
             [taskName setText:task.task];
             taskName.text = task.task;
@@ -280,14 +287,49 @@
             }
             
             
+            
             return cell;
             
-
+            
             break;
         }
         default:
             return nil;
             break;
+    }
+    
+    
+}
+
+-(void)updateLabels
+{
+    [self.tableView reloadData];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+    
+    NSDate *taskDueDate = task.dueDate;
+    
+    
+    [taskName setText:task.task];
+    taskName.text = task.task;
+    dueDate.text = [dateFormatter stringFromDate:taskDueDate];
+    
+    if ([task.priority isEqualToString:@"High"]) {
+        
+        
+        priority.image = [priority.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [priority setTintColor:[UIColor redColor]];
+        
+    }else if([task.priority isEqualToString:@"Medium"]){
+        
+        priority.image = [priority.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [priority setTintColor:[UIColor yellowColor]];
+        
+    }else if ([task.priority isEqualToString:@"Low"]){
+        
+        priority.image = [priority.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [priority setTintColor:[UIColor orangeColor]];
     }
     
     

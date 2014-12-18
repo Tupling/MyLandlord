@@ -20,20 +20,43 @@
 @end
 
 @implementation MLPropertyUnits
+
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     
-    [self.tableView reloadData];
+    //Filter through unit array to get assigned units the belong to parent property
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", self.propDetails.propertyId];
+    unitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
+
+        
+        [self.tableView reloadData];
+ 
+    
+
 }
 
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     
-    [self.tableView reloadData];
+    //Filter through unit array to get assigned units the belong to parent property
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", self.propDetails.propertyId];
+    unitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
+
+    
+    
+    //[self performSelector:@selector(updateUI) withObject:nil afterDelay:0.5];
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
 }
 
+
+-(void)updateUI
+{
+        [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -161,6 +161,11 @@
     
 }
 
+-(void)restClient:(DBRestClient *)client deletedPath:(NSString *)path
+{
+    
+}
+
 - (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath
 {
     
