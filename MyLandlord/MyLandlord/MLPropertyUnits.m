@@ -31,8 +31,8 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"parentPropId == %@", self.propDetails.propertyId];
     unitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
 
-        
-        [self.tableView reloadData];
+
+
  
     
 
@@ -47,9 +47,8 @@
     unitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
 
     
-    
-    //[self performSelector:@selector(updateUI) withObject:nil afterDelay:0.5];
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:YES];
+    [self.tableView reloadData];
+
 }
 
 

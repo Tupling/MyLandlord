@@ -239,7 +239,7 @@
             
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
-            [savedAlert show];
+       
             
                         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -247,6 +247,8 @@
         
 
                         });
+            
+                 [savedAlert show];
             
         } else {
             
@@ -274,14 +276,6 @@
             
             
             
-        }
-    }
-    if([alertView isEqual:savedAlert]){
-        
-        if (buttonIndex == 0) {
-            NSLog(@"Closed Warning");
-            
-            [saveError dismissWithClickedButtonIndex:0 animated:YES];
         }
     }
     

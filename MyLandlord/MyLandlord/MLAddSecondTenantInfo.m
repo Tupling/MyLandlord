@@ -10,7 +10,7 @@
 #import "MLTenantsViewController.h"
 
 
-@interface MLAddSecondTenantInfo ()
+@interface MLAddSecondTenantInfo () <UIAlertViewDelegate>
 {
     UIAlertView *updatedAlert;
 }
@@ -63,11 +63,13 @@
                 [updatedAlert show];
                 
           
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [ApplicationDelegate loadTenants];
                     
-                    [self.navigationController popToRootViewControllerAnimated:YES];
                     
+                    
+                });
              
                 
             } else {
@@ -80,6 +82,23 @@
         }];
   
     }];
+}
+
+#pragma mark - AlertView Method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if([alertView isEqual:updatedAlert]){
+        
+        if (buttonIndex == 0) {
+            NSLog(@"Closed Warning");
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            
+        }
+    }
+    
 }
 
 /*

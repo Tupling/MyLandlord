@@ -144,7 +144,7 @@
                     
                     savedAlert = [[UIAlertView alloc] initWithTitle:@"Property Saved" message:@"Property has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     
-                    [savedAlert show];
+                 
                     
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -152,9 +152,11 @@
                       
                         [ApplicationDelegate loadProperties];
                         
-                        [self.navigationController popViewControllerAnimated:YES];
+
                         
                     });
+                    
+                       [savedAlert show];
                     
                     
                 }
@@ -197,7 +199,7 @@
             
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Property Saved" message:@"Property has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
-            [savedAlert show];
+          
             
            
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -205,10 +207,11 @@
                 
                 [ApplicationDelegate loadProperties];
             
-                
-                [self.navigationController popViewControllerAnimated:YES];
+
                 
             });
+            
+              [savedAlert show];
             
             
         }
@@ -222,6 +225,15 @@
     }];
     }
 
+}
+
+// Called when a button is clicked. The view will be automatically dismissed after this call returns
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0){
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 /*

@@ -271,6 +271,14 @@
                         
                         savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                         
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [ApplicationDelegate loadTenants];
+                            
+                            
+                            
+                        });
+                        
                         [savedAlert show];
                         
                         
@@ -370,7 +378,13 @@
                     
                     
                     savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [ApplicationDelegate loadTenants];
+                        
+        
+                        
+                    });
                     
                     [savedAlert show];
                     
@@ -447,14 +461,8 @@
         if (buttonIndex == 0) {
             NSLog(@"Closed Warning");
             
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [ApplicationDelegate loadTenants];
-                
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                
-            });
+                            [self.navigationController popToRootViewControllerAnimated:YES];
+
             
         }
     }

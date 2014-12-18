@@ -8,7 +8,7 @@
 
 #import "MLAddUnits.h"
 
-@interface MLAddUnits () <DBRestClientDelegate>
+@interface MLAddUnits () <DBRestClientDelegate, UIAlertViewDelegate>
 {
     UIAlertView *savedAlert;
 }
@@ -60,7 +60,7 @@
             
             savedAlert = [[UIAlertView alloc] initWithTitle:@"Unit Saved" message:[NSString stringWithFormat:@"Unit has been saved to %@", self.propDetails.propName] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
-            [savedAlert show];
+           
             
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -68,9 +68,9 @@
                 
                 [ApplicationDelegate loadSubUnits];
                 
-                [self.navigationController popViewControllerAnimated:YES];
                 
             });
+             [savedAlert show];
             
             
         }
@@ -83,6 +83,14 @@
         }
     }];
     
+}
+// Called when a button is clicked. The view will be automatically dismissed after this call returns
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0){
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 /*
