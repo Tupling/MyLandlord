@@ -106,7 +106,12 @@
                 subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
                 
                 if(subUnitArray.count > 0){
-                    SubUnit *subUnit = [subUnitArray objectAtIndex:0];
+
+                    
+                    NSPredicate *sUnitPredicate = [NSPredicate predicateWithFormat:@"unitObjectId == %@", self.details.subUnitId];
+                    NSArray *sUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:sUnitPredicate];
+                    
+                    SubUnit *subUnit = [sUnitArray objectAtIndex:0];
                     
                     subUnitNameString = [subUnit valueForKey:@"unitNumber"];
                     subUnitId = [subUnit valueForKey:@"unitObjectId"];
@@ -223,9 +228,9 @@
             tenant[@"subUnitId"] = subUnitId;
             
             //Check for Assigned Tenants
-            if(subUnitId != nil){
+            if(subUnitId != nil || ![subUnitId isEqualToString:@""]){
                 
-                subUnitPredicate = [NSPredicate predicateWithFormat:@"subUnitId == %@", self.details.subUnitId];
+                subUnitPredicate = [NSPredicate predicateWithFormat:@"subUnitId == %@", subUnitId];
                 subUnitPredicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:subUnitPredicate];
                 
                 NSLog(@"Predicate Results == %@", subUnitPredicateResults.description);
@@ -256,7 +261,7 @@
             
             BOOL assignTenant = [self safeToSave];
             //Save if no other tenants assigned
-
+            
             
             if(assignTenant){
                 
@@ -395,30 +400,27 @@
 -(BOOL)safeToSave
 {
     if(primPropertyPredResults.count > 0 && subUnitPredicateResults.count == 0){
-        if([[[subUnitPredicateResults objectAtIndex:0] valueForKey:@"tenantId"] isEqual: self.details.tenantId]){
-            
-            return YES;
-            
-        } else {
-            
-            return NO;
-        }
-        
+    
+        return YES;
+
     } else if(primPropertyPredResults.count == 0){
         
         return YES;
         
-    } else if (primProTenantResults.count == 1){
+    } else if ((primProTenantResults.count == 1) && (subUnitId == nil || [subUnitId isEqualToString:@""])){
         
         return YES;
         
-    }else if (subUnitId != nil){
+    }else if (subUnitPredicateResults.count > 0){
         for (int i = 0; i < subUnitTenantResults.count; i++){
+            NSLog(@"Passed Tenant ID == %@", self.details.tenantId);
+            NSLog(@"Tenant ID == %@", [subUnitTenantResults[i] valueForKey:@"tenantId"]);
             if ([self.details.tenantId isEqual:[subUnitTenantResults[i] valueForKey:@"tenantId"]]) {
                 return  YES;
             }
+            
         }
-
+        
         return NO;
         
     }else {
@@ -507,11 +509,9 @@
         
     } else if ([textField isEqual:self.assignUnit]){
         
-        textField.inputView = self.subUnitPicker;
-        
         //if only one unit exists set value for that unit name
-        if(subUnitArray.count == 1){
-            
+        if(subUnitArray.count > 0){
+       textField.inputView = self.subUnitPicker;
             subUnitId = [[subUnitArray objectAtIndex:0] valueForKey:@"unitObjectId"];
             
             NSLog(@"SUB UNIT ID = %@", subUnitId);
@@ -665,6 +665,10 @@
                 subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
                 
             }else {
+                
+                self.assignUnit.text = nil;
+                self.assignUnit.hidden = YES;
+                subUnitArray = nil;
                 subUnitId = @"";
             }
             
