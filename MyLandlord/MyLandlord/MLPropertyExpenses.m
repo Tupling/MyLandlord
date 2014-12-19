@@ -21,7 +21,7 @@
 
 @interface MLPropertyExpenses () <UITableViewDataSource, UITableViewDelegate>
 {
-    NSArray *currentPropFinances;
+    NSMutableArray *currentPropFinances;
     UIAlertView *deleteObject;
     
 }
@@ -60,8 +60,9 @@
     
     NSError * error;
     //Set events array to data in core data
-    currentPropFinances = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+    NSArray *propertyFinance = [self.context executeFetchRequest:self.fetchRequest error:&error];
     
+    currentPropFinances = [NSMutableArray arrayWithArray:propertyFinance];
     
     
     NSLog(@"%lu", (unsigned long)[currentPropFinances count]);
@@ -71,7 +72,6 @@
 {
     [super viewDidAppear:YES];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
         
         self.context = [ApplicationDelegate managedObjectContext];
         
@@ -97,7 +97,9 @@
         
         NSError * error;
         //Set events array to data in core data
-        currentPropFinances = (NSMutableArray*)[self.context executeFetchRequest:self.fetchRequest error:&error];
+        NSArray *propertyFinance = [self.context executeFetchRequest:self.fetchRequest error:&error];
+        
+        currentPropFinances = [NSMutableArray arrayWithArray:propertyFinance];
         
         
         
@@ -105,7 +107,7 @@
         
         
         [self.tableView reloadData];
-    });
+
     
 }
 
@@ -197,17 +199,51 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         self.finDetails = [ApplicationDelegate.financesArray objectAtIndex:indexPath.row];
-        
+        //Set alert tag do index path. Allows me to pass the table index of item being deleted.
+        deleteObject.tag = indexPath.row;
 
             deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Property" message:@"Are you sure you want to delete this property?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
             
-            //Set alert tag do index path. Allows me to pass the table index of item being deleted.
-            deleteObject.tag = indexPath.row;
+
             
             [deleteObject show];
         }
   
 
+}
+
+#pragma  mark - Alert View
+// Called when a button is clicked. The view will be automatically dismissed after this call returns
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView == deleteObject){
+        
+        //If User selected YES to remove tenant
+        if (buttonIndex == 1) {
+            
+            //Get tenant object from Parse
+            PFObject *financeItem = [PFObject objectWithoutDataWithClassName:@"Financials" objectId:self.finDetails.finObjectId];
+            
+           
+            
+
+            
+            [financeItem deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    
+                    NSUInteger rowIndex = deleteObject.tag;
+                    
+                    //Remove this finance object from financeArray
+                    [currentPropFinances removeObjectAtIndex:rowIndex];
+                    [self.tableView reloadData];
+                    UIAlertView *operationDone = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Financial Item Successfully Removed" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+
+                    [operationDone show];
+                }
+            }];
+           
+        }
+    }
 }
 
 

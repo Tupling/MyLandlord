@@ -248,7 +248,7 @@
             }
             //Remove this tenant object from tenantsArray
             [ApplicationDelegate.propertyArray removeObjectAtIndex:rowIndex];
-            [ApplicationDelegate loadCompletedTasks];
+            [ApplicationDelegate loadInCompleteTasks];
             
             [self.tableView reloadData];
             
