@@ -275,10 +275,9 @@
         if (buttonIndex == 0) {
             NSLog(@"Closed Warning");
             
+            NSArray *viewControllerArray = [self.navigationController viewControllers];
             
-            [self.navigationController popViewControllerAnimated:YES];
-            
-            
+            [self.navigationController popToViewController:[viewControllerArray objectAtIndex:2] animated:YES];
             
         }
     }
