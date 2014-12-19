@@ -333,7 +333,7 @@
         
         return NO;
     } else if(!addressValid){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Address" message:@"Address cannot be left blank or contain special characters except for a ( . )!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Address" message:@"Address cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         
         return NO;

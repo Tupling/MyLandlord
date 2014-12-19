@@ -79,9 +79,9 @@
 -(IBAction)saveTask:(id)sender
 {
     
-    BOOL isFormValid = [self validateStringTask:self.taskName.text priorityValue:self.taskPriority.text dueDateValue:dueDate taskDescValue:self.taskDesc.text];
+    bool validInput = [self validateFields];
     
-    if(isFormValid){
+    if(validInput){
     
         PFObject *task = [PFObject objectWithClassName:@"ToDo"];
     
@@ -297,6 +297,68 @@
         
     }
 }
+-(BOOL)validateTaskName:(NSString*)name
+{
+    if(name.length != 0){
+        
+        NSString *validCharacters = @"^[a-zA-Z0-9 ]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:name];
+    } else {
+        return NO;
+    }
+}
+
+-(BOOL)validateDescription:(NSString*)taskDescription
+{
+    if(taskDescription.length != 0){
+        
+        NSString *validCharacters = @"^[0-9a-zA-Z. ]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:taskDescription];
+    }else {
+        return NO;
+    }
+}
+
+-(BOOL)validateFields{
+    
+    BOOL taskNameValid = [self validateTaskName:self.taskName.text];
+    BOOL validDesc = [self validateDescription:self.taskDesc.text];
+
+    
+    
+    if(!taskNameValid){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Task Name" message:@"Task Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    } else if(!validDesc){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Description" message:@"Description cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    }else if(self.taskPriority.text.length == 0){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Priority" message:@"Task priority cannot be left blank!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+        
+    } else if(self.dueDateTF.text.length == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Due Date" message:@"Due Date cannot be left blank!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+        
+    } else{
+        return YES;
+    }
+}
+
 
 /*
 #pragma mark - Navigation
