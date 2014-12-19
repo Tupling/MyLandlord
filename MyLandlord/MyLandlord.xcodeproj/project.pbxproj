@@ -27,6 +27,7 @@
 		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
 		1E826D1C1A3F15A70043F70E /* MLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E826D1B1A3F15A70043F70E /* MLSignUpViewController.m */; };
 		1EA033A61A43AF3900208D56 /* MLPropertyFinanceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA033A51A43AF3900208D56 /* MLPropertyFinanceDetails.m */; };
+		1EA033AA1A43BE3D00208D56 /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA033A91A43BE3D00208D56 /* TextFieldValidator.m */; };
 		1EB679C91A3BAFDD00F431AB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */; };
 		1EB679CC1A3C8C7300F431AB /* MLPropDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */; };
 		1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CE1A3C8C8900F431AB /* MLTenantDocuments.m */; };
@@ -130,6 +131,8 @@
 		1E826D1B1A3F15A70043F70E /* MLSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSignUpViewController.m; sourceTree = "<group>"; };
 		1EA033A41A43AF3900208D56 /* MLPropertyFinanceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyFinanceDetails.h; sourceTree = "<group>"; };
 		1EA033A51A43AF3900208D56 /* MLPropertyFinanceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyFinanceDetails.m; sourceTree = "<group>"; };
+		1EA033A81A43BE3D00208D56 /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldValidator.h; sourceTree = "<group>"; };
+		1EA033A91A43BE3D00208D56 /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldValidator.m; sourceTree = "<group>"; };
 		1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		1EB679CA1A3C8C7300F431AB /* MLPropDocuments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropDocuments.h; sourceTree = "<group>"; };
 		1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropDocuments.m; sourceTree = "<group>"; };
@@ -347,6 +350,15 @@
 			name = "ML-Task Controllers";
 			sourceTree = "<group>";
 		};
+		1EA033A71A43BE3D00208D56 /* TextFieldValidator */ = {
+			isa = PBXGroup;
+			children = (
+				1EA033A81A43BE3D00208D56 /* TextFieldValidator.h */,
+				1EA033A91A43BE3D00208D56 /* TextFieldValidator.m */,
+			);
+			path = TextFieldValidator;
+			sourceTree = "<group>";
+		};
 		1EC04DFF1A1A49320020B759 = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +422,7 @@
 		1EC04E3C1A1A71610020B759 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1EA033A71A43BE3D00208D56 /* TextFieldValidator */,
 				1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */,
 				1E1447AD1A38C477008F4BA4 /* EventKit.framework */,
 				1ECDD2D31A2D51DE001C0CDA /* PDFViewer */,
@@ -625,6 +638,7 @@
 				1E181EF91A1F86C30047AD12 /* MLTenantDetailsViewController.m in Sources */,
 				1EC04E171A1A49330020B759 /* MLPropertiesViewController.m in Sources */,
 				1EF280C61A2CFED30038D340 /* SubTenants.m in Sources */,
+				1EA033AA1A43BE3D00208D56 /* TextFieldValidator.m in Sources */,
 				1E4A67E21A31F72C0026E8F7 /* MLAddTask.m in Sources */,
 				1ECDD2DC1A2D5202001C0CDA /* MJPPdfPage.m in Sources */,
 				1E1447A91A378015008F4BA4 /* SubUnit.m in Sources */,

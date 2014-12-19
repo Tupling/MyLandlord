@@ -29,8 +29,8 @@
         
     } else {
         
-    propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", _details.propAddress, _details.propCity, _details.propState, _details.propZip];
-    
+        propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", _details.propAddress, _details.propCity, _details.propState, _details.propZip];
+        
     }
     if(_tenantDetails == nil){
         NSLog(@"Tenant Details Nil");
@@ -59,7 +59,7 @@
         NSString *leaseStartString = [dateFormatter stringFromDate:leaseStart];
         NSString *dueDateString = [NSString stringWithFormat:@"%@", _tenantDetails.dueDay];
         
-
+        
         tenantInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@", tenantName,
                            tenantEmail,
                            tenantPhone];
@@ -105,11 +105,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"editDetails"]) {
- 
-            MLAddPropertyViewController *editProperty = segue.destinationViewController;
- 
-            editProperty.details = _details;
- 
+        
+        
+        
+        MLAddPropertyViewController *editProperty = segue.destinationViewController;
+        if (self.subUnitDetails != nil) {
+            editProperty.subDetails = self.subUnitDetails;
+        }
+        editProperty.details = _details;
+        
     }
     else if ([[segue identifier] isEqualToString:@"showFinances"]) {
         
