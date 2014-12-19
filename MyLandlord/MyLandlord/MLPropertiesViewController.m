@@ -20,6 +20,7 @@
     
     UIAlertView *deleteObject;
     UIAlertView *deleteError;
+    UIAlertView *operationDone;
 }
 
 
@@ -239,26 +240,44 @@
             NSLog(@"filterProp ID == %@", filterProp.propertyId);
             
             NSPredicate *taskPredicate = [NSPredicate predicateWithFormat:@"propId == %@", filterProp.propertyId];
-            NSArray *filterObjects = [ApplicationDelegate.inCompleteTaskArray filteredArrayUsingPredicate:taskPredicate];
+            NSArray *inCompleteObjects = [ApplicationDelegate.inCompleteTaskArray filteredArrayUsingPredicate:taskPredicate];
+            NSArray *completedObject = [ApplicationDelegate.completedTasks filteredArrayUsingPredicate:taskPredicate];
             
-            for (int i = 0; i < filterObjects.count; i++) {
-                Tasks *completedTask = [filterObjects objectAtIndex:i];
+            for (int i = 0; i < inCompleteObjects.count; i++) {
+                Tasks *completedTask = [inCompleteObjects objectAtIndex:i];
                 PFObject *task = [PFObject objectWithoutDataWithClassName:@"ToDo" objectId:completedTask.taskId];
                 [task deleteInBackground];
+
+            }
+            for (int i = 0; i < completedObject.count; i++) {
+                Tasks *completedTask = [completedObject objectAtIndex:i];
+                PFObject *task = [PFObject objectWithoutDataWithClassName:@"ToDo" objectId:completedTask.taskId];
+                [task deleteInBackground];
+                
             }
             //Remove this tenant object from tenantsArray
             [ApplicationDelegate.propertyArray removeObjectAtIndex:rowIndex];
-            [ApplicationDelegate loadInCompleteTasks];
+            
+
             
             [self.tableView reloadData];
             
             [property deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    UIAlertView *operationDone = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Property Successfully Removed" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    operationDone = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Property Successfully Removed" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     
                     [operationDone show];
                 }
             }];
+        }
+    }
+    else if(alertView == operationDone){
+        if(buttonIndex == 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [ApplicationDelegate loadInCompleteTasks];
+            });
+
         }
     }
     

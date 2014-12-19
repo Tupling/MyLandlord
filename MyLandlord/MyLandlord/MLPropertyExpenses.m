@@ -235,7 +235,9 @@
                     
                     //Remove this finance object from financeArray
                     [currentPropFinances removeObjectAtIndex:rowIndex];
+
                     [self.tableView reloadData];
+                    [ApplicationDelegate loadFinancials];
                     UIAlertView *operationDone = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Financial Item Successfully Removed" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
 
                     [operationDone show];

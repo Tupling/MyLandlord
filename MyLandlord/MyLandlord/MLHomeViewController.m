@@ -225,18 +225,16 @@
     [ApplicationDelegate loadCompletedTasks];
     [ApplicationDelegate loadFinancials];
     
-    
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"FirstLaunch"] == nil)
-    {
-        
+    if(![[DBSession sharedSession] isLinked]){
+ 
         
         dropBoxLink = [[UIAlertView alloc] initWithTitle:@"Link Dropbox\u00AE" message:@"This application utilizes Dropbox\u00AE in order to store documents. You must link your Dropbox\u00AE in order to utilize the document features. \n\n Would you like to link your account now?"  delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         
         [dropBoxLink show];
         
         
+   
     }
-    
     
     
     [self dismissViewControllerAnimated:YES completion:nil];

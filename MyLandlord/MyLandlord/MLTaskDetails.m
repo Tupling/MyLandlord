@@ -109,6 +109,8 @@
                             
                             [ApplicationDelegate.inCompleteTaskArray removeObjectAtIndex:_indexPath.row];
                             [ApplicationDelegate loadInCompleteTasks];
+                            [ApplicationDelegate loadCompletedTasks];
+                            
                             
                             
                             
