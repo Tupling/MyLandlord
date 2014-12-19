@@ -26,6 +26,7 @@
 		1E4A67E21A31F72C0026E8F7 /* MLAddTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A67E11A31F72C0026E8F7 /* MLAddTask.m */; };
 		1E4DAE8B1A1CF4F50097FA23 /* MLAddTenantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */; };
 		1E826D1C1A3F15A70043F70E /* MLSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E826D1B1A3F15A70043F70E /* MLSignUpViewController.m */; };
+		1EA033A61A43AF3900208D56 /* MLPropertyFinanceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA033A51A43AF3900208D56 /* MLPropertyFinanceDetails.m */; };
 		1EB679C91A3BAFDD00F431AB /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */; };
 		1EB679CC1A3C8C7300F431AB /* MLPropDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */; };
 		1EB679CF1A3C8C8900F431AB /* MLTenantDocuments.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EB679CE1A3C8C8900F431AB /* MLTenantDocuments.m */; };
@@ -127,6 +128,8 @@
 		1E4DAE8A1A1CF4F50097FA23 /* MLAddTenantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddTenantViewController.m; sourceTree = "<group>"; };
 		1E826D1A1A3F15A70043F70E /* MLSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSignUpViewController.h; sourceTree = "<group>"; };
 		1E826D1B1A3F15A70043F70E /* MLSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSignUpViewController.m; sourceTree = "<group>"; };
+		1EA033A41A43AF3900208D56 /* MLPropertyFinanceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropertyFinanceDetails.h; sourceTree = "<group>"; };
+		1EA033A51A43AF3900208D56 /* MLPropertyFinanceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropertyFinanceDetails.m; sourceTree = "<group>"; };
 		1EB679C81A3BAFDD00F431AB /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		1EB679CA1A3C8C7300F431AB /* MLPropDocuments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPropDocuments.h; sourceTree = "<group>"; };
 		1EB679CB1A3C8C7300F431AB /* MLPropDocuments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPropDocuments.m; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 				1E1447A51A373231008F4BA4 /* MLAddUnits.m */,
 				1E1447AF1A3A0813008F4BA4 /* MLAddPropertyExpense.h */,
 				1E1447B01A3A0813008F4BA4 /* MLAddPropertyExpense.m */,
+				1EA033A41A43AF3900208D56 /* MLPropertyFinanceDetails.h */,
+				1EA033A51A43AF3900208D56 /* MLPropertyFinanceDetails.m */,
 			);
 			name = "ML-Property Controllers";
 			sourceTree = "<group>";
@@ -629,6 +634,7 @@
 				1EC04E391A1A4DF20020B759 /* MLDocsViewController.m in Sources */,
 				1E4A67DF1A31F7140026E8F7 /* TasksMain.m in Sources */,
 				1E1447AC1A3883CF008F4BA4 /* MLTaskDetails.m in Sources */,
+				1EA033A61A43AF3900208D56 /* MLPropertyFinanceDetails.m in Sources */,
 				1EC04E601A1A7F430020B759 /* Reachability.m in Sources */,
 				1ECDD2E51A2E8C64001C0CDA /* MLPropertyExpenses.m in Sources */,
 				1EF280C31A2CFED30038D340 /* Properties.m in Sources */,

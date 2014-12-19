@@ -59,7 +59,6 @@
         
         [dropBoxUnlinked show];
         
-       [[DBSession sharedSession] unlinkAll];
         
     } else {
         

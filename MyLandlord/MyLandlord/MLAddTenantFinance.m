@@ -160,7 +160,7 @@
             NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
             
             expense[@"amount"] = amount;
-            expense[@"type"] = @"Expense";
+            expense[@"type"] = @"Income";
             expense[@"date"] = expenseDate;
             expense[@"category"] = self.expCategory.text;
             expense[@"expDescription"] = self.expDescription.text;
@@ -207,7 +207,7 @@
         NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
         
         expense[@"amount"] = amount;
-        expense[@"type"] = @"Expense";
+        expense[@"type"] = @"Income";
         expense[@"date"] = expenseDate;
         expense[@"category"] = self.expCategory.text;
         expense[@"expDescription"] = self.expDescription.text;

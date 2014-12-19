@@ -289,6 +289,9 @@
                 
                 //[[DBSession sharedSession]unlinkAll];
                 [[DBSession sharedSession] linkFromController:self];
+                
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FirstLaunch"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }
     }

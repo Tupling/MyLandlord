@@ -16,6 +16,8 @@
     
     UIAlertView *savedAlert;
     UIAlertView *saveError;
+    
+    UIAlertView *updateSaved;
 }
 @end
 
@@ -39,16 +41,40 @@
     //Button Radius
     self.saveExpense.layer.cornerRadius = 5;
     
-    if(self.subUnitDetails != nil){
+    if (self.finDetails != nil) {
         
-        self.propertyName.text = [NSString stringWithFormat:@"%@ - Unit %@", self.details.propName, self.subUnitDetails.unitNumber];
+        self.expAmount.text = [NSString stringWithFormat:@"%0.2f", self.finDetails.fAmount];
+        self.expCategory.text = self.finDetails.category;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
         
-    } else {
-        //Static Textfield Text Delcarations
-        self.propertyName.text = self.details.propName;
+        self.expDate.text = [dateFormatter stringFromDate:self.finDetails.date];
+        self.expDescription.text = self.finDetails.fDescription;
+        self.itemName.text = self.finDetails.itemName;
         
+        expenseDate = self.finDetails.date;
+        
+        if(self.subUnitDetails != nil){
+            
+            self.propertyName.text = [NSString stringWithFormat:@"%@ - Unit %@", self.propDetails.propName, self.subUnitDetails.unitNumber];
+            
+        } else {
+            //Static Textfield Text Delcarations
+            self.propertyName.text = self.propDetails.propName;
+            
+        }
+    }else{
+        
+        if(self.subUnitDetails != nil){
+            
+            self.propertyName.text = [NSString stringWithFormat:@"%@ - Unit %@", self.propDetails.propName, self.subUnitDetails.unitNumber];
+            
+        } else {
+            //Static Textfield Text Delcarations
+            self.propertyName.text = self.propDetails.propName;
+            
+        }
     }
-    
     
     //DISMISS KEYBOARD
     //Tap screen to make keyboard disappear
@@ -198,66 +224,119 @@
 #pragma mark - Save Expense Method
 -(IBAction)saveExpense:(id)sender
 {
-    
-    
-    PFObject *expense = [PFObject objectWithClassName:@"Financials"];
-    
-    float amountFloatValue = [self.expAmount.text floatValue];
-    
-    NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
-    
-    expense[@"amount"] = amount;
-    expense[@"type"] = @"Expense";
-    expense[@"date"] = expenseDate;
-    expense[@"category"] = self.expCategory.text;
-    expense[@"expDescription"] = self.expDescription.text;
-    expense[@"itemName"] = self.itemName.text;
-    
-    
-    //Check if Expense is Related to SubUnit
-    if(self.subUnitDetails !=nil){
+    if(self.finDetails != nil){
         
-    expense[@"parentId"] = self.subUnitDetails.unitObjectId;
+        PFQuery *query = [PFQuery queryWithClassName:@"Financials"];
         
-    } else {
-    
-    expense[@"parentId"] = self.details.propertyId;
-    }
-    
-    
-    //ONLY ALLOW CURRENT USER TO VIEW
-    //Set Access control to user logged in
-    expense.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-    
-    //Set object to current user (makes it easier to get the data for tables)
-    [expense setObject:[PFUser currentUser] forKey:@"createdBy"];
-    
-    
-    [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if(succeeded)
-        {
+        [query getObjectInBackgroundWithId:self.finDetails.finObjectId block:^(PFObject *expense, NSError *error) {
             
-            savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            float amountFloatValue = [self.expAmount.text floatValue];
             
-       
+            NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
             
-                        dispatch_async(dispatch_get_main_queue(), ^{
+            expense[@"amount"] = amount;
+            expense[@"type"] = @"Expense";
+            expense[@"date"] = expenseDate;
+            expense[@"category"] = self.expCategory.text;
+            expense[@"expDescription"] = self.expDescription.text;
+            expense[@"itemName"] = self.itemName.text;
+            if(self.subUnitDetails !=nil){
+                
+                expense[@"parentId"] = self.subUnitDetails.unitObjectId;
+                
+            } else {
+                
+                expense[@"parentId"] = self.propDetails.propertyId;
+            }
+            [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(succeeded)
+                {
+                    
+                    updateSaved = [[UIAlertView alloc] initWithTitle:@"Expense Updated" message:@"Expense data has been updated!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [ApplicationDelegate loadFinancials];
+                        
+                        
+                    });
+                    
+                    [updateSaved show];
+                    
+                } else {
+                    
+                    saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [saveError show];
+                    
+                }
+            }];
             
-                            [ApplicationDelegate loadFinancials];
+        }];
         
-
-                        });
+    }else{
+        
+        PFObject *expense = [PFObject objectWithClassName:@"Financials"];
+        
+        float amountFloatValue = [self.expAmount.text floatValue];
+        
+        NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
+        
+        expense[@"amount"] = amount;
+        expense[@"type"] = @"Expense";
+        expense[@"date"] = expenseDate;
+        expense[@"category"] = self.expCategory.text;
+        expense[@"expDescription"] = self.expDescription.text;
+        expense[@"itemName"] = self.itemName.text;
+        
+        
+        //Check if Expense is Related to SubUnit
+        if(self.subUnitDetails !=nil){
             
-                 [savedAlert show];
+            expense[@"parentId"] = self.subUnitDetails.unitObjectId;
             
         } else {
             
-            saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            
-            [saveError show];
-            
+            expense[@"parentId"] = self.propDetails.propertyId;
         }
-    }];
+        
+        
+        //ONLY ALLOW CURRENT USER TO VIEW
+        //Set Access control to user logged in
+        expense.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        
+        //Set object to current user (makes it easier to get the data for tables)
+        [expense setObject:[PFUser currentUser] forKey:@"createdBy"];
+        
+        
+        [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if(succeeded)
+            {
+                
+                savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [ApplicationDelegate loadFinancials];
+                    
+                    
+                });
+                
+                [savedAlert show];
+                
+            } else {
+                
+                saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                [saveError show];
+                
+            }
+        }];
+    }
     
 }
 
@@ -272,9 +351,19 @@
             NSLog(@"Closed Warning");
             
             
-             [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
             
             
+        }
+    }
+    if([alertView isEqual:updateSaved]){
+        
+        if (buttonIndex == 0) {
+            NSLog(@"Closed Warning");
+            
+            NSArray *viewControllerArray = [self.navigationController viewControllers];
+            
+            [self.navigationController popToViewController:[viewControllerArray objectAtIndex:2] animated:YES];
             
         }
     }

@@ -115,10 +115,10 @@
         
         MLPropertyExpenses *propertyDetails = segue.destinationViewController;
         
-        propertyDetails.details = _details;
+        propertyDetails.propDetails = self.details;
         
         if(self.subUnitDetails != nil){
-            propertyDetails.subUnitDetails = _subUnitDetails;
+            propertyDetails.subDetails = self.subUnitDetails;
         }
         
     }

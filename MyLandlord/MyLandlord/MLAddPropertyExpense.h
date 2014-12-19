@@ -10,11 +10,13 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "Properties.h"
+#import "Financials.h"
 #import "SubUnit.h"
 
 @interface MLAddPropertyExpense : UIViewController
 
-@property(nonatomic, strong)Properties * details;
+@property(nonatomic, strong)Properties * propDetails;
+@property(nonatomic, strong)Financials *finDetails;
 
 @property(nonatomic, strong)SubUnit * subUnitDetails;
 
