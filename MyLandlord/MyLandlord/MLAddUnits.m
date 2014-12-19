@@ -27,7 +27,7 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-    
+    self.saveUnit.layer.cornerRadius = 5;
     //DropBox
     self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     self.restClient.delegate = self;

@@ -122,6 +122,12 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
     
+    self.completedTasks = nil;
+    self.financesArray = nil;
+    self.inCompleteTaskArray = nil;
+    self.tenantsArray = nil;
+    self.propertyArray = nil;
+    self.subUnitArray = nil;
     
     //Log User out if Application is Terminated
     [PFUser logOut];

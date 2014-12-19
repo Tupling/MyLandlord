@@ -354,7 +354,11 @@
         
         return NO;
         
-    } else{
+    } else if(assignPropertyID == nil){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Property Invalid" message:@"You must assign the task a property!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }else{
         return YES;
     }
 }

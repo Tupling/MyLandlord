@@ -18,6 +18,8 @@
     NSArray *selectedArray;
     NSArray *badgeArray;
     
+    NSIndexPath *selectIndexPath;
+    
     Tasks *task;
 }
 
@@ -342,11 +344,13 @@
     {
         case 0:
         {
+            selectIndexPath = indexPath;
             self.taskInfo = [ApplicationDelegate.inCompleteTaskArray objectAtIndex:indexPath.row];
             break;
         }
         case 1:
         {
+
             self.taskInfo =  [ApplicationDelegate.completedTasks objectAtIndex:indexPath.row];
             break;
         }
@@ -403,10 +407,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"details"]) {
+
+
         MLTaskDetails *taskDetails = segue.destinationViewController;
-        
+        [taskDetails setIndexPath:selectIndexPath];
         taskDetails.taskDetails = self.taskInfo;
         taskDetails.propDetails = self.propInfo;
+        
+        
         
         
         

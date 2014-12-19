@@ -24,7 +24,10 @@
 
 @property(nonatomic, strong) IBOutlet UIButton *checkComplete;
 
+@property(nonatomic) NSIndexPath *indexPath;
+
 @property(nonatomic, strong)Tasks *taskDetails;
 @property(nonatomic, strong)Properties *propDetails;
+
 
 @end

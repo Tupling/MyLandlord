@@ -32,7 +32,7 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-    
+    self.saveExpense.layer.cornerRadius = 5;
     
     //TextField Delegate Declarations
     self.expCategory.delegate = self;
