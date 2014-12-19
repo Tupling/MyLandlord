@@ -231,6 +231,10 @@
                 if(![self.assignProperty.text isEqualToString: DNAProperty]){
                     
                     tenant[@"assignedPropId"] = assignPropertyID;
+                }else{
+                    
+                    tenant[@"assignedPropId"] = @"";
+
                 }
                 
                 
@@ -784,7 +788,7 @@
         
         if (row == 0) {
             
-            assignPropertyID = @"";
+            assignPropertyID = DNAProperty;
             self.assignProperty.text = DNAProperty;
             self.assignUnit.hidden = YES;
             subUnitId = @"";

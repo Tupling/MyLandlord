@@ -12,6 +12,7 @@
 #import "Financials.h"
 
 
+
 //Page Dimensions Declarations
 #define kDefaultPageHeight 792
 #define kDefaultPageWidth  612
@@ -21,6 +22,7 @@
 @interface MLPropertyExpenses () <UITableViewDataSource, UITableViewDelegate>
 {
     NSArray *currentPropFinances;
+    UIAlertView *deleteObject;
     
 }
 
@@ -188,6 +190,24 @@
     self.finDetails = [currentPropFinances objectAtIndex:indexPath.row];
     
     [self performSegueWithIdentifier:@"viewDetails" sender:self];
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        self.finDetails = [ApplicationDelegate.financesArray objectAtIndex:indexPath.row];
+        
+
+            deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Property" message:@"Are you sure you want to delete this property?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            
+            //Set alert tag do index path. Allows me to pass the table index of item being deleted.
+            deleteObject.tag = indexPath.row;
+            
+            [deleteObject show];
+        }
+  
+
 }
 
 
