@@ -107,11 +107,10 @@
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
-                            [ApplicationDelegate loadCompletedTasks];
+                            [ApplicationDelegate.inCompleteTaskArray removeObjectAtIndex:_indexPath.row];
                             [ApplicationDelegate loadInCompleteTasks];
                             
                             
-                            [self.navigationController popViewControllerAnimated:YES];
                             
                         });
 
@@ -136,6 +135,7 @@
     }
     
 }
+
 
 
 /*

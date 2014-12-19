@@ -232,8 +232,24 @@
             PFObject *property = [PFObject objectWithoutDataWithClassName:@"Properties" objectId:self.propInfo.propertyId];
             NSUInteger rowIndex = deleteObject.tag;
             
+
+            
+            Properties *filterProp= [ApplicationDelegate.propertyArray objectAtIndex:rowIndex];
+            
+            NSLog(@"filterProp ID == %@", filterProp.propertyId);
+            
+            NSPredicate *taskPredicate = [NSPredicate predicateWithFormat:@"propId == %@", filterProp.propertyId];
+            NSArray *filterObjects = [ApplicationDelegate.inCompleteTaskArray filteredArrayUsingPredicate:taskPredicate];
+            
+            for (int i = 0; i < filterObjects.count; i++) {
+                Tasks *completedTask = [filterObjects objectAtIndex:i];
+                PFObject *task = [PFObject objectWithoutDataWithClassName:@"ToDo" objectId:completedTask.taskId];
+                [task deleteInBackground];
+            }
             //Remove this tenant object from tenantsArray
             [ApplicationDelegate.propertyArray removeObjectAtIndex:rowIndex];
+            [ApplicationDelegate loadCompletedTasks];
+            
             [self.tableView reloadData];
             
             [property deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
