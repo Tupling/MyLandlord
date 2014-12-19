@@ -48,44 +48,6 @@
     image.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = image;
     
-    NSLog(@"%@", _details.pFirstName);
-    
-    pTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.pFirstName, _details.pLastName];
-    
-    
-    
-    //Date Formating and Comparison
-    //Below format dates and compare due date with current date to determine status.
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
-    
-    NSDate *leaseEnd = _details.leaseEnd;
-    NSDate *leaseStart = _details.leaseStart;
-    
-
-    
-   
-    leaseEndLabel.text = [dateFormatter stringFromDate:leaseEnd];
-    leaseStartLabel.text = [dateFormatter stringFromDate:leaseStart];
-    rentDueLabel.text = [NSString stringWithFormat:@"$%@.00", _details.rentAmount];
-    
-    if ([_details.sFirstName isEqualToString:@""] || _details.sFirstName == nil) {
-        sTenantHeaderLabel.hidden = YES;
-        sTenantName.hidden = YES;
-        self.sTenantphoneButton.hidden = YES;
-        self.sTenantEmailButton.hidden = YES;
-        
-        self.sTenantEmailHeader.hidden = YES;
-        self.sTenantPhoneHeader.hidden = YES;
-     
-
-        
-    }else{
-        
-        sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
-    }
-    
 
     //Modify button appearence
     self.viewDocs.layer.cornerRadius = 5;
@@ -118,14 +80,54 @@
     self.sTenantphoneButton.layer.borderColor = [[UIColor colorWithRed:0.941 green:0.941 blue:0.941 alpha:1] CGColor];
     [self.sTenantphoneButton setTitle:_details.sPhoneNumber forState:UIControlStateNormal];
     
+    [self performSelector:@selector(updateUIElements) withObject:nil];
+    
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+#pragma mark - Update UI Elements
+
+-(void)updateUIElements
 {
-    [super viewWillAppear:YES];
+    NSLog(@"%@", _details.pFirstName);
     
-    [self.view setNeedsDisplay];
+    pTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.pFirstName, _details.pLastName];
+    
+    
+    
+    //Date Formating and Comparison
+    //Below format dates and compare due date with current date to determine status.
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+    
+    NSDate *leaseEnd = _details.leaseEnd;
+    NSDate *leaseStart = _details.leaseStart;
+    
+    
+    
+    
+    leaseEndLabel.text = [dateFormatter stringFromDate:leaseEnd];
+    leaseStartLabel.text = [dateFormatter stringFromDate:leaseStart];
+    rentDueLabel.text = [NSString stringWithFormat:@"$%@.00", _details.rentAmount];
+    
+    if ([_details.sFirstName isEqualToString:@""] || _details.sFirstName == nil) {
+        sTenantHeaderLabel.hidden = YES;
+        sTenantName.hidden = YES;
+        self.sTenantphoneButton.hidden = YES;
+        self.sTenantEmailButton.hidden = YES;
+        
+        self.sTenantEmailHeader.hidden = YES;
+        self.sTenantPhoneHeader.hidden = YES;
+        
+        
+        
+    }else{
+        
+        sTenantName.text = [NSString stringWithFormat:@"%@ %@", _details.sFirstName, _details.sLastName];
+    }
+    
+
 }
 
 #pragma mark - Action Methods
@@ -258,7 +260,7 @@
     else if ([[segue identifier] isEqualToString:@"viewFinances"]) {
         MLTenantFinances *tenantDetails = segue.destinationViewController;
         
-        tenantDetails.details = _details;
+        tenantDetails.tenDetails = _details;
         
         
     }

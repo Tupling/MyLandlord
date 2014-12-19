@@ -10,11 +10,13 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "Tenants.h"
+#import "Financials.h"
 
 
 @interface MLAddTenantFinance : UIViewController
 
-@property(nonatomic, strong)Tenants * details;
+@property(nonatomic, strong)Tenants * tenDetails;
+@property(nonatomic, strong)Financials * finDetails;
 
 
 @property(nonatomic, strong)IBOutlet UIButton * saveExpense;

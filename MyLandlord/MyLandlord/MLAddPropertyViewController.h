@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "Properties.h"
+#import "SubUnit.h"
 #import <DropboxSDK/DropboxSDK.h>
 
 @interface MLAddPropertyViewController : UIViewController
@@ -34,6 +35,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *yesLabel;
 
 @property (nonatomic, strong)Properties *details;
+@property (nonatomic, strong)SubUnit *subDetails;
 //DropBox RestClient Property
 @property (nonatomic, strong) DBRestClient *restClient;
 

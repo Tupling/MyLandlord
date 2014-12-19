@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSString * fDescription;
 @property (nonatomic, retain) NSString * itemName;
+@property (nonatomic, retain) NSString * finObjectId;
 
 
 @end

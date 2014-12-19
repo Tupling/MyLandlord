@@ -8,6 +8,7 @@
 
 #import "MLTenantFinances.h"
 #import "MLAddTenantFinance.h"
+#import "MLTenantFinanceDetails.h"
 #import "Financials.h"
 
 
@@ -29,6 +30,8 @@
 
 @synthesize exportFilePath, exportButton;
 
+#pragma mark - View Load Methods
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
@@ -46,7 +49,7 @@
     
  
         
-        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.tenantId];
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.tenDetails.tenantId];
         
 
     
@@ -79,7 +82,7 @@
         //Set fetchRequest entity to EventInfo Description
         [self.fetchRequest setEntity:self.financeEntity];
         
-        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.tenantId];
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.tenDetails.tenantId];
         
         
         [self.fetchRequest setPredicate:self.predicate];
@@ -104,7 +107,7 @@
     
     self.exportButton.layer.cornerRadius = 5;
     
-    NSLog(@"Property Details == %@", self.details);
+    NSLog(@"Property Details == %@", self.tenDetails);
     
     //Set Nav Bar Image
     UIImageView *image =[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -170,6 +173,15 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    self.finDetails = [currentPropFinances objectAtIndex:indexPath.row];
+    
+    [self performSegueWithIdentifier:@"viewDetails" sender:self];
+}
+
+
+#pragma mark -Add New Finance
 -(IBAction)addNewFinance:(id)sender
 {
     [self performSegueWithIdentifier:@"addNewFinance" sender:self];
@@ -183,7 +195,14 @@
         
         MLAddTenantFinance *tenantDetails = segue.destinationViewController;
         
-        tenantDetails.details = _details;
+        tenantDetails.tenDetails = self.tenDetails;
+        
+    }else if ([[segue identifier] isEqualToString:@"viewDetails"]) {
+        
+        MLTenantFinanceDetails *financeDetails = segue.destinationViewController;
+        
+        financeDetails.finDetails = self.finDetails;
+        financeDetails.tenDetails = self.tenDetails;
         
     }
 }
@@ -206,7 +225,7 @@
     [dateFormatter setDateFormat:@"MMMM_dd_yyyy"];
     
     NSDate *today = [NSDate date];
-    self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@_Export_%@.pdf",self.details.pFirstName, self.details.pLastName, [dateFormatter stringFromDate:today]]];
+    self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@_Export_%@.pdf",self.tenDetails.pFirstName, self.tenDetails.pLastName, [dateFormatter stringFromDate:today]]];
     
     
     UIGraphicsBeginPDFContextToFile(self.exportFilePath, CGRectZero, nil);
@@ -248,7 +267,7 @@
     
     //Draw Property Name
     
-    NSString *reportTile = [NSString stringWithFormat:@"%@ %@ Finance Report", self.details.pFirstName, self.details.pLastName];
+    NSString *reportTile = [NSString stringWithFormat:@"%@ %@ Finance Report", self.tenDetails.pFirstName, self.tenDetails.pLastName];
     
     NSString *categoryLabel = @"Category";
     
@@ -389,7 +408,7 @@
         MFMailComposeViewController* mailComposer = [[MFMailComposeViewController alloc] init];
         mailComposer.mailComposeDelegate = self;
         [mailComposer addAttachmentData:[NSData dataWithContentsOfFile:self.exportFilePath]
-                               mimeType:@"application/pdf" fileName:[NSString stringWithFormat:@"%@_%@_Export_%@.pdf",self.details.pFirstName, self.details.pLastName, [dateFormatter stringFromDate:today]]];
+                               mimeType:@"application/pdf" fileName:[NSString stringWithFormat:@"%@_%@_Export_%@.pdf",self.tenDetails.pFirstName, self.tenDetails.pLastName, [dateFormatter stringFromDate:today]]];
         
         
         [self presentViewController:mailComposer animated:YES completion:nil];

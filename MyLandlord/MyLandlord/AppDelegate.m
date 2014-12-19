@@ -41,20 +41,21 @@
 #pragma mark - Launching Methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
     
     //Parse Setup information
     [Parse setApplicationId:@"JaDJYpRJTZR9QV7OooDivH9uSRlTNYL8mH7AcUbe" clientKey:@"MyEtePxKqaKi2mXL9SALjECDTVL9WN3uqbQ4OWKd"];
     //Parse analytics
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
+ 
     //Dropbox Setup Information
     DBSession *dbSession = [[DBSession alloc]
                             initWithAppKey:@"dce7787ko2d4u1o"
                             appSecret:@"9os3cx3aehn2fhe"
                             root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
     [DBSession setSharedSession:dbSession];
+    
     
     //SetTool Bar Tint
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.098 green:0.204 blue:0.255 alpha:1] /*#193441*/];
@@ -64,11 +65,18 @@
     //Check for Network Connection
     self.networkStatus = [Reachability reachabilityForInternetConnection];
     
-    [self loadTasks];
-    [self loadProperties];
-    [self loadTenants];
-    [self loadSubUnits];
-    [self loadFinancials];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self loadInCompleteTasks];
+        [self loadProperties];
+        [self loadTenants];
+        [self loadSubUnits];
+        [self loadFinancials];
+        [self loadCompletedTasks];
+        
+    });
+    
     
     
     
@@ -87,12 +95,7 @@
     return status;
 }
 
--(void)createDropBoxLink
-{
 
-
-
-}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -276,13 +279,13 @@
 }
 
 
--(void)loadTasks
+-(void)loadInCompleteTasks
 {
     
     [self deletedAllObjects:@"Tasks"];
     PFQuery *results = [PFQuery queryWithClassName:@"ToDo"];
-    //[tenants whereKey:@"createdBy" equalTo:[PFUser currentUser]];
-    [results orderByAscending:@"task"];
+    [results whereKey:@"isComplete" equalTo:[NSNumber numberWithBool:NO]];
+    [results orderByAscending:@"date"];
     
     [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if(!error)
@@ -323,11 +326,9 @@
                 [fetchRequest setEntity:entity];
                 
                 //Set events array to data in core data
-                self.taskDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                self.inCompleteTaskData = [context executeFetchRequest:fetchRequest error:&error];
                 
-                self.tasksArray = [[NSMutableArray alloc] initWithArray:self.taskDataArray];
-                
-                
+                self.inCompleteTaskArray = [[NSMutableArray alloc] initWithArray:self.inCompleteTaskData];
                 
                 
             }
@@ -343,6 +344,79 @@
     }];
     
     
+}
+
+-(void)loadCompletedTasks
+{
+    [self deletedAllObjects:@"CompletedTasks"];
+    PFQuery *results = [PFQuery queryWithClassName:@"ToDo"];
+    [results whereKey:@"isComplete" equalTo:[NSNumber numberWithBool:YES]];
+    [results orderByAscending:@"date"];
+    
+    [results findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (objects != nil) {
+            
+            
+            if(!error)
+            {
+                for(int i = 0; i <objects.count; i++){
+                    NSManagedObjectContext *context = [ApplicationDelegate managedObjectContext];
+                    
+                    
+                    Tasks *taskInfo = [NSEntityDescription insertNewObjectForEntityForName:@"CompletedTasks" inManagedObjectContext:context];
+                    
+                    
+                    
+                    taskInfo.taskId = [objects[i] valueForKey:@"objectId"];
+                    
+                    taskInfo.task = [objects[i] valueForKey:@"task"];
+                    taskInfo.priority = [objects[i] valueForKey:@"priority"];
+                    taskInfo.taskDescription = [objects[i] valueForKey:@"taskDesc"];
+                    taskInfo.dueDate = [objects[i] valueForKey:@"dueDate"];
+                    
+                    taskInfo.isComplete = [objects[i] valueForKey:@"isComplete"];
+                    taskInfo.createdDate = [objects[i] valueForKey:@"createdAt"];
+                    taskInfo.propId = [objects[i] valueForKey:@"propId"];
+                    
+                    
+                    NSError * error;
+                    if(![context save:&error])
+                    {
+                        NSLog(@"Failed to save: %@", [error localizedDescription]);
+                    }
+                    
+                    //Create new Fetch Request
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                    
+                    //Request Entity TaskInfo
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"CompletedTasks" inManagedObjectContext:context];
+                    
+                    //Set fetchRequest entity to EventInfo Description
+                    [fetchRequest setEntity:entity];
+                    
+                    //Set events array to data in core data
+                    self.completedTaskDataArray = [context executeFetchRequest:fetchRequest error:&error];
+                    
+                    self.completedTasks = [[NSMutableArray alloc] initWithArray:self.completedTaskDataArray];
+                    
+                    
+                    
+                    
+                }
+                
+            }else{
+                
+                //Why did it fail?
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+            
+            
+        }else{
+            self.completedTasks = [[NSMutableArray alloc] init];
+        }
+        
+    }];
     
 }
 
@@ -426,9 +500,10 @@
                 financial.fAmount = [[objects[i] valueForKey:@"amount"] floatValue];
                 financial.category = [objects[i] valueForKey:@"category"];
                 financial.fDescription = [objects[i] valueForKey:@"expDescription"];
+                financial.finObjectId = [objects[i] valueForKey:@"objectId"];
                 
                 
-
+                
                 NSError * error;
                 if(![context save:&error])
                 {

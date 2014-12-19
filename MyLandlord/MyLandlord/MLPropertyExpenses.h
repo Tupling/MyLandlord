@@ -13,6 +13,7 @@
 #import "Properties.h"
 #import "AppDelegate.h"
 #import "SubUnit.h"
+#import "Financials.h"
 
 @interface MLPropertyExpenses : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate,QLPreviewControllerDataSource>
 
@@ -32,8 +33,9 @@
 @property (nonatomic, strong)IBOutlet UILabel *date;
 @property (nonatomic, strong)IBOutlet UILabel *itemName;
 
-@property(nonatomic, strong) Properties *details;
-@property(nonatomic, strong) SubUnit *subUnitDetails;
+@property(nonatomic, strong) Properties *propDetails;
+@property(nonatomic, strong) SubUnit *subDetails;
+@property(nonatomic, strong) Financials *finDetails;
 
 //Core Data
 @property(nonatomic, strong) NSManagedObjectContext *context;

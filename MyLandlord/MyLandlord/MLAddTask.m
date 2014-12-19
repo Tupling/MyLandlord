@@ -7,8 +7,9 @@
 //
 
 #import "MLAddTask.h"
+#import "TasksMain.h"
 
-@interface MLAddTask () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface MLAddTask () <UIAlertViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate>
 
 {
     UIAlertView *savedAlert;
@@ -78,9 +79,9 @@
 -(IBAction)saveTask:(id)sender
 {
     
-    BOOL isFormValid = [self validateStringTask:self.taskName.text priorityValue:self.taskPriority.text dueDateValue:dueDate taskDescValue:self.taskDesc.text];
+    bool validInput = [self validateFields];
     
-    if(isFormValid){
+    if(validInput){
     
         PFObject *task = [PFObject objectWithClassName:@"ToDo"];
     
@@ -115,7 +116,9 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    [ApplicationDelegate loadTasks];
+                    [ApplicationDelegate loadInCompleteTasks];
+                    
+                    
                     
                     [self.navigationController popViewControllerAnimated:YES];
                     
@@ -160,9 +163,11 @@
         
     }else if ([textField isEqual:self.taskPriority]){
         
-        textField.inputView = self.priorityPicker;
-        [self.taskPriority setText:[self pickerView:self.priorityPicker titleForRow:[self.priorityPicker selectedRowInComponent:0] forComponent:0]];
-        
+        [self.taskPriority resignFirstResponder];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Task Priority" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"High", @"Medium", @"Low", nil];
+        actionSheet.tag = 20;
+        [actionSheet showInView:self.view];
+        actionSheet = nil;
         
     }else if ([textField isEqual:self.dueDateTF]){
         
@@ -209,11 +214,7 @@
         
         return 1;
         
-    } else if([pickerView isEqual:self.priorityPicker]) {
-        
-        return 1;
-        
-    } else {
+    }  else {
         
         return 0;
     }
@@ -227,10 +228,6 @@
     if([pickerView isEqual:self.propertyPicker]){
         
         return [ApplicationDelegate.propertyArray count];
-        
-    } else if ([pickerView isEqual:self.priorityPicker]) {
-        
-        return priorityArray.count ;
         
     } else {
         
@@ -248,12 +245,6 @@
         [self.propertyPicker selectedRowInComponent:0];
         
         return property.propName;
-        
-    }else if([pickerView isEqual:self.priorityPicker]){
-        
-        NSString *priorityString = [NSString stringWithFormat:@"%@", [priorityArray objectAtIndex:row]];
-        
-        return priorityString;
         
     } else {
         
@@ -277,16 +268,97 @@
         
         NSLog(@"%@", assignPropertyID);
         
-    } else if([pickerView isEqual:self.priorityPicker]){
-        
-        [self.priorityPicker selectedRowInComponent:0];
-        
-        [self.taskPriority setText:[self pickerView:self.priorityPicker titleForRow:[self.priorityPicker selectedRowInComponent:0] forComponent:0]];
-        
     }
     
     
 }
+
+#pragma mark - ActionSheet Method
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *selectedValue = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if (![selectedValue.lowercaseString isEqualToString:@"cancel"]) {
+        
+        
+        switch (actionSheet.tag) {
+                
+            case 20:
+                //20 = Category
+                self.taskPriority.text = selectedValue;
+                
+                break;
+                
+            default:
+                
+                break;
+        }
+        
+    }
+}
+-(BOOL)validateTaskName:(NSString*)name
+{
+    if(name.length != 0){
+        
+        NSString *validCharacters = @"^[a-zA-Z0-9 ]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:name];
+    } else {
+        return NO;
+    }
+}
+
+-(BOOL)validateDescription:(NSString*)taskDescription
+{
+    if(taskDescription.length != 0){
+        
+        NSString *validCharacters = @"^[0-9a-zA-Z. ]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:taskDescription];
+    }else {
+        return NO;
+    }
+}
+
+-(BOOL)validateFields{
+    
+    BOOL taskNameValid = [self validateTaskName:self.taskName.text];
+    BOOL validDesc = [self validateDescription:self.taskDesc.text];
+
+    
+    
+    if(!taskNameValid){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Task Name" message:@"Task Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    } else if(!validDesc){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Description" message:@"Description cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    }else if(self.taskPriority.text.length == 0){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Priority" message:@"Task priority cannot be left blank!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+        
+    } else if(self.dueDateTF.text.length == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Due Date" message:@"Due Date cannot be left blank!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+        
+    } else{
+        return YES;
+    }
+}
+
 
 /*
 #pragma mark - Navigation

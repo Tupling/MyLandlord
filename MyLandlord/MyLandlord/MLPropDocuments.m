@@ -13,6 +13,8 @@
 {
     NSMutableDictionary *fileDictionary;
     NSMutableArray *documentsArray;
+    
+    UIAlertView *deleteObject;
 }
 @end
 
@@ -22,11 +24,19 @@
 {
     [super viewWillAppear:YES];
     
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
     [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
     
     fileDictionary = [[NSMutableDictionary alloc] init];
     documentsArray = [[NSMutableArray alloc] init];
@@ -122,6 +132,51 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        self.fileInfo = [documentsArray objectAtIndex:indexPath.row];
+        
+        
+        deleteObject = [[UIAlertView alloc] initWithTitle:@"Remove Document" message:@"This will remove the document from your Dropbox\u00AE.\nAre you sure you want to delete this document?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        
+        //Set alert tag do index path. Allows me to pass the table index of item being deleted.
+        deleteObject.tag = indexPath.row;
+        
+        [deleteObject show];
+        
+
+    
+        
+    }
+}
+
+#pragma mark - Alertview Delegate Methods
+//Alert user of actions
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(alertView == deleteObject){
+        
+        //If User selected YES to remove tenant
+        if (buttonIndex == 1) {
+            
+            //Get tenant object from Parse
+            NSUInteger rowIndex = deleteObject.tag;
+            
+            self.fileInfo = [documentsArray objectAtIndex:rowIndex];
+            
+            
+            [self.restClient deletePath:self.fileInfo.filePath];
+            
+            [documentsArray removeObjectAtIndex:rowIndex];
+            
+            [self.tableView reloadData];
+        }
+    }
+    
+}
+
+
 
 #pragma mark - DBRestClient Methods
 
@@ -158,6 +213,11 @@
     pdfViewer.margin = 10.0;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pdfViewer];
     [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+-(void)restClient:(DBRestClient *)client deletedPath:(NSString *)path
+{
     
 }
 

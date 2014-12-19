@@ -29,6 +29,22 @@
     NSArray *subUnitArray;
     NSArray *tmpPropArray;
     NSString *DNAProperty;
+    
+    //Subunit Filter
+    NSPredicate *subUnitPredicate;
+    NSArray *subUnitPredicateResults;
+    
+    //Primary Filter
+    NSPredicate *primPropertyPredicate;
+    NSArray *primPropertyPredResults;
+    
+    //Primary Tenant ID Check
+    NSPredicate *primPropTenantPredicate;
+    NSArray *primProTenantResults;
+    
+    //SubUnit Tenant Id Check;
+    NSPredicate *subUnitTenantPredicate;
+    NSArray *subUnitTenantResults;
 }
 
 @end
@@ -40,6 +56,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //Set Nav Bar Image
+    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
+    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = image;
+    
     
     //DropBox
     self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
@@ -90,7 +112,12 @@
                 subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
                 
                 if(subUnitArray.count > 0){
-                    SubUnit *subUnit = [subUnitArray objectAtIndex:0];
+                    
+                    
+                    NSPredicate *sUnitPredicate = [NSPredicate predicateWithFormat:@"unitObjectId == %@", self.details.subUnitId];
+                    NSArray *sUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:sUnitPredicate];
+                    
+                    SubUnit *subUnit = [sUnitArray objectAtIndex:0];
                     
                     subUnitNameString = [subUnit valueForKey:@"unitNumber"];
                     subUnitId = [subUnit valueForKey:@"unitObjectId"];
@@ -112,11 +139,6 @@
         self.rentTotalTF.text = @"";
     }
     
-    //Set Nav Bar Image
-    UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
-    [image setImage:[UIImage imageNamed:@"MyLandlord.png"]];
-    image.contentMode = UIViewContentModeScaleAspectFit;
-    self.navigationItem.titleView = image;
     
     
     
@@ -179,12 +201,130 @@
     
     //TODO ADD NETWORK CONNECTION CHECK
     NSLog(@"Tenant ID: %@", _details.tenantId);
-    
-    if (_details != nil) {
-        
-        PFQuery *query = [PFQuery queryWithClassName:@"Tenants"];
-        
-        [query getObjectInBackgroundWithId:_details.tenantId block:^(PFObject *tenant, NSError *error) {
+    BOOL validInput = [self validateFields];
+    if(validInput){
+        if (_details != nil) {
+            
+            PFQuery *query = [PFQuery queryWithClassName:@"Tenants"];
+            PFObject *tenant = [query getObjectWithId:self.details.tenantId];
+            
+            [query getObjectInBackgroundWithId:self.details.tenantId block:^(PFObject *object, NSError *error) {
+                
+                
+                tenant[@"pFirstName"] = self.pFirstName.text;
+                tenant[@"pLastName"] = self.pLastName.text;
+                tenant[@"pEmail"] = self.pEmail.text;
+                tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
+                
+                //Lease Information
+                tenant[@"leaseStart"] = leaseStart;
+                tenant[@"leaseEnd"] = leaseEnd;
+                
+                NSInteger rentValue = [self.rentTotalTF.text integerValue];
+                
+                tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
+                
+                NSInteger rentDueDay = [self.rentDueTF.text integerValue];
+                
+                tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
+                
+                if(![self.assignProperty.text isEqualToString: DNAProperty]){
+                    
+                    tenant[@"assignedPropId"] = assignPropertyID;
+                }
+                
+                
+                if(subUnitId != nil){
+                    
+                    tenant[@"subUnitId"] = subUnitId;
+                }
+                
+                
+                //Check for Assigned Tenants
+                if(subUnitId != nil || ![subUnitId isEqualToString:@""]){
+                    
+                    subUnitPredicate = [NSPredicate predicateWithFormat:@"subUnitId == %@", subUnitId];
+                    subUnitPredicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:subUnitPredicate];
+                    
+                    NSLog(@"Predicate Results == %@", subUnitPredicateResults.description);
+                    
+                    subUnitTenantPredicate = [NSPredicate predicateWithFormat:@"tenantId == %@", self.details.tenantId];
+                    subUnitTenantResults = [subUnitPredicateResults filteredArrayUsingPredicate:subUnitTenantPredicate];
+                    
+                    NSLog(@"Sub Unit Tenant Results == %@", subUnitTenantResults.description);
+                    
+                }
+                
+                primPropertyPredicate = [NSPredicate predicateWithFormat:@"propertyId == %@", assignPropertyID];
+                primPropertyPredResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:primPropertyPredicate];
+                
+                primPropTenantPredicate = [NSPredicate predicateWithFormat:@"tenantId == %@", self.details.tenantId];
+                primProTenantResults = [primPropertyPredResults filteredArrayUsingPredicate:primPropTenantPredicate];
+                
+                if (secondTenantState) {
+                    BOOL secondTenantTrue = YES;
+                    tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+                    
+                    
+                }else{
+                    BOOL secondTenantTrue = NO;
+                    tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+                }
+                
+                
+                BOOL assignTenant = [self safeToSave];
+                //Save if no other tenants assigned
+                
+                
+                
+                if(assignTenant){
+                    
+                    
+                    [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if(succeeded)
+                        {
+                            
+                            savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                [ApplicationDelegate loadTenants];
+                                
+                                
+                                
+                            });
+                            
+                            [savedAlert show];
+                            
+                            
+                            
+                        } else {
+                            
+                            savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                            
+                            [savedAlert show];
+                            
+                        }
+                    }];
+                    
+                    
+                    
+                } else {
+                    
+                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Property Assign Error" message:@"You cannot assign a tenant to a property that currently has a tenant." delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                    
+                    [errorAlert show];
+                    
+                }
+                
+            }];
+            
+            
+        } else {
+            
+            PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
+            
+            
             tenant[@"pFirstName"] = self.pFirstName.text;
             tenant[@"pLastName"] = self.pLastName.text;
             tenant[@"pEmail"] = self.pEmail.text;
@@ -202,9 +342,22 @@
             
             tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
             
-            tenant[@"assignedPropId"] = assignPropertyID;
+            NSLog(@"ASSIGN PROP TEXT = %@", self.assignProperty.text);
+            if(![self.assignProperty.text isEqualToString:DNAProperty ]){
+                
+                tenant[@"assignedPropId"] = assignPropertyID;
+                tenant[@"subUnitId"] = subUnitId;
+                
+            }
+            //Check for Assigned Tenants
+            if(subUnitId != nil){
+                subUnitPredicate = [NSPredicate predicateWithFormat:@"subUnitId == %@", subUnitId];
+                subUnitPredicateResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:subUnitPredicate];
+            }
             
-            tenant[@"subUnitId"] = subUnitId;
+            primPropertyPredicate = [NSPredicate predicateWithFormat:@"propertyId == %@", assignPropertyID];
+            primPropertyPredResults = [ApplicationDelegate.tenantsArray filteredArrayUsingPredicate:primPropertyPredicate];
+            
             
             if (secondTenantState) {
                 BOOL secondTenantTrue = YES;
@@ -216,114 +369,218 @@
                 tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
             }
             
-            [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if(succeeded)
-                {
-                    
-                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                    
-                    [savedAlert show];
-                    
-
-                    
-                } else {
-                    
-                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                    
-                    [savedAlert show];
-                    
-                }
-            }];
             
             
-        }];
-        
-    } else {
-        
-        PFObject *tenant = [PFObject objectWithClassName:@"Tenants"];
-        
-        
-        tenant[@"pFirstName"] = self.pFirstName.text;
-        tenant[@"pLastName"] = self.pLastName.text;
-        tenant[@"pEmail"] = self.pEmail.text;
-        tenant[@"pPhoneNumber"] = self.pPhoneNumber.text;
-        
-        //Lease Information
-        tenant[@"leaseStart"] = leaseStart;
-        tenant[@"leaseEnd"] = leaseEnd;
-        
-        NSInteger rentValue = [self.rentTotalTF.text integerValue];
-        
-        tenant[@"rentTotal"] = [NSNumber numberWithInteger:rentValue];
-        
-        NSInteger rentDueDay = [self.rentDueTF.text integerValue];
-        
-        tenant[@"dueDay"] = [NSNumber numberWithInteger:rentDueDay];
-        
-        NSLog(@"ASSIGN PROP TEXT = %@", self.assignProperty.text);
-        if(![self.assignProperty.text isEqualToString:DNAProperty ]){
+            //ONLY ALLOW CURRENT USER TO VIEW
+            //Set Access control to user logged in
+            tenant.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
             
-            tenant[@"assignedPropId"] = assignPropertyID;
-            tenant[@"subUnitId"] = subUnitId;
-            
-        }
-        
-        
-        if (secondTenantState) {
-            BOOL secondTenantTrue = YES;
-            tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
+            //Set object to current user (makes it easier to get the data for tables)
+            [tenant setObject:[PFUser currentUser] forKey:@"createdBy"];
             
             
-        }else{
-            BOOL secondTenantTrue = NO;
-            tenant[@"secondTenant"] = [NSNumber numberWithBool:secondTenantTrue];
-        }
-        
-        
-        
-        //ONLY ALLOW CURRENT USER TO VIEW
-        //Set Access control to user logged in
-        tenant.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        
-        //Set object to current user (makes it easier to get the data for tables)
-        [tenant setObject:[PFUser currentUser] forKey:@"createdBy"];
-        
-        
-        [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if(succeeded)
-            {
-                
-                    NSString *folderPath = [NSString stringWithFormat:@"/Tenants/%@_%@", self.pFirstName.text, self.pLastName.text];
-                    
-                    [[self restClient] createFolder:folderPath];
-                
-
-                
-                savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            //Save if no other tenants assigned
+            if((primPropertyPredResults.count > 0 && subUnitPredicateResults.count == 0) || (primPropertyPredResults.count == 0)){
                 
                 
-                [savedAlert show];
-                
-                
+                [tenant saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if(succeeded)
+                    {
+                        
+                        NSString *folderPath = [NSString stringWithFormat:@"/Tenants/%@_%@", self.pFirstName.text, self.pLastName.text];
+                        
+                        [[self restClient] createFolder:folderPath];
+                        
+                        
+                        
+                        savedAlert = [[UIAlertView alloc] initWithTitle:@"Tenant Saved" message:@"The tenant has been saved to your portfolio!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [ApplicationDelegate loadTenants];
+                            
+                            
+                            
+                        });
+                        
+                        [savedAlert show];
+                        
+                        
+                        
+                    } else {
+                        
+                        savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                        
+                        [savedAlert show];
+                        
+                    }
+                }];
                 
             } else {
                 
-                savedAlert = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the tenant information!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Property Assign Error" message:@"You cannot assign a tenant to a property that currently has a tenant." delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
                 
-                [savedAlert show];
+                [errorAlert show];
                 
             }
-        }];
-        
+        }
     }
 }
 
--(BOOL)validateInput
+
+#pragma mark - Validation Methods
+-(BOOL)validateFirstName:(NSString*)firstName
 {
-    
-    
-    return true;
+    if(firstName.length != 0){
+        
+        NSString *validCharacters = @"^[a-zA-Z ]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:firstName];
+    } else {
+        return NO;
+    }
 }
+
+-(BOOL)validateLastName:(NSString*)lastName
+{
+    if(lastName.length != 0){
+        
+        NSString *validCharacters = @"^[a-zA-Z ]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:lastName];
+    }else {
+        return NO;
+    }
+}
+
+-(BOOL)validateEmail:(NSString*)email
+{
+    if(email.length != 0){
+        
+        NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regExPattern];
+        
+        return [validate evaluateWithObject:email];
+    }
+    else {
+        return NO;
+    }
+}
+-(BOOL)validatePhoneNumber:(NSString*)phoneNumber
+{
+    if(phoneNumber.length != 0){
+        
+        NSString *validCharacters = @"^[2-9][0-9]{9}$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:phoneNumber];
+    }else {
+        return NO;
+    }
+}
+
+-(BOOL)validateFields{
+    
+    BOOL emailValid = [self validateEmail:self.pEmail.text];
+    BOOL lastNameValid = [self validateLastName:self.pLastName.text];
+    BOOL firstNameValid = [self validateFirstName:self.pFirstName.text];
+    BOOL phoneValid = [self validatePhoneNumber:self.pPhoneNumber.text];
+    UIAlertView *emptyFields = [[UIAlertView alloc] initWithTitle:@"Empty Fields" message:@"All fields are required to add a tenant" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+    
+    if (self.leaseEndTF.text.length == 0){
+        [emptyFields show];
+        return NO;
+    }else if (self.leaseStartTF.text.length == 0){
+        [emptyFields show];
+        return NO;
+    }else if (self.rentDueTF.text.length == 0){
+        [emptyFields show];
+        return NO;
+    }else if(self.rentTotalTF.text.length == 0) {
+        [emptyFields show];
+        return NO;
+    }else if(self.assignProperty.text.length == 0){
+        [emptyFields show];
+        return NO;
+    }
+    else if(!emailValid){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email" message:@"You have entered an invalid email. Please check your entry." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    } else if(!lastNameValid){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Last Name" message:@"Last Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    } else if(!firstNameValid){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid First Name" message:@"First Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+        
+    }  else if(!phoneValid){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Phone Number" message:@"Phone number must be 10 digits and cannot contain special character!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    }
+    
+    else{
+        return YES;
+    }
+}
+
+
+
+#pragma mark Safe Save
+
+-(BOOL)safeToSave
+{
+    if(primPropertyPredResults.count > 0 && subUnitPredicateResults.count == 0){
+        
+        return YES;
+        
+    } else if(primPropertyPredResults.count == 0){
+        
+        return YES;
+        
+    } else if ((primProTenantResults.count == 1) && (subUnitId == nil || [subUnitId isEqualToString:@""])){
+        
+        return YES;
+        
+    }else if(primPropertyPredResults.count > 0){
+        for (int i = 0; i < primProTenantResults.count; i++){
+            if (([self.details.tenantId isEqual:[primProTenantResults[i] valueForKey:@"tenantId"]])) {
+                return YES;
+            }
+        }
+        return NO;
+        
+    }else if (subUnitPredicateResults.count > 0){
+        for (int i = 0; i < subUnitTenantResults.count; i++){
+            NSLog(@"Passed Tenant ID == %@", self.details.tenantId);
+            NSLog(@"Tenant ID == %@", [subUnitTenantResults[i] valueForKey:@"tenantId"]);
+            if ([self.details.tenantId isEqual:[subUnitTenantResults[i] valueForKey:@"tenantId"]]) {
+                return  YES;
+            }
+            
+        }
+        
+        return NO;
+        
+    }else {
+        
+        return NO;
+    }
+    
+}
+
+
 
 #pragma mark
 #pragma mark - AlertView Method
@@ -335,14 +592,8 @@
         if (buttonIndex == 0) {
             NSLog(@"Closed Warning");
             
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [ApplicationDelegate loadTenants];
-                
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                
-            });
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
             
         }
     }
@@ -385,10 +636,10 @@
         textField.inputView = self.assignPropPicker;
         NSLog(@"TMP ARRAY COUNT =  %lu", (unsigned long)tmpPropArray.count);
         //If only 1 propert exists set value for that property name
-     
-            [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
-            
-
+        
+        [self.assignProperty setText:[self pickerView:self.assignPropPicker titleForRow:[self.assignPropPicker selectedRowInComponent:0] forComponent:0]];
+        
+        
         
     }
     else if([textField isEqual:self.rentDueTF]){
@@ -397,11 +648,9 @@
         
     } else if ([textField isEqual:self.assignUnit]){
         
-        textField.inputView = self.subUnitPicker;
-        
         //if only one unit exists set value for that unit name
-        if(subUnitArray.count == 1){
-            
+        if(subUnitArray.count > 0){
+            textField.inputView = self.subUnitPicker;
             subUnitId = [[subUnitArray objectAtIndex:0] valueForKey:@"unitObjectId"];
             
             NSLog(@"SUB UNIT ID = %@", subUnitId);
@@ -555,6 +804,10 @@
                 subUnitArray = [ApplicationDelegate.subUnitArray filteredArrayUsingPredicate:predicate];
                 
             }else {
+                
+                self.assignUnit.text = nil;
+                self.assignUnit.hidden = YES;
+                subUnitArray = nil;
                 subUnitId = @"";
             }
             

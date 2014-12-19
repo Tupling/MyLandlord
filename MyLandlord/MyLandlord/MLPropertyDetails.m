@@ -25,12 +25,12 @@
     //Set property Address
     if (self.subUnitDetails != nil) {
         
-        propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n%@", _details.propAddress, _details.propCity, _details.propState, _details.propZip, _subUnitDetails.unitNumber];
+        propAddress.text = [NSString stringWithFormat:@"%@ - Unit %@\n%@, %@ %@", _details.propAddress, _subUnitDetails.unitNumber, _details.propCity, _details.propState, _details.propZip];
         
     } else {
         
-    propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", _details.propAddress, _details.propCity, _details.propState, _details.propZip];
-    
+        propAddress.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", _details.propAddress, _details.propCity, _details.propState, _details.propZip];
+        
     }
     if(_tenantDetails == nil){
         NSLog(@"Tenant Details Nil");
@@ -59,7 +59,7 @@
         NSString *leaseStartString = [dateFormatter stringFromDate:leaseStart];
         NSString *dueDateString = [NSString stringWithFormat:@"%@", _tenantDetails.dueDay];
         
-
+        
         tenantInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@", tenantName,
                            tenantEmail,
                            tenantPhone];
@@ -105,20 +105,24 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"editDetails"]) {
- 
-            MLAddPropertyViewController *editProperty = segue.destinationViewController;
- 
-            editProperty.details = _details;
- 
+        
+        
+        
+        MLAddPropertyViewController *editProperty = segue.destinationViewController;
+        if (self.subUnitDetails != nil) {
+            editProperty.subDetails = self.subUnitDetails;
+        }
+        editProperty.details = _details;
+        
     }
     else if ([[segue identifier] isEqualToString:@"showFinances"]) {
         
         MLPropertyExpenses *propertyDetails = segue.destinationViewController;
         
-        propertyDetails.details = _details;
+        propertyDetails.propDetails = self.details;
         
         if(self.subUnitDetails != nil){
-            propertyDetails.subUnitDetails = _subUnitDetails;
+            propertyDetails.subDetails = self.subUnitDetails;
         }
         
     }

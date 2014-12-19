@@ -38,8 +38,8 @@
 
 
 
-@property (nonatomic, retain) NSArray *taskDataArray;
-@property (nonatomic, retain) NSMutableArray *tasksArray;
+@property (nonatomic, retain) NSArray *inCompleteTaskData;
+@property (nonatomic, retain) NSMutableArray *inCompleteTaskArray;
 
 @property (nonatomic, retain) NSArray *completedTaskDataArray;
 @property (nonatomic, retain) NSMutableArray *completedTasks;
@@ -62,9 +62,11 @@
 - (void)loadProperties;
 - (void)loadTenants;
 - (void)loadFinancials;
-- (void)loadTasks;
 - (void)loadSubUnits;
--(void)createDropBoxLink;
+
+
+- (void)loadCompletedTasks;
+- (void)loadInCompleteTasks;
 
 
 

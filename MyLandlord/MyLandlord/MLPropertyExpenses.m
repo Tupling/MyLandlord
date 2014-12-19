@@ -8,6 +8,7 @@
 
 #import "MLPropertyExpenses.h"
 #import "MLAddPropertyExpense.h"
+#import "MLPropertyFinanceDetails.h"
 #import "Financials.h"
 
 
@@ -44,12 +45,12 @@
     //Set fetchRequest entity to EventInfo Description
     [self.fetchRequest setEntity:self.financeEntity];
     
-    if(self.subUnitDetails != nil){
+    if(self.subDetails != nil){
         
-        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subUnitDetails.unitObjectId];
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subDetails.unitObjectId];
         
     } else {
-        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.propertyId];
+        self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.propDetails.propertyId];
     }
     
     
@@ -81,12 +82,12 @@
         //Set fetchRequest entity to EventInfo Description
         [self.fetchRequest setEntity:self.financeEntity];
         
-        if(self.subUnitDetails != nil){
+        if(self.subDetails != nil){
             
-            self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subUnitDetails.unitObjectId];
+            self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.subDetails.unitObjectId];
             
         } else {
-            self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.details.propertyId];
+            self.predicate = [NSPredicate predicateWithFormat:@"parentId == %@", self.propDetails.propertyId];
         }
         
         
@@ -112,7 +113,7 @@
     
     self.exportButton.layer.cornerRadius = 5;
     
-    NSLog(@"Property Details == %@", self.details);
+    NSLog(@"Property Details == %@", self.propDetails);
     
     //Set Nav Bar Image
     UIImageView *image =[[UIImageView alloc]initWithFrame:CGRectMake(0,0,70,45)] ;
@@ -182,6 +183,13 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.finDetails = [currentPropFinances objectAtIndex:indexPath.row];
+    
+    [self performSegueWithIdentifier:@"viewDetails" sender:self];
+}
+
 
 #pragma mark - Navigation
 
@@ -192,13 +200,21 @@
         
         MLAddPropertyExpense *propertyDetails = segue.destinationViewController;
         
-        propertyDetails.details = _details;
+        propertyDetails.propDetails = self.propDetails;
         
-        if(self.subUnitDetails != nil){
+        if(self.subDetails != nil){
             
-            propertyDetails.subUnitDetails = _subUnitDetails;
+            propertyDetails.subUnitDetails = self.subDetails;
             
         }
+    }else if ([[segue identifier] isEqualToString:@"viewDetails"]) {
+        
+        MLPropertyFinanceDetails *financeDetails = segue.destinationViewController;
+        
+        financeDetails.finDetails = self.finDetails;
+        financeDetails.propDetails = self.propDetails;
+        financeDetails.subDetails = self.subDetails;
+        
     }
 }
 
@@ -220,7 +236,7 @@
     [dateFormatter setDateFormat:@"MMMM_dd_yyyy"];
     
     NSDate *today = [NSDate date];
-    self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [dateFormatter stringFromDate:today]]];
+    self.exportFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.propDetails.propName, [dateFormatter stringFromDate:today]]];
     
     
     UIGraphicsBeginPDFContextToFile(self.exportFilePath, CGRectZero, nil);
@@ -264,7 +280,7 @@
     
     //Draw Property Name
     
-    NSString *reportTile = [NSString stringWithFormat:@"%@ Expense Report", _details.propName];
+    NSString *reportTile = [NSString stringWithFormat:@"%@ Expense Report", self.propDetails.propName];
     NSString *categoryLabel = @"Category";
     NSString *amountLabel = @"Amount";
     NSString *dateLabel = @"Date";
@@ -402,7 +418,7 @@
         MFMailComposeViewController* mailComposer = [[MFMailComposeViewController alloc] init];
         mailComposer.mailComposeDelegate = self;
         [mailComposer addAttachmentData:[NSData dataWithContentsOfFile:self.exportFilePath]
-                               mimeType:@"application/pdf" fileName:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.details.propName, [dateFormatter stringFromDate:today]]];
+                               mimeType:@"application/pdf" fileName:[NSString stringWithFormat:@"%@_Export_%@.pdf",self.propDetails.propName, [dateFormatter stringFromDate:today]]];
         
         
         [self presentViewController:mailComposer animated:YES completion:nil];
