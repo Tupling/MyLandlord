@@ -148,12 +148,62 @@
 #pragma mark - Save Expense Method
 -(IBAction)saveExpense:(id)sender
 {
+    BOOL validInput = [self validateFields];
     
-    if(self.finDetails != nil){
+    if (validInput) {
         
-        PFQuery *query = [PFQuery queryWithClassName:@"Financials"];
-        
-        [query getObjectInBackgroundWithId:self.finDetails.finObjectId block:^(PFObject *expense, NSError *error) {
+        if(self.finDetails != nil){
+            
+            PFQuery *query = [PFQuery queryWithClassName:@"Financials"];
+            
+            [query getObjectInBackgroundWithId:self.finDetails.finObjectId block:^(PFObject *expense, NSError *error) {
+                
+                float amountFloatValue = [self.expAmount.text floatValue];
+                
+                NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
+                
+                expense[@"amount"] = amount;
+                expense[@"type"] = @"Income";
+                expense[@"date"] = expenseDate;
+                expense[@"category"] = self.expCategory.text;
+                expense[@"expDescription"] = self.expDescription.text;
+                expense[@"itemName"] = self.itemName.text;
+                expense[@"parentId"] = self.tenDetails.tenantId;
+                
+                
+                [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if(succeeded)
+                    {
+                        
+                        updateSaved = [[UIAlertView alloc] initWithTitle:@"Expense Updated" message:@"Expense data has been updated!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                        
+                        
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [ApplicationDelegate loadFinancials];
+                            
+                            
+                        });
+                        
+                        [updateSaved show];
+                        
+                    } else {
+                        
+                        saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                        
+                        [saveError show];
+                        
+                    }
+                }];
+                
+            }];
+            
+            
+            
+        }else {
+            
+            PFObject *expense = [PFObject objectWithClassName:@"Financials"];
             
             float amountFloatValue = [self.expAmount.text floatValue];
             
@@ -166,13 +216,22 @@
             expense[@"expDescription"] = self.expDescription.text;
             expense[@"itemName"] = self.itemName.text;
             expense[@"parentId"] = self.tenDetails.tenantId;
-        
+            
+            
+            
+            //ONLY ALLOW CURRENT USER TO VIEW
+            //Set Access control to user logged in
+            expense.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            
+            //Set object to current user (makes it easier to get the data for tables)
+            [expense setObject:[PFUser currentUser] forKey:@"createdBy"];
+            
             
             [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if(succeeded)
                 {
                     
-                    updateSaved = [[UIAlertView alloc] initWithTitle:@"Expense Updated" message:@"Expense data has been updated!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                     
                     
                     
@@ -183,7 +242,7 @@
                         
                     });
                     
-                    [updateSaved show];
+                    [savedAlert show];
                     
                 } else {
                     
@@ -193,62 +252,7 @@
                     
                 }
             }];
-        
-        }];
-        
-        
-        
-    }else {
-        
-        PFObject *expense = [PFObject objectWithClassName:@"Financials"];
-        
-        float amountFloatValue = [self.expAmount.text floatValue];
-        
-        NSNumber *amount = [NSNumber numberWithFloat:amountFloatValue];
-        
-        expense[@"amount"] = amount;
-        expense[@"type"] = @"Income";
-        expense[@"date"] = expenseDate;
-        expense[@"category"] = self.expCategory.text;
-        expense[@"expDescription"] = self.expDescription.text;
-        expense[@"itemName"] = self.itemName.text;
-        expense[@"parentId"] = self.tenDetails.tenantId;
-        
-        
-        
-        //ONLY ALLOW CURRENT USER TO VIEW
-        //Set Access control to user logged in
-        expense.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        
-        //Set object to current user (makes it easier to get the data for tables)
-        [expense setObject:[PFUser currentUser] forKey:@"createdBy"];
-        
-        
-        [expense saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if(succeeded)
-            {
-                
-                savedAlert = [[UIAlertView alloc] initWithTitle:@"Expense Saved" message:@"Expense data has been saved!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                
-                
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [ApplicationDelegate loadFinancials];
-                    
-                    
-                });
-                
-                [savedAlert show];
-                
-            } else {
-                
-                saveError = [[UIAlertView alloc] initWithTitle:@"Save Error" message:@"There was an error trying to save the expense data!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                
-                [saveError show];
-                
-            }
-        }];
+        }
     }
     
 }
@@ -297,6 +301,92 @@
     
     [self.view endEditing:YES];
 }
+
+#pragma mark - Validation Methods
+-(BOOL)validateName:(NSString*)name
+{
+    if(name.length != 0){
+        
+        NSString *validCharacters = @"^[a-zA-Z ]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:name];
+    } else {
+        return NO;
+    }
+}
+
+-(BOOL)validateAmount:(NSString*)amount
+{
+    if(amount.length != 0){
+        
+        NSString *validCharacters = @"^[0-9.]*$";
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCharacters];
+        
+        return [validate evaluateWithObject:amount];
+    }else {
+        return NO;
+    }
+}
+
+-(BOOL)validateDescription:(NSString*)description
+{
+    if(description.length != 0){
+        
+        NSString *regExPattern = @"^[a-zA-Z. ]*$";
+        
+        NSPredicate *validate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regExPattern];
+        
+        return [validate evaluateWithObject:description];
+    }
+    else {
+        return NO;
+    }
+}
+
+
+-(BOOL)validateFields{
+    
+    BOOL nameValid = [self validateName:self.itemName.text];
+    BOOL expenseValid = [self validateAmount:self.expAmount.text];
+    BOOL descriptionValid = [self validateDescription:self.expDescription.text];
+    
+    
+    
+    if(!nameValid){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Finance Name" message:@"Finance Item Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    } else if(!expenseValid){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Expense Amount" message:@"Expense Amount cannot be left blank or contain special characters except a period!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    } else if(!descriptionValid){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Desciprtion" message:@"Description cannot be left blank or contain special characters except a period!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+        
+    }  else if(self.expDate.text.length == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Due Date" message:@"Due Date cannot be left blank!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    }else if(self.expCategory.text.length == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Category" message:@"Category cannot be left blank" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return NO;
+    }
+    
+    else{
+        return YES;
+    }
+}
+
 
 
 /*
