@@ -3757,7 +3757,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZQ-4V-dal" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2408.25" y="1078.125"/>
+            <point key="canvasLocation" x="818.25" y="988.125"/>
         </scene>
         <!--Add Tenant-->
         <scene sceneID="wFF-rV-TwZ">
@@ -6776,7 +6776,7 @@ Cg
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIm-Od-L3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1682.25" y="1078.125"/>
+            <point key="canvasLocation" x="-69.75" y="988.125"/>
         </scene>
         <!--Tasks-->
         <scene sceneID="ohM-O9-HLG">

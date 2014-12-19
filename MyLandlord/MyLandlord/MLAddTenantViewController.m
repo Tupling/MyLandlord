@@ -513,18 +513,18 @@
         
         return NO;
     } else if(!lastNameValid){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Information" message:@"Last Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Last Name" message:@"Last Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         
         return NO;
     } else if(!firstNameValid){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Information" message:@"First Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid First Name" message:@"First Name cannot be left blank or contain special characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         
         return NO;
         
     }  else if(!phoneValid){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Information" message:@"Phone number contains invalid characters!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Phone Number" message:@"Phone number must be 10 digits and cannot contain special character!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         
         return NO;
